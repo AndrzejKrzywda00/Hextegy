@@ -1,8 +1,6 @@
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
-public class HexData : MonoBehaviour
+public static class HexMetrics
 {
     public const float OuterRadius = 10f;
     public const float InnerRadius = OuterRadius * 0.866025404f;
