@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
+    
     private Vector3 _camPosition;
     [SerializeField] private float movementSpeed = 15f;
     [SerializeField] private float reactionSpaceThickness = 10f;
