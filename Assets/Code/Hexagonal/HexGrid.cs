@@ -19,7 +19,6 @@ public class HexGrid : MonoBehaviour
         _gridCanvas = GetComponentInChildren<Canvas>();
         _hexMesh = GetComponentInChildren<HexMesh>();
         CreateCells();
-        FillCells();
     }
 
     private void Start()
@@ -30,6 +29,7 @@ public class HexGrid : MonoBehaviour
     private void CreateCells()
     {
         _cells = new HexCell[height * width];
+        FillCells();
     }
 
     private void FillCells()
@@ -46,21 +46,39 @@ public class HexGrid : MonoBehaviour
 
     void CreateCell(int x, int z, int i)
     {
-        Vector3 position;
-        position.x = (x + z * 0.5f - z/2) * (HexMetrics.InnerRadius * 2f);
-        position.y = 0f;
-        position.z = z * (HexMetrics.OuterRadius * 1.5f);
+        var position = CreateCellPosition(x, z);
+        var cell = InstantiateCellOnGrid(x, z, i, position);
         
-        HexCell cell = _cells[i] = Instantiate<HexCell>(cellPrefab);
-        cell.transform.SetParent(transform, false);
-        cell.transform.localPosition = position;
-        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        
+        CreateCellLabel(position, cell);
+    }
+
+    private void CreateCellLabel(Vector3 position, HexCell cell)
+    {
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(_gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
     }
+
+    private HexCell InstantiateCellOnGrid(int x, int z, int i, Vector3 position)
+    {
+        HexCell cell = _cells[i] = Instantiate<HexCell>(cellPrefab);
+        cell.transform.SetParent(transform, false);
+        cell.transform.localPosition = position;
+        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        return cell;
+    }
+
+    private static Vector3 CreateCellPosition(int x, int z)
+    {
+        Vector3 position;
+        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.InnerRadius * 2f);
+        position.y = 0f;
+        position.z = z * (HexMetrics.OuterRadius * 1.5f);
+        return position;
+    }
+    
+    
     
 }
 
