@@ -9,6 +9,7 @@ public class HexGrid : MonoBehaviour
     public int height = 10;
     public HexCell cellPrefab;
     private Canvas _gridCanvas;
+    private HexMesh _hexMesh;
     public Text cellLabelPrefab;
     
     private HexCell[] _cells;
@@ -16,8 +17,14 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         _gridCanvas = GetComponentInChildren<Canvas>();
+        _hexMesh = GetComponentInChildren<HexMesh>();
         CreateCells();
         FillCells();
+    }
+
+    private void Start()
+    {
+        _hexMesh.Triangulate(_cells);
     }
 
     private void CreateCells()
@@ -27,9 +34,9 @@ public class HexGrid : MonoBehaviour
 
     private void FillCells()
     {
-        for (int z = 0, i = 0; z < height; z++)
+        for (int z=0, i=0; z<height; z++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x=0; x<width; x++)
             {
                 CreateCell(x, z, i++);
             }
@@ -47,11 +54,12 @@ public class HexGrid : MonoBehaviour
         HexCell cell = _cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
+        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(_gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = x.ToString() + "\n" + z.ToString();
+        label.text = cell.coordinates.ToStringOnSeparateLines();
     }
     
 }
