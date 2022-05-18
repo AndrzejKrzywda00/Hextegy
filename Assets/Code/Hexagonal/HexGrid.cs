@@ -42,6 +42,8 @@ public class HexGrid : MonoBehaviour
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        // access to cell with right index
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         Debug.Log("touched at " + coordinates.ToString());
     }
 
