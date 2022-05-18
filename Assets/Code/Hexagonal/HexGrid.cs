@@ -28,25 +28,21 @@ public class HexGrid : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            
-        }
+        if (Input.GetMouseButton(0)) HandleInput();
     }
 
     private void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) {
-            InteractWithCell(hit.point);
-        }
+        if (Physics.Raycast(inputRay, out hit)) InteractWithCell(hit.point);
     }
 
     private void InteractWithCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
-        Debug.Log("touched at" + position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        Debug.Log("touched at " + coordinates.ToString());
     }
 
     private void CreateCells()
