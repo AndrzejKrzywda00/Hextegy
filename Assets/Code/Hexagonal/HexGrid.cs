@@ -14,16 +14,39 @@ public class HexGrid : MonoBehaviour
     
     private HexCell[] _cells;
 
-    private void Awake()
+    void Awake()
     {
         _gridCanvas = GetComponentInChildren<Canvas>();
         _hexMesh = GetComponentInChildren<HexMesh>();
         CreateCells();
     }
 
-    private void Start()
+    void Start()
     {
         _hexMesh.Triangulate(_cells);
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            
+        }
+    }
+
+    private void HandleInput()
+    {
+        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(inputRay, out hit)) {
+            InteractWithCell(hit.point);
+        }
+    }
+
+    private void InteractWithCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        Debug.Log("touched at" + position);
     }
 
     private void CreateCells()
@@ -34,14 +57,9 @@ public class HexGrid : MonoBehaviour
 
     private void FillCells()
     {
-        for (int z=0, i=0; z<height; z++)
-        {
-            for (int x=0; x<width; x++)
-            {
-                CreateCell(x, z, i++);
-            }
-        }
-        
+        for (int z=0, i=0; z<height; z++) 
+        for (int x=0; x<width; x++) 
+            CreateCell(x, z, i++);
     }
 
     void CreateCell(int x, int z, int i)
@@ -77,8 +95,6 @@ public class HexGrid : MonoBehaviour
         position.z = z * (HexMetrics.OuterRadius * 1.5f);
         return position;
     }
-    
-    
-    
+
 }
 
