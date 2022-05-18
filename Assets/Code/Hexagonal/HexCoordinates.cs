@@ -71,4 +71,17 @@ public struct HexCoordinates
         return x.ToString() + "\n" + Y.ToString() + "\n" + z.ToString();
     }
 
+    public HexCoordinates[] NeighborsOf(HexCoordinates coordinates)
+    {
+        const int neighborsInHex = 6;
+        HexCoordinates[] neighbors = new HexCoordinates[neighborsInHex];
+        neighbors[0] = FromOffsetCoordinates(coordinates.x - 1, coordinates.z + 1);
+        neighbors[1] = FromOffsetCoordinates(coordinates.x, coordinates.z + 1);
+        neighbors[2] = FromOffsetCoordinates(coordinates.x + 1, coordinates.z);
+        neighbors[3] = FromOffsetCoordinates(coordinates.x + 1, coordinates.z - 1);
+        neighbors[4] = FromOffsetCoordinates(coordinates.x, coordinates.z - 1);
+        neighbors[5] = FromOffsetCoordinates(coordinates.x - 1, coordinates.z);
+        return neighbors;
+    }
+
 }
