@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +6,12 @@ public class HexGrid : MonoBehaviour
     public int width = 10;
     public int height = 10;
     public HexCell cellPrefab;
+    public Text cellLabelPrefab;
+    public Color defaultColor = Color.green;
+    public Color activeColor = Color.red;
+    
     private Canvas _gridCanvas;
     private HexMesh _hexMesh;
-    public Text cellLabelPrefab;
-    
     private HexCell[] _cells;
 
     void Awake()
@@ -42,9 +42,10 @@ public class HexGrid : MonoBehaviour
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        // access to cell with right index
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        Debug.Log("touched at " + coordinates.ToString());
+        HexCell cell = _cells[index];
+        cell.color = activeColor;
+        _hexMesh.Triangulate(_cells);
     }
 
     private void CreateCells()
@@ -82,6 +83,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        cell.color = defaultColor;
         return cell;
     }
 
