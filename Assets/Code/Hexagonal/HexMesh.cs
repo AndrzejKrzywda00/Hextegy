@@ -34,20 +34,26 @@ public class HexMesh : MonoBehaviour
         _triangles = new List<int>();
     }
 
+    public void Triangulate(HexCell[] cells)
+    {
+        ClearData();
+        for (int i = 0; i < cells.Length; i++) Triangulate(cells[i]);
+        GenerateTrianglesFromData();
+        AddColliderToMesh();
+    }
 
-    public void Triangulate (HexCell[] cells)
+    private void GenerateTrianglesFromData()
+    {
+        _hexMesh.vertices = _vertices.ToArray();
+        _hexMesh.triangles = _triangles.ToArray();
+        _hexMesh.RecalculateNormals();
+    }
+
+    private void ClearData()
     {
         _hexMesh.Clear();
         _vertices.Clear();
         _triangles.Clear();
-        for (int i = 0; i < cells.Length; i++)
-        {
-            Triangulate(cells[i]);
-        }
-        _hexMesh.vertices = _vertices.ToArray();
-        _hexMesh.triangles = _triangles.ToArray();
-        _hexMesh.RecalculateNormals();
-        AddColliderToMesh();
     }
 
     void Triangulate(HexCell cell)
