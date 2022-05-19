@@ -4,6 +4,7 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
     private Color _color;
+    public MonoBehaviour prefab;
 
     public Vector3 Position
     {

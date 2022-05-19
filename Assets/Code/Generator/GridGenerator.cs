@@ -15,14 +15,14 @@ public class GridGenerator
         {
             for (int j = 0; j < width; j++)
             {
-                cells[(i+1)*j] = CreateCell(i, j);
+                cells[(i+1)*j] = CreateCell();
             }
         }
         return cells;
     }
 
-    private Cell CreateCell(int i, int j)
+    private Cell CreateCell()
     {
-        return new Cell(_house);
+        return new Cell(_tree);
     }
 }

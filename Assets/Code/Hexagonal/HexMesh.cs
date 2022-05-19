@@ -82,7 +82,7 @@ public class HexMesh : MonoBehaviour
     private void CreateCellContent(HexCell cell) {
         Vector3 position = cell.Position;
         position.y += 2;
-        features.AddFeature(position);
+        features.AddFeature(position, cell.prefab);
     }
 
     private void AddColliderToMesh()

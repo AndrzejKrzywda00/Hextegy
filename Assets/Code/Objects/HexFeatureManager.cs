@@ -16,9 +16,9 @@ public class HexFeatureManager : MonoBehaviour
         featurePrefab = Resources.Load<Tree>("Tree").transform;
     }
 
-    public void AddFeature(Vector3 position)
+    public void AddFeature(Vector3 position, MonoBehaviour prefab)
     {
-        Transform instance = Instantiate(featurePrefab);
+        Transform instance = Instantiate(prefab.transform);
         instance.localPosition = position;
         instance.Rotate(new Vector3(0, 180 ,0));
     }
