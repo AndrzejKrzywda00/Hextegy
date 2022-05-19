@@ -6,7 +6,6 @@ public class HexGrid : MonoBehaviour
     public int width = 10;
     public int height = 10;
     public HexCell cellPrefab;
-    public Text cellLabelPrefab;
 
     private Canvas _gridCanvas;
     private HexMesh _hexMesh;
@@ -61,15 +60,6 @@ public class HexGrid : MonoBehaviour
     {
         var position = CreateCellPosition(x, z);
         var cell = InstantiateCellOnGrid(x, z, i, position);
-        CreateCellLabel(position, cell);
-    }
-
-    private void CreateCellLabel(Vector3 position, HexCell cell)
-    {
-        Text label = Instantiate<Text>(cellLabelPrefab);
-        label.rectTransform.SetParent(_gridCanvas.transform, false);
-        label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringOnSeparateLines();
     }
 
     private HexCell InstantiateCellOnGrid(int x, int z, int i, Vector3 position)
