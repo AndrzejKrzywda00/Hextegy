@@ -8,7 +8,7 @@ public class GridGenerator
     private NormalTower _normalTower = Resources.Load<NormalTower>("NormalTower");
     private SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
     private NoElement _noElement = Resources.Load<NoElement>("NoElement");
-    
+
     public Cell[] GenerateGrid(int height, int width)
     {
         Cell[] cells = new Cell[height * width];
@@ -24,7 +24,7 @@ public class GridGenerator
 
     private Cell CreateCell(int i)
     {
-        if (i % 2 == 0) return new Cell(_tree);
+        if (i % 2 == 0) return new Cell(_superTower);
         return new Cell(_noElement);
     }
 }
