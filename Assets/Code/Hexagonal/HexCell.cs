@@ -1,28 +1,16 @@
 using UnityEngine;
 
-public class HexCell : MonoBehaviour
-{
+public class HexCell : MonoBehaviour {
     public HexCoordinates coordinates;
     private Color _color;
     public MonoBehaviour prefab;
 
-    public Vector3 Position
-    {
-        get
-        {
-            return transform.localPosition;
-        }
-    }
+    public Vector3 Position => transform.localPosition;
 
-    private Color MapPlayerIdToColor(int playerId)
-    {
-        switch (playerId)
-        {
-            case 0:
-                return Color.gray;
-            default:
-                return Color.red;
-        }
+    private Color MapPlayerIdToColor(int playerId) {
+        return playerId switch {
+            0 => Color.gray,
+            _ => Color.red
+        };
     }
-
 }

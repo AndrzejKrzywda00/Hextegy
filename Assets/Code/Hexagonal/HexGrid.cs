@@ -1,94 +1,85 @@
 using UnityEngine;
 
-public class HexGrid : MonoBehaviour
-{
-    public int width = 10;
-    public int height = 10;
-    public HexCell cellPrefab;
+public class HexGrid : MonoBehaviour {
+    public int gridWidth = 10;
+    public int gridHeight = 10;
+    public HexCell hexCellPrefab;
 
+    private Camera _cam;
     private HexMesh _hexMesh;
     private HexCell[] _cells;
     private Cell[] _cellPrototypes;
 
-    void Awake()
-    {
+    private void Awake() {
+        _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
-        _cellPrototypes = new GridGenerator().GenerateGrid(width, height);
+        _cellPrototypes = new GridGenerator().GenerateGrid(gridWidth, gridHeight);
         CreateCells();
     }
 
-    void Start()
-    {
+    private void Start() {
         _hexMesh.Triangulate(_cells);
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
             HandleInput();
         }
     }
 
-    private void HandleInput()
-    {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    private void CreateCells() {
+        _cells = new HexCell[gridHeight * gridWidth];
+        FillCells();
+    }
+
+    private void FillCells() {
+        for (int z = 0, i = 0; z < gridHeight; z++) {
+            for (int x = 0; x < gridWidth; x++) {
+                CreateCell(x, z, i++);
+            }
+        }
+    }
+
+    private void CreateCell(int x, int z, int i) {
+        var position = CreateCellPosition(x, z);
+        InstantiateCellOnGrid(x, z, i, position);
+    }
+
+    private Vector3 CreateCellPosition(int x, int z) {
+        return new Vector3 {
+            x = (x + z * 0.5f - z / 2) * (HexMetrics.InnerRadius * 2f),
+            y = 0f,
+            z = z * (HexMetrics.OuterRadius * 1.5f)
+        };
+    }
+
+    private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
+        HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
+        Transform cellTransform = hexCell.transform;
+        
+        cellTransform.SetParent(transform, false);
+        cellTransform.localPosition = position;
+        hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        hexCell.prefab = _cellPrototypes[(x + 1) * z].Prefab;
+    }
+
+    private void HandleInput() {
+        Ray inputRay = _cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
-        if (Physics.Raycast(inputRay, out hit)) 
-        {
+        if (Physics.Raycast(inputRay, out hit)) {
             InteractWithCell(hit.point);
         }
     }
 
-    private void InteractWithCell(Vector3 position)
-    {
+    private void InteractWithCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
+        int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
 
         if (CommonKnight.IsSelected) {
-            CommonKnight.PutCommonKnightOnCell(_cells[index]);
+            CommonKnight.PutCommonKnightOnCell(_cells[cellIndex]);
         }
     }
-
-    private void CreateCells()
-    {
-        _cells = new HexCell[height * width];
-        FillCells();
-    }
-
-    private void FillCells()
-    {
-        for (int z=0, i=0; z<height; z++) 
-        for (int x=0; x<width; x++) 
-            CreateCell(x, z, i++);
-    }
-
-    void CreateCell(int x, int z, int i)
-    {
-        var position = CreateCellPosition(x, z);
-        var cell = InstantiateCellOnGrid(x, z, i, position);
-    }
-
-    private HexCell InstantiateCellOnGrid(int x, int z, int i, Vector3 position)
-    {
-        HexCell cell = _cells[i] = Instantiate<HexCell>(cellPrefab);
-        cell.transform.SetParent(transform, false);
-        cell.transform.localPosition = position;
-        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.prefab = _cellPrototypes[(x + 1) * z].Prefab;
-        return cell;
-    }
-
-    private static Vector3 CreateCellPosition(int x, int z)
-    {
-        Vector3 position;
-        position.x = (x + z * 0.5f - z / 2) * (HexMetrics.InnerRadius * 2f);
-        position.y = 0f;
-        position.z = z * (HexMetrics.OuterRadius * 1.5f);
-        return position;
-    }
-
 }
 

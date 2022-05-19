@@ -1,17 +1,15 @@
 using UnityEngine;
 
-public class House : MonoBehaviour
-{
-    private int _generatedValue;
-    int _price;
-    void Start()
-    {
-        _generatedValue = 4;
+public class House : MonoBehaviour {
+    private int _moneyGeneratedPerTurn;
+    private int _price;
+
+    private void Start() {
+        _moneyGeneratedPerTurn = 4;
         _price = 10;
     }
 
-    void IncreasePrice()
-    {
+    private void IncreasePrice() {
         if(_price < 1000 ) _price += 2;
     }
 }

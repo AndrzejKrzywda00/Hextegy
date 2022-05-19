@@ -460,9 +460,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0663e3db622904dafc345bd7ca2616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
-  cellPrefab: {fileID: 3937313493098854687, guid: b0132660a43e6524e8b80d64869dfa43, type: 3}
+  gridWidth: 10
+  gridHeight: 10
+  hexCellPrefab: {fileID: 3937313493098854687, guid: b0132660a43e6524e8b80d64869dfa43, type: 3}
 --- !u!4 &1699572017
 Transform:
   m_ObjectHideFlags: 0

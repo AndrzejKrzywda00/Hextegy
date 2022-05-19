@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-public class Tree : MonoBehaviour
-{
+public class Tree : MonoBehaviour {
    
 }

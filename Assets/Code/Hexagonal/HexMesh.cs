@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class HexMesh : MonoBehaviour
-{
+public class HexMesh : MonoBehaviour {
     private Mesh _hexMesh;
     private List<Vector3> _vertices;
     private List<int> _triangles;
@@ -11,87 +10,60 @@ public class HexMesh : MonoBehaviour
 
     public HexFeatureManager features;
 
-    private void Awake()
-    {
+    private void Awake() {
         CreateMeshAndCollider();
         InstantiateLists();
     }
 
-    private void InstantiateLists()
-    {
-        InstantiateVertices();
-        InstantiateTriangles();
-    }
-
-    private void CreateMeshAndCollider()
-    {
-        GetComponent<MeshFilter>().mesh = _hexMesh = new Mesh();
-        _hexMesh.name = "Hex Mesh";
+    private void CreateMeshAndCollider() {
+        _hexMesh = new Mesh {
+            name = "Hex Mesh"
+        };
+        GetComponent<MeshFilter>().mesh = _hexMesh;
         _collider = gameObject.AddComponent<MeshCollider>();
     }
 
-    private void InstantiateVertices()
-    {
+    private void InstantiateLists() {
         _vertices = new List<Vector3>();
-    }
-
-    private void InstantiateTriangles()
-    {
         _triangles = new List<int>();
     }
 
-    public void Triangulate(HexCell[] cells)
-    {
+    public void Triangulate(HexCell[] cells) {
         ClearData();
-        foreach(HexCell cell in cells) Triangulate(cell);
+        foreach (HexCell hexCell in cells) {
+            Triangulate(hexCell);
+        }
         GenerateTrianglesFromData();
         features.Apply();
         AddColliderToMesh();
     }
 
-    private void GenerateTrianglesFromData()
-    {
-        _hexMesh.vertices = _vertices.ToArray();
-        _hexMesh.triangles = _triangles.ToArray();
-        _hexMesh.RecalculateNormals();
-    }
-
-    private void ClearData()
-    {
+    private void ClearData() {
         _hexMesh.Clear();
         _vertices.Clear();
         _triangles.Clear();
         features.Clear();
     }
 
-    void Triangulate(HexCell cell)
-    {
-        Vector3 center = cell.transform.localPosition;
-        CreateCellContent(cell);
-        for (int i=0; i<6; i++)
-        {
-            AddTriangle
-            (
-                  center,
-                  center + HexMetrics.Corners[i], 
-                  center + HexMetrics.Corners[(i+1)%6]
-            );
+    private void Triangulate(HexCell hexCell) {
+        Vector3 center = hexCell.transform.localPosition;
+        CreateCellContent(hexCell);
+        for (int i = 0; i < 6; i++) {
+            AddTriangle (
+                center,
+                center + HexMetrics.Corners[i], 
+                center + HexMetrics.Corners[(i + 1) % 6]
+                );
         }
     }
 
-    private void CreateCellContent(HexCell cell) {
-        Vector3 position = cell.Position;
-        position.y += 2;
-        features.AddFeature(position, cell.prefab);
+    private void CreateCellContent(HexCell hexCell) {
+        Vector3 position = hexCell.Position;
+        position.y += 2; //Here content is raised above grid level to be visible
+        features.AddFeature(position, hexCell.prefab);
     }
 
-    private void AddColliderToMesh()
-    {
-        _collider.sharedMesh = _hexMesh;
-    }
-    
-    void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
-    {
+    private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
         int vertexIndex = _vertices.Count;
         _vertices.Add(v1);
         _vertices.Add(v2);
@@ -99,5 +71,15 @@ public class HexMesh : MonoBehaviour
         _triangles.Add(vertexIndex);
         _triangles.Add(vertexIndex + 1);
         _triangles.Add(vertexIndex + 2);
+    }
+
+    private void GenerateTrianglesFromData() {
+        _hexMesh.vertices = _vertices.ToArray();
+        _hexMesh.triangles = _triangles.ToArray();
+        _hexMesh.RecalculateNormals();
+    }
+    
+    private void AddColliderToMesh() {
+        _collider.sharedMesh = _hexMesh;
     }
 }

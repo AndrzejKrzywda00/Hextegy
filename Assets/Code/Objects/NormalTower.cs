@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class NormalTower : MonoBehaviour
-{
+public class NormalTower : MonoBehaviour {
     private int _price;
-    
-    void Start()
-    {
+
+    private void Start() {
         _price = 15;
     }
     

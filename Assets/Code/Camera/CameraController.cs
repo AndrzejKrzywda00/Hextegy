@@ -81,7 +81,7 @@ public class CameraController : MonoBehaviour {
 
     private void RestrictMovement() {
         _camPosition.x = Mathf.Clamp(_camPosition.x, -_movementLimit.x, _movementLimit.x);
-        _camPosition.y = 10;
+        _camPosition.y = 10; //arbitrary value greater than 0 but not too big
         _camPosition.z = Mathf.Clamp(_camPosition.z, -_movementLimit.y, _movementLimit.y);
     }
 
