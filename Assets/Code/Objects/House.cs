@@ -7,7 +7,7 @@ public class House : MonoBehaviour
     void Start()
     {
         _generatedValue = 4;
-        _price = 2;
+        _price = 10;
     }
 
     void IncreasePrice()

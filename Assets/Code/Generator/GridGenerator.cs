@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.Rendering;
+
 public class GridGenerator
 {
 
@@ -16,6 +19,10 @@ public class GridGenerator
 
     private Cell CreateCell()
     {
+        var house = Resources.Load<House>("House.prefab");
+        var tree = Resources.Load<Tree>("Tree.prefab");
+        Debug.Log(house);
+        Debug.Log(tree);
         return new Cell();
     }
 }
