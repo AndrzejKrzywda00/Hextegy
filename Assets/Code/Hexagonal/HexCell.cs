@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class HexCell : MonoBehaviour
@@ -26,10 +25,12 @@ public class HexCell : MonoBehaviour
         switch (playerId)
         {
             case 0:
-                return Color.white;
+                return Color.gray;
             default:
-                return Color.black;
+                return Color.red;
         }
     }
+    
+    
 
 }

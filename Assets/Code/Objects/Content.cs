@@ -1,6 +1,5 @@
-using UnityEngine;
 
-public class Content
+public abstract class Content
 {
     
 }
