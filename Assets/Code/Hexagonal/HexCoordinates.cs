@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -63,12 +61,12 @@ public struct HexCoordinates
 
     public override string ToString()
     {
-        return "(" + x.ToString() + ", " + Y.ToString() + ", " + z.ToString() + ")";
+        return "(" + x + ", " + Y + ", " + z + ")";
     }
 
     public string ToStringOnSeparateLines()
     {
-        return x.ToString() + "\n" + Y.ToString() + "\n" + z.ToString();
+        return x + "\n" + Y + "\n" + z;
     }
 
     public HexCoordinates[] NeighborsOf(HexCoordinates coordinates)
