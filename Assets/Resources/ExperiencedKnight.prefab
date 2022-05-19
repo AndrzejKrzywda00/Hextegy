@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5970807789836442020}
   - component: {fileID: 2572926096623635159}
+  - component: {fileID: -9079599834135095780}
   m_Layer: 0
-  m_Name: Knight2
+  m_Name: ExperiencedKnight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,3 +83,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-9079599834135095780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779082200607351922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381f428197b22c346b6e2c6eb931204c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
