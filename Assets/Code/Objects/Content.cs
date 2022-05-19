@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Content : MonoBehaviour
+public class Content
 {
     
 }
