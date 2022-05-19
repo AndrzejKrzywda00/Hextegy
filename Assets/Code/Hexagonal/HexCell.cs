@@ -7,6 +7,14 @@ public class HexCell : MonoBehaviour
     private Content _content;
     private Color _color;
 
+    public Vector3 Position
+    {
+        get
+        {
+            return transform.localPosition;
+        }
+    }
+
     public void CreateFrom(Cell cell)
     {
         _content = cell.content;

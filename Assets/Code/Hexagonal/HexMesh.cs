@@ -9,6 +9,8 @@ public class HexMesh : MonoBehaviour
     private List<int> _triangles;
     private MeshCollider _collider;
 
+    public HexFeatureManager features;
+
     private void Awake()
     {
         CreateMeshAndCollider();
@@ -43,6 +45,7 @@ public class HexMesh : MonoBehaviour
         ClearData();
         foreach(HexCell cell in cells) Triangulate(cell);
         GenerateTrianglesFromData();
+        features.Apply();
         AddColliderToMesh();
     }
 
@@ -58,11 +61,13 @@ public class HexMesh : MonoBehaviour
         _hexMesh.Clear();
         _vertices.Clear();
         _triangles.Clear();
+        features.Clear();
     }
 
     void Triangulate(HexCell cell)
     {
         Vector3 center = cell.transform.localPosition;
+        features.AddFeature(cell.Position);
         for (int i=0; i<6; i++)
         {
             AddTriangle
