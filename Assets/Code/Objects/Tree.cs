@@ -1,7 +1,7 @@
-﻿namespace Code.Objects
+using System;
+using UnityEngine;
+
+public class Tree : MonoBehaviour
 {
-    public class Tree : Content
-    {
-        
-    }
+   
 }

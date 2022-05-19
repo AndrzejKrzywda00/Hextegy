@@ -1,11 +1,12 @@
+using UnityEngine;
+
 public class Cell
 {
-    public Content content;
-    public int playerId;
+    public Transform Prefab;
+    public int PlayerId;
 
-    public Cell(Content content, int playerId)
+    public Cell()
     {
-        this.content = content;
-        this.playerId = playerId;
+        
     }
 }

@@ -1,6 +1,3 @@
-using Code.Objects;
-using UnityEngine;
-
 public class GridGenerator
 {
 
@@ -19,6 +16,6 @@ public class GridGenerator
 
     private Cell CreateCell()
     {
-        return new Cell(new Tower(), 1);
+        return new Cell();
     }
 }
