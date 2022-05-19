@@ -24,21 +24,32 @@ public class HexGrid : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0)) HandleInput();
+        if (Input.GetMouseButtonDown(0))
+        {
+            HandleInput();
+        }
     }
 
     private void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) InteractWithCell(hit.point);
+        
+        if (Physics.Raycast(inputRay, out hit)) 
+        {
+            InteractWithCell(hit.point);
+        }
     }
 
     private void InteractWithCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        //int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+
+        if (CommonKnight.IsSelected) {
+            CommonKnight.PutCommonKnightOnCell(_cells[index]);
+        }
     }
 
     private void CreateCells()
