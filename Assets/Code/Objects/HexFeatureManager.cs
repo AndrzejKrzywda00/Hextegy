@@ -12,7 +12,7 @@ public class HexFeatureManager : MonoBehaviour
     public void AddFeature(Vector3 position)
     {
         Transform instance = Instantiate(featurePrefab);
-        instance.localPosition = RandomizePosition(position);
+        instance.localPosition = position;
         instance.Rotate(new Vector3(0, 180 ,0));
     }
 
