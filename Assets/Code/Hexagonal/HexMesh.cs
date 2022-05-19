@@ -67,7 +67,7 @@ public class HexMesh : MonoBehaviour
     void Triangulate(HexCell cell)
     {
         Vector3 center = cell.transform.localPosition;
-        features.AddFeature(cell.Position);
+        CreateCellContent(cell);
         for (int i=0; i<6; i++)
         {
             AddTriangle
@@ -77,6 +77,11 @@ public class HexMesh : MonoBehaviour
                   center + HexMetrics.Corners[(i+1)%6]
             );
         }
+    }
+
+    private void CreateCellContent(HexCell cell)
+    {
+        features.AddFeature(cell.Position);
     }
 
     private void AddColliderToMesh()

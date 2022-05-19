@@ -41,7 +41,7 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         //HexCell cell = _cells[index];
-        // decisions cell.Method();
+        //decisions cell.Method();
     }
 
     private void CreateCells()
