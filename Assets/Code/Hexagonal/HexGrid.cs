@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
@@ -7,13 +6,11 @@ public class HexGrid : MonoBehaviour
     public int height = 10;
     public HexCell cellPrefab;
 
-    private Canvas _gridCanvas;
     private HexMesh _hexMesh;
     private HexCell[] _cells;
 
     void Awake()
     {
-        _gridCanvas = GetComponentInChildren<Canvas>();
         _hexMesh = GetComponentInChildren<HexMesh>();
         CreateCells();
     }
