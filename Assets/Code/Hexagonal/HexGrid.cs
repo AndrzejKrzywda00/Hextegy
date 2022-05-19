@@ -40,9 +40,8 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = _cells[index];
+        //HexCell cell = _cells[index];
         // decisions cell.Method();
-        _hexMesh.Triangulate(_cells);
     }
 
     private void CreateCells()

@@ -30,7 +30,5 @@ public class HexCell : MonoBehaviour
                 return Color.red;
         }
     }
-    
-    
 
 }
