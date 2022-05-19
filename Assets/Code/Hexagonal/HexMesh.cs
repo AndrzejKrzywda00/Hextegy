@@ -80,9 +80,10 @@ public class HexMesh : MonoBehaviour
         }
     }
 
-    private void CreateCellContent(HexCell cell)
-    {
-        features.AddFeature(cell.Position);
+    private void CreateCellContent(HexCell cell) {
+        Vector3 position = cell.Position;
+        position.y += 2;
+        features.AddFeature(position);
     }
 
     private void AddColliderToMesh()
