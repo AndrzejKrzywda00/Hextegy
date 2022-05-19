@@ -187,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5695ccc447e4eef409891a6c7eb87a43, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -543,8 +543,6 @@ MonoBehaviour:
   height: 10
   cellPrefab: {fileID: 1512264897}
   cellLabelPrefab: {fileID: 1945891410}
-  defaultColor: {r: 1, g: 1, b: 1, a: 0}
-  activeColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!4 &1699572017
 Transform:
   m_ObjectHideFlags: 0

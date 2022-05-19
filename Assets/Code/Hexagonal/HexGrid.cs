@@ -61,7 +61,6 @@ public class HexGrid : MonoBehaviour
     {
         var position = CreateCellPosition(x, z);
         var cell = InstantiateCellOnGrid(x, z, i, position);
-        
         CreateCellLabel(position, cell);
     }
 
