@@ -1,9 +1,13 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GridGenerator
 {
-
+    
+    private House _house = Resources.Load<House>("House");
+    private Tree _tree = Resources.Load<Tree>("Tree");
+    private NormalTower _normalTower = Resources.Load<NormalTower>("NormalTower");
+    private SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
+    
     public Cell[] GenerateGrid(int height, int width)
     {
         Cell[] cells = new Cell[height * width];
@@ -11,18 +15,14 @@ public class GridGenerator
         {
             for (int j = 0; j < width; j++)
             {
-                cells[(i+1)*j] = CreateCell();
+                cells[(i+1)*j] = CreateCell(i, j);
             }
         }
         return cells;
     }
 
-    private Cell CreateCell()
+    private Cell CreateCell(int i, int j)
     {
-        var house = Resources.Load<House>("House.prefab");
-        var tree = Resources.Load<Tree>("Tree.prefab");
-        Debug.Log(house);
-        Debug.Log(tree);
-        return new Cell();
+        return new Cell(_house);
     }
 }

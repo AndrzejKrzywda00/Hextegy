@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Cell
 {
-    public Transform Prefab;
+    public MonoBehaviour Prefab;
     public int PlayerId;
 
-    public Cell()
+    public Cell(MonoBehaviour prefab)
     {
-        
+        Prefab = prefab;
     }
 }

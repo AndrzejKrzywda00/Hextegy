@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HexFeatureManager : MonoBehaviour
 {
@@ -8,6 +10,11 @@ public class HexFeatureManager : MonoBehaviour
     public void Clear() {}
 
     public void Apply() {}
+
+    private void Awake()
+    {
+        featurePrefab = Resources.Load<Tree>("Tree").transform;
+    }
 
     public void AddFeature(Vector3 position)
     {

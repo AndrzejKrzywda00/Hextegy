@@ -8,10 +8,12 @@ public class HexGrid : MonoBehaviour
 
     private HexMesh _hexMesh;
     private HexCell[] _cells;
+    private Cell[] _cellPrototypes;
 
     void Awake()
     {
         _hexMesh = GetComponentInChildren<HexMesh>();
+        _cellPrototypes = new GridGenerator().GenerateGrid(width, height);
         CreateCells();
     }
 
@@ -36,9 +38,7 @@ public class HexGrid : MonoBehaviour
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        //HexCell cell = _cells[index];
-        //decisions cell.Method();
+        //int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
     }
 
     private void CreateCells()
