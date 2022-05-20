@@ -59,7 +59,7 @@ public class HexMesh : MonoBehaviour {
 
     private void CreateCellContent(HexCell hexCell) {
         Vector3 position = hexCell.Position;
-        position.y += 2; //Here content is raised above grid level to be visible
+        position.y += 2; // Here content is raised above grid level to be visible
         features.AddFeature(position, hexCell.prefab);
     }
 
