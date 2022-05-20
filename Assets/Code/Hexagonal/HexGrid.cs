@@ -60,7 +60,7 @@ public class HexGrid : MonoBehaviour {
         cellTransform.SetParent(transform, false);
         cellTransform.localPosition = position;
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        hexCell.prefab = _cellPrototypes[(x + 1) * z].Prefab;
+        hexCell.prefab = _cellPrototypes[x * gridWidth + z].Prefab;
     }
 
     private void HandleInput() {
@@ -79,6 +79,7 @@ public class HexGrid : MonoBehaviour {
 
         if (CommonKnight.IsSelected) {
             CommonKnight.PutCommonKnightOnCell(_cells[cellIndex]);
+            _hexMesh.Triangulate(_cells[cellIndex]);
         }
     }
 }

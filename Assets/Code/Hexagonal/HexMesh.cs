@@ -45,7 +45,7 @@ public class HexMesh : MonoBehaviour {
         features.Clear();
     }
 
-    private void Triangulate(HexCell hexCell) {
+    public void Triangulate(HexCell hexCell) {
         Vector3 center = hexCell.transform.localPosition;
         CreateCellContent(hexCell);
         for (int i = 0; i < 6; i++) {

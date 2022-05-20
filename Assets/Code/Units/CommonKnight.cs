@@ -6,6 +6,5 @@ public class CommonKnight : MonoBehaviour {
     public static void PutCommonKnightOnCell(HexCell hexCell) {
         CommonKnight commonKnight = Resources.Load<CommonKnight>("CommonKnight");
         hexCell.prefab = commonKnight;
-        //need to refresh hexCell
     }
 }
