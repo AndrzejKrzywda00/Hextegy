@@ -4,14 +4,15 @@ public class HexGrid : MonoBehaviour {
     public int gridWidth = 10;
     public int gridHeight = 10;
     public HexCell hexCellPrefab;
-    public PlayerController playerController; // all clicking handling logic should be done now via controller
 
+    private PlayerController _playerController; // all clicking handling logic should be done now via controller
     private Camera _cam;
     private HexMesh _hexMesh;
     private HexCell[] _cells;
     private Cell[] _cellPrototypes;
 
     private void Awake() {
+        _playerController = gameObject.AddComponent<PlayerController>();
         _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
         _cellPrototypes = new GridGenerator().GenerateGrid(gridWidth, gridHeight);
@@ -66,9 +67,8 @@ public class HexGrid : MonoBehaviour {
 
     private void HandleInput() {
         Ray inputRay = _cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(inputRay, out hit)) {
+
+        if (Physics.Raycast(inputRay, out RaycastHit hit)) {
             InteractWithCell(hit.point);
         }
     }
@@ -78,9 +78,10 @@ public class HexGrid : MonoBehaviour {
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
 
-        if (CommonKnight.IsSelected) {
-            CommonKnight.PutCommonKnightOnCell(_cells[cellIndex]);
-            _hexMesh.Triangulate(_cells[cellIndex]);
-        }
+        _playerController.Handle();
+
+        if (!CommonKnight.IsSelected) return;
+        CommonKnight.PutOnCell(_cells[cellIndex]);
+        _hexMesh.Triangulate(_cells[cellIndex]);
     }
 }
