@@ -67,20 +67,18 @@ public class HexGrid : MonoBehaviour {
 
     private void HandleInput() {
         Ray inputRay = _cam.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(inputRay, out RaycastHit hit)) {
-            InteractWithCell(hit.point);
-        }
+        if (Physics.Raycast(inputRay, out RaycastHit hit)) InteractWithCell(hit.point);
     }
 
     private void InteractWithCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
+        Debug.Log( position.ToString()+ " => " + hexCoordinates);
 
         _playerController.Handle();
 
-        if (!CommonKnight.IsSelected) return;
+        if (!CommonKnight.IsSelected || !_cells[cellIndex].IsEmpty()) return;
         CommonKnight.PutOnCell(_cells[cellIndex]);
         _hexMesh.Triangulate(_cells[cellIndex]);
     }

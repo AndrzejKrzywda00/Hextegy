@@ -2,6 +2,7 @@ using UnityEngine;
 
 [System.Serializable]
 public struct HexCoordinates {
+    
     [SerializeField]
     private int x, z;
 
@@ -19,9 +20,13 @@ public struct HexCoordinates {
     }
 
     public static HexCoordinates FromPosition(Vector3 position) {
+        
         float offset = position.z / (HexMetrics.OuterRadius * 3f);
-        float x = position.x / (HexMetrics.InnerRadius * 2f) - offset;
-        float y = -x - offset;
+        float x = position.x / (HexMetrics.InnerRadius * 2f);
+        float y = -x;
+
+        y -= offset;
+        x -= offset;
         
         int iX = Mathf.RoundToInt(x);
         int iY = Mathf.RoundToInt(y);

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class HexCell : MonoBehaviour {
+    
     public HexCoordinates coordinates;
     private Color _color;
     public MonoBehaviour prefab;
@@ -12,5 +13,10 @@ public class HexCell : MonoBehaviour {
             0 => Color.gray,
             _ => Color.red
         };
+    }
+
+    public bool IsEmpty()
+    {
+        return prefab.name == "NoElement";
     }
 }
