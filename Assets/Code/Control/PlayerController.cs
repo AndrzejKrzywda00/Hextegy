@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+
+    private MonoBehaviour selectedElement;
     
     void Start() {
         
@@ -10,7 +13,7 @@ public class PlayerController : MonoBehaviour {
         
     }
 
-    public void Handle() {
-        
+    public void Handle(HexCell cell) {
+        if (cell.IsEmpty()) CommonKnight.PutOnCell(cell);
     }
 }
