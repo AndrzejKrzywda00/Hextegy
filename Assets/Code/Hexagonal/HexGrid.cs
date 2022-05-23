@@ -71,15 +71,20 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InteractWithCell(Vector3 position) {
-        position = transform.InverseTransformPoint(position);
-        HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
-        int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
-        Debug.Log( position.ToString()+ " => " + hexCoordinates);
-
+        
+        var cellIndex = GetCellIndex(position);
         _playerController.Handle();
 
         if (!CommonKnight.IsSelected || !_cells[cellIndex].IsEmpty()) return;
         CommonKnight.PutOnCell(_cells[cellIndex]);
         _hexMesh.Triangulate(_cells[cellIndex]);
+    }
+
+    private int GetCellIndex(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
+        int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
+        return cellIndex;
     }
 }
