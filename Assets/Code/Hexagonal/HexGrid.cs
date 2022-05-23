@@ -71,10 +71,8 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InteractWithCell(Vector3 position) {
-        
         var cellIndex = GetCellIndex(position);
-        _playerController.Handle(_cells[cellIndex]);
-        _hexMesh.Triangulate(_cells[cellIndex]);
+        _playerController.Handle(_cells[cellIndex], _hexMesh);
     }
 
     private int GetCellIndex(Vector3 position)

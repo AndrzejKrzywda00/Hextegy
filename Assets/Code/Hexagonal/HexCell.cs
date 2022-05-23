@@ -15,8 +15,11 @@ public class HexCell : MonoBehaviour {
         };
     }
 
-    public bool IsEmpty()
-    {
+    public void PutOnCell(MonoBehaviour prefab) {
+        this.prefab = prefab;
+    }
+    
+    public bool IsEmpty() {
         return prefab.name == "NoElement";
     }
 }

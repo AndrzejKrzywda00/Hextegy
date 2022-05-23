@@ -15,7 +15,6 @@ public class HexFeatureManager : MonoBehaviour {
     public void AddFeature(Vector3 position, MonoBehaviour prefab) {
         Transform instance = Instantiate(prefab.transform);
         instance.localPosition = position;
-        instance.Rotate(new Vector3(0, 180 ,0));
     }
 
     private Vector3 RandomizePosition(Vector3 position) {
