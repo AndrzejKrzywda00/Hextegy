@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2475427683217456908}
   - component: {fileID: 1728256821251157774}
-  - component: {fileID: -5717451718404473535}
+  - component: {fileID: -7163214146506683429}
   m_Layer: 0
   m_Name: CommonKnight
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5717451718404473535
+--- !u!114 &-7163214146506683429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

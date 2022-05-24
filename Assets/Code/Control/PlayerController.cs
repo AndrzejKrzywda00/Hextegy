@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
 
     private int _coins;
     private int _balance;
