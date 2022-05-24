@@ -5,6 +5,7 @@ public class HexGrid : MonoBehaviour {
     public int gridWidth = 10;
     public int gridHeight = 10;
     public HexCell hexCellPrefab;
+    public MaterialManager materialManager;
 
     private PlayerController _playerController;
     private Camera _cam;

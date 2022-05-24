@@ -31,9 +31,7 @@ public class HexMesh : MonoBehaviour {
 
     public void Triangulate(HexCell[] cells) {
         ClearData();
-        foreach (HexCell hexCell in cells) {
-            Triangulate(hexCell);
-        }
+        foreach (HexCell hexCell in cells) Triangulate(hexCell);
         GenerateTrianglesFromData();
         features.Apply();
         AddColliderToMesh();
