@@ -53,6 +53,11 @@ public class HexCell : MonoBehaviour {
         return cell.PlayerOwnership != _playerId && cell.PlayerOwnership != 0;
     }
 
+    private bool IsFriendlyCell(HexCell cell)
+    {
+        return cell.PlayerOwnership == _playerId;
+    }
+
     private bool HasHouse()
     {
         return prefab.name == "House";
@@ -69,6 +74,7 @@ public class HexCell : MonoBehaviour {
     {
         if (IsEnemyCell(source))
         {
+            // towers & units are treated likewise here
              IComparable sourceUnit = (IComparable) source.prefab;
              IComparable thisUnit = (IComparable) prefab;
              return thisUnit.IsWeakerThan(sourceUnit);
@@ -77,15 +83,14 @@ public class HexCell : MonoBehaviour {
         return false;
     }
 
-    public bool EnemyTowerWeakerAccess(HexCell source)
+    public bool SamePlayerUnitPromotionAccess(HexCell source)
     {
-        if (IsEnemyCell(source))
+        if (IsFriendlyCell(source) && this.HasUnit())
         {
-            
+            Debug.Log("Here perform promotion");
         }
 
         return false;
     }
-    
-    
+
 }
