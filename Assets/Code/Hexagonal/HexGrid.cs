@@ -5,7 +5,6 @@ public class HexGrid : MonoBehaviour {
     public int gridWidth = 10;
     public int gridHeight = 10;
     public HexCell hexCellPrefab;
-    public MaterialManager materialManager;
 
     private PlayerController _playerController;
     private Camera _cam;
@@ -65,6 +64,7 @@ public class HexGrid : MonoBehaviour {
         cellTransform.localPosition = position;
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         hexCell.prefab = _cellPrototypes[x * gridWidth + z].Prefab;
+        hexCell.playerId = _cellPrototypes[x * gridWidth + z].PlayerId;
     }
 
     private void HandleInput() {

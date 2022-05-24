@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -5,23 +6,31 @@ using UnityEngine;
 public class HexCell : MonoBehaviour {
     
     public HexCoordinates coordinates;
-    private Color _color;
+    public Color color;
     public MonoBehaviour prefab;
-    private int _playerId;
-
-    public int PlayerOwnership => _playerId;
+    public int playerId;
 
     public Vector3 Position => transform.localPosition;
 
-    private Color MapPlayerIdToColor(int playerId) {
-        return playerId switch {
-            0 => Color.gray,
-            _ => Color.red
-        };
-    }
-
     public void PutOnCell(MonoBehaviour prefab) {
         this.prefab = prefab;
+    }
+
+    public Color CellColor(HexCell cell)
+    {
+        int playerId = cell.playerId;
+        switch (playerId)
+        {
+            case 0: return Color.gray;
+            case 1: return Color.blue;
+            case 2: return Color.cyan;
+            case 3: return Color.green;
+            case 4: return Color.red;
+            case 5: return Color.yellow;
+            case 6: return Color.white;
+        }
+
+        throw new ArgumentException();
     }
     
     public bool IsEmpty() {
@@ -30,7 +39,7 @@ public class HexCell : MonoBehaviour {
 
     public bool IsNeutral()
     {
-        return _playerId == 0;
+        return playerId == 0;
     }
 
     public bool HasTree()
@@ -50,12 +59,12 @@ public class HexCell : MonoBehaviour {
     private bool IsEnemyCell(HexCell cell)
     {
         // different than this and not neutral
-        return cell.PlayerOwnership != _playerId && cell.PlayerOwnership != 0;
+        return cell.playerId != playerId && cell.playerId != 0;
     }
 
     private bool IsFriendlyCell(HexCell cell)
     {
-        return cell.PlayerOwnership == _playerId;
+        return cell.playerId == playerId;
     }
 
     private bool HasHouse()

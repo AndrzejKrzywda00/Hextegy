@@ -7,6 +7,7 @@ public class HexMesh : MonoBehaviour {
     private Mesh _hexMesh;
     private List<Vector3> _vertices;
     private List<int> _triangles;
+    private List<Color> _colors;
     private MeshCollider _collider;
 
     public HexFeatureManager features;
@@ -27,6 +28,7 @@ public class HexMesh : MonoBehaviour {
     private void InstantiateLists() {
         _vertices = new List<Vector3>();
         _triangles = new List<int>();
+        _colors = new List<Color>();
     }
 
     public void Triangulate(HexCell[] cells) {
@@ -41,6 +43,7 @@ public class HexMesh : MonoBehaviour {
         _hexMesh.Clear();
         _vertices.Clear();
         _triangles.Clear();
+        _colors.Clear();
         features.Clear();
     }
 
@@ -53,7 +56,15 @@ public class HexMesh : MonoBehaviour {
                 center + HexMetrics.Corners[i], 
                 center + HexMetrics.Corners[(i + 1) % 6]
                 );
+            AddTriangleColor(hexCell.CellColor(hexCell));
         }
+    }
+
+    private void AddTriangleColor(Color color)
+    {
+        _colors.Add(color);
+        _colors.Add(color);
+        _colors.Add(color);
     }
 
     private void CreateCellContent(HexCell hexCell) {
@@ -75,6 +86,7 @@ public class HexMesh : MonoBehaviour {
     private void GenerateTrianglesFromData() {
         _hexMesh.vertices = _vertices.ToArray();
         _hexMesh.triangles = _triangles.ToArray();
+        _hexMesh.colors = _colors.ToArray();
         _hexMesh.RecalculateNormals();
     }
     
