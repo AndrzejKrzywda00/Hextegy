@@ -7,6 +7,7 @@ public class GridGenerator {
     private NormalTower _normalTower = Resources.Load<NormalTower>("NormalTower");
     private SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
     private NoElement _noElement = Resources.Load<NoElement>("NoElement");
+    private CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
 
     public Cell[] GenerateGrid(int height, int width) {
         Cell[] cells = new Cell[height * width];
@@ -19,6 +20,6 @@ public class GridGenerator {
     }
 
     private Cell CreateCell(int i) {
-        return i % 2 == 0 ? new Cell(_superTower) : new Cell(_noElement);
+        return i % 2 == 0 ? new Cell(_commonKnight) : new Cell(_noElement);
     }
 }

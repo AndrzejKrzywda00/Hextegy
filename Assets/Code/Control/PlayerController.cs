@@ -5,28 +5,27 @@ public class PlayerController : MonoBehaviour
 
     private int _coins;
     private int _balance;
+    private HexCell _cellWithSelectedUnit;
 
-    private HexCell _selectedCell;
+    public int Balance => _balance;
+    public int Coins => _coins;
 
     public void Handle(HexCell cell, HexMesh hexMesh) {
         
-        if (!cell.IsEmpty()) {
-            _selectedCell = cell;
-            return;
+        if (_cellWithSelectedUnit != null) {
+            cell.prefab = _cellWithSelectedUnit.prefab; 
+            _cellWithSelectedUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
+            
+            hexMesh.Triangulate(cell);
+            hexMesh.Triangulate(_cellWithSelectedUnit); 
+            _cellWithSelectedUnit = null;
         }
         
-        if (_selectedCell == null) {
-            cell.PutOnCell(Resources.Load<CommonKnight>("CommonKnight"));
-            hexMesh.Triangulate(cell);
-        } else {
-            cell.prefab = _selectedCell.prefab;
-            _selectedCell.PutOnCell(Resources.Load<NoElement>("NoElement"));
-
-            hexMesh.Triangulate(cell);
-            hexMesh.Triangulate(_selectedCell);
-
-            _selectedCell = null;
+        if (cell.HasUnit()) {
+            _cellWithSelectedUnit = cell;
+            return;
         }
+
     }
 
     public void EndTurn()
