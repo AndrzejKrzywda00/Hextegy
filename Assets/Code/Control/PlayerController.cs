@@ -22,14 +22,10 @@ public class PlayerController : MonoBehaviour {
         
         if (cell.HasUnit()) {
             _cellWithSelectedUnit = cell;
-            return;
         }
-
     }
 
-    public void EndTurn()
-    {
-        _coins -= _balance;
+    public void EndTurn() {
+        _coins += _balance;
     }
-    
 }

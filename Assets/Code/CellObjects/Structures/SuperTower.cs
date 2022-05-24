@@ -14,13 +14,11 @@ public class SuperTower : MonoBehaviour, IComparable {
         _price = 35;
     }
 
-    public bool IsWeakerThan(IComparable unit)
-    {
+    public bool IsWeakerThan(IComparable unit) {
         return Level() - unit.Level() < 0;
     }
 
-    public int Level()
-    {
+    public int Level() {
         return 2;
     }
 }

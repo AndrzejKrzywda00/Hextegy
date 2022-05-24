@@ -60,8 +60,7 @@ public class HexMesh : MonoBehaviour {
         }
     }
 
-    private void AddTriangleColor(Color color)
-    {
+    private void AddTriangleColor(Color color) {
         _colors.Add(color);
         _colors.Add(color);
         _colors.Add(color);

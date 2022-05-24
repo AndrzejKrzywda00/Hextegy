@@ -8,13 +8,11 @@ public class CommonKnight : MonoBehaviour, IComparable {
     public int Price => _price;
     public int MaintainCost => _maintainCost;
     
-    public bool IsWeakerThan(IComparable unit)
-    {
+    public bool IsWeakerThan(IComparable unit) {
         return Level() - unit.Level() < 0;
     }
 
-    public int Level()
-    {
+    public int Level() {
         return 1;
     }
     
