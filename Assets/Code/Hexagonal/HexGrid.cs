@@ -5,7 +5,7 @@ public class HexGrid : MonoBehaviour {
     public int gridHeight = 10;
     public HexCell hexCellPrefab;
 
-    private PlayerController _playerController; // all clicking handling logic should be done now via controller
+    private PlayerController _playerController;
     private Camera _cam;
     private HexMesh _hexMesh;
     private HexCell[] _cells;

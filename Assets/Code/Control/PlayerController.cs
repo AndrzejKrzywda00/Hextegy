@@ -1,9 +1,15 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+
+    private int _coins;
+    private int _balance;
+
     private HexCell _selectedCell;
 
     public void Handle(HexCell cell, HexMesh hexMesh) {
+        
         if (!cell.IsEmpty()) {
             _selectedCell = cell;
             return;
@@ -22,4 +28,10 @@ public class PlayerController : MonoBehaviour {
             _selectedCell = null;
         }
     }
+
+    public void EndTurn()
+    {
+        _coins -= _balance;
+    }
+    
 }
