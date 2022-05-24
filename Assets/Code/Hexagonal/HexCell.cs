@@ -28,6 +28,11 @@ public class HexCell : MonoBehaviour {
         return prefab.name == "NoElement";
     }
 
+    public bool IsNeutral()
+    {
+        return _playerId == 0;
+    }
+
     public bool HasTree()
     {
         return prefab.name == "Tree";
@@ -41,17 +46,46 @@ public class HexCell : MonoBehaviour {
         unitNames.Add("LegendaryKnight");
         return unitNames.Contains(prefab.name);
     }
+
+    private bool IsEnemyCell(HexCell cell)
+    {
+        // different than this and not neutral
+        return cell.PlayerOwnership != _playerId && cell.PlayerOwnership != 0;
+    }
+
+    private bool HasHouse()
+    {
+        return prefab.name == "House";
+    }
     
     // ------------------------ ACCESS TYPES ------------------------
 
-    public bool NoConditionAccess()
+    public bool NoConditionAccess(HexCell source)
     {
-        return IsEmpty() || HasTree();
+        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell(source));
     }
 
-    public bool EnemyUnitWeakerAccess(HexCell cell)
+    public bool EnemyUnitWeakerAccess(HexCell source)
     {
-        return true;
+        if (IsEnemyCell(source))
+        {
+             IComparable sourceUnit = (IComparable) source.prefab;
+             IComparable thisUnit = (IComparable) prefab;
+             return thisUnit.IsWeakerThan(sourceUnit);
+        }
+
+        return false;
     }
+
+    public bool EnemyTowerWeakerAccess(HexCell source)
+    {
+        if (IsEnemyCell(source))
+        {
+            
+        }
+
+        return false;
+    }
+    
     
 }
