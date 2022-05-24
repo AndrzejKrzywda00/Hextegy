@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexMesh : MonoBehaviour {
+    
     private Mesh _hexMesh;
     private List<Vector3> _vertices;
     private List<int> _triangles;

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GreenMaterial
+  m_Name: GreenBackground
   m_Shader: {fileID: 4800000, guid: a932ac74c31f53546b28ea962ba70eb8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
