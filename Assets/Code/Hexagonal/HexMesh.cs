@@ -48,31 +48,15 @@ public class HexMesh : MonoBehaviour {
     }
 
     public void Triangulate(HexCell hexCell) {
-        if (hexCell != null)
-        {
-            Vector3 center = hexCell.transform.localPosition;
-                    CreateCellContent(hexCell);
-                    for (int i = 0; i < 6; i++) {
-                        AddTriangle (
-                            center,
-                            center + HexMetrics.Corners[i], 
-                            center + HexMetrics.Corners[(i + 1) % 6]
-                            );
-                        AddTriangleColor(hexCell.CellColor(hexCell));
-                    }
+        Vector3 center = hexCell.transform.localPosition;
+        for (int i = 0; i < 6; i++) {
+            AddTriangle (
+                center,
+                center + HexMetrics.Corners[i], 
+                center + HexMetrics.Corners[(i + 1) % 6]
+                );
+            AddTriangleColor(hexCell.CellColor(hexCell));
         }
-    }
-
-    private void AddTriangleColor(Color color) {
-        _colors.Add(color);
-        _colors.Add(color);
-        _colors.Add(color);
-    }
-
-    private void CreateCellContent(HexCell hexCell) {
-        Vector3 position = hexCell.Position;
-        position.y += 2; // Here content is raised above grid level to be visible
-        features.AddFeature(position, hexCell.prefab);
     }
 
     private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
@@ -83,6 +67,12 @@ public class HexMesh : MonoBehaviour {
         _triangles.Add(vertexIndex);
         _triangles.Add(vertexIndex + 1);
         _triangles.Add(vertexIndex + 2);
+    }
+
+    private void AddTriangleColor(Color color) {
+        _colors.Add(color);
+        _colors.Add(color);
+        _colors.Add(color);
     }
 
     private void GenerateTrianglesFromData() {

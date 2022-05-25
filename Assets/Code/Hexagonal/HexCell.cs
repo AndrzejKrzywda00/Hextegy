@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class HexCell : MonoBehaviour {
     
+    private static readonly List<string> UnitNames = new List<string> {
+        "CommonKnight(Clone)",
+        "ExperiencedKnight(Clone)",
+        "LegendaryKnight(Clone)"
+    };
+    
     public HexCoordinates coordinates;
     public Color color;
-    public MonoBehaviour prefab;
+    public MonoBehaviour prefabInstance;
     public int playerId;
 
     public Vector3 Position => transform.localPosition;
 
     public void PutOnCell(MonoBehaviour prefab) {
-        this.prefab = prefab;
+        prefabInstance = Instantiate(prefab);
+        AlignPrefabInstancePositionWithCellPosition();
+    }
+
+    public void AlignPrefabInstancePositionWithCellPosition() {
+        Vector3 position = transform.localPosition;
+        position.y += 2; // Here content is raised above grid level to be visible
+        prefabInstance.transform.position = position;
     }
 
     public Color CellColor(HexCell cell) {
@@ -23,14 +36,14 @@ public class HexCell : MonoBehaviour {
             2 => new Color32(182, 92, 120, 255),        // pink
             3 => new Color32(93, 182, 176, 255),        // sky
             4 => new Color32(166, 78, 64, 255),         // tomato
-            5 => new Color32(180, 189, 100, 255),              // yellowish
+            5 => new Color32(180, 189, 100, 255),       // yellowish
             6 => new Color32(114, 91, 179, 255),        // violet
             _ => throw new ArgumentException()
         };
     }
     
     public bool IsEmpty() {
-        return prefab.name == "NoElement";
+        return prefabInstance.name == "NoElement";
     }
 
     public bool IsNeutral() {
@@ -38,15 +51,11 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool HasTree() {
-        return prefab.name == "Tree";
+        return prefabInstance.name == "Tree";
     }
 
     public bool HasUnit() {
-        List<string> unitNames = new List<string>();
-        unitNames.Add("CommonKnight");
-        unitNames.Add("ExperiencedKnight");
-        unitNames.Add("LegendaryKnight");
-        return unitNames.Contains(prefab.name);
+        return UnitNames.Contains(prefabInstance.name);
     }
 
     private bool IsEnemyCell(HexCell cell) {
@@ -59,7 +68,7 @@ public class HexCell : MonoBehaviour {
     }
 
     private bool HasHouse() {
-        return prefab.name == "House";
+        return prefabInstance.name == "House";
     }
     
     // ------------------------ ACCESS TYPES ------------------------
@@ -72,14 +81,13 @@ public class HexCell : MonoBehaviour {
         if (!IsEnemyCell(source)) return false;
         
         // towers & units are treated likewise here
-        IComparable sourceUnit = (IComparable) source.prefab;
-        IComparable thisUnit = (IComparable) prefab;
+        IComparable sourceUnit = (IComparable) source.prefabInstance;
+        IComparable thisUnit = (IComparable) prefabInstance;
         return thisUnit.IsWeakerThan(sourceUnit);
     }
 
     public bool SamePlayerUnitPromotionAccess(HexCell source) {
-        if (IsFriendlyCell(source) && HasUnit())
-        {
+        if (IsFriendlyCell(source) && HasUnit()) {
             Debug.Log("Here perform promotion");
         }
         return false;
