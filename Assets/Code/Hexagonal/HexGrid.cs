@@ -57,22 +57,19 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
-        
         int prototypeIndex = x * gridWidth + z;
-        if (_cellPrototypes[prototypeIndex] != null)
-        {
-            HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
-            Transform cellTransform = hexCell.transform;
-            cellTransform.SetParent(transform, false); 
-            cellTransform.localPosition = position; 
-            hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-            MapPrototypeToHexCell(prototypeIndex, hexCell);
-        }
+        if (_cellPrototypes[prototypeIndex] == null) return;
+        
+        HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
+        Transform cellTransform = hexCell.transform;
+        cellTransform.SetParent(transform, false); 
+        cellTransform.localPosition = position; 
+        hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
-    private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell)
-    {
-        hexCell.prefab = _cellPrototypes[prototypeIndex].Prefab; 
+    private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
+        hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab); 
         hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;
     }
 
@@ -83,11 +80,10 @@ public class HexGrid : MonoBehaviour {
 
     private void InteractWithCell(Vector3 position) {
         var cellIndex = GetCellIndex(position);
-        _playerController.Handle(_cells[cellIndex], _hexMesh);
+        _playerController.Handle(_cells[cellIndex]);
     }
 
-    private int GetCellIndex(Vector3 position)
-    {
+    private int GetCellIndex(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
