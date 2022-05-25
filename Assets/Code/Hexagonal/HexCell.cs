@@ -19,12 +19,12 @@ public class HexCell : MonoBehaviour {
         int playerId = cell.playerId;
         return playerId switch {
             0 => Color.gray,
-            1 => Color.blue,
-            2 => Color.cyan,
-            3 => Color.green,
-            4 => Color.red,
-            5 => Color.yellow,
-            6 => Color.white,
+            1 => new Color32(95, 181, 94, 255),         // olive green
+            2 => new Color32(182, 92, 120, 255),        // pink
+            3 => new Color32(93, 182, 176, 255),        // sky
+            4 => new Color32(166, 78, 64, 255),         // tomato
+            5 => new Color32(180, 189, 100, 255),              // yellowish
+            6 => new Color32(114, 91, 179, 255),        // violet
             _ => throw new ArgumentException()
         };
     }
@@ -78,7 +78,7 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool SamePlayerUnitPromotionAccess(HexCell source) {
-        if (IsFriendlyCell(source) && this.HasUnit())
+        if (IsFriendlyCell(source) && HasUnit())
         {
             Debug.Log("Here perform promotion");
         }
