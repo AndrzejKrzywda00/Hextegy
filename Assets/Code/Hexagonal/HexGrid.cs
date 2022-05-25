@@ -57,14 +57,23 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
-        HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
-        Transform cellTransform = hexCell.transform;
         
-        cellTransform.SetParent(transform, false);
-        cellTransform.localPosition = position;
-        hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        hexCell.prefab = _cellPrototypes[x * gridWidth + z].Prefab;
-        hexCell.playerId = _cellPrototypes[x * gridWidth + z].PlayerId;
+        int prototypeIndex = x * gridWidth + z;
+        if (_cellPrototypes[prototypeIndex] != null)
+        {
+            HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
+            Transform cellTransform = hexCell.transform;
+            cellTransform.SetParent(transform, false); 
+            cellTransform.localPosition = position; 
+            hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+            MapPrototypeToHexCell(prototypeIndex, hexCell);
+        }
+    }
+
+    private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell)
+    {
+        hexCell.prefab = _cellPrototypes[prototypeIndex].Prefab; 
+        hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;
     }
 
     private void HandleInput() {
