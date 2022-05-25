@@ -8,6 +8,10 @@ public class GridGenerator {
     private SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
     private NoElement _noElement = Resources.Load<NoElement>("NoElement");
     private CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
+    
+    // this is capital of the player
+    // use SetPlayerId before adding
+    private Capital _capital = Resources.Load<Capital>("Capital");
 
     public Cell[] GenerateGrid(int height, int width) {
         Cell[] cells = new Cell[height * width];
