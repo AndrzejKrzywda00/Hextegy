@@ -43,7 +43,7 @@ public class HexCell : MonoBehaviour {
     }
     
     public bool IsEmpty() {
-        return prefabInstance.name == "NoElement";
+        return prefabInstance.name.Equals("NoElement(Clone)");
     }
 
     public bool IsNeutral() {
@@ -51,7 +51,11 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool HasTree() {
-        return prefabInstance.name == "Tree";
+        return prefabInstance.name.Equals("Tree(Clone)");
+    }
+
+    private bool HasHouse() {
+        return prefabInstance.name.Equals("House(Clone)");
     }
 
     public bool HasUnit() {
@@ -67,10 +71,6 @@ public class HexCell : MonoBehaviour {
         return cell.playerId == playerId;
     }
 
-    private bool HasHouse() {
-        return prefabInstance.name == "House";
-    }
-    
     // ------------------------ ACCESS TYPES ------------------------
 
     public bool NoConditionAccess(HexCell source) {

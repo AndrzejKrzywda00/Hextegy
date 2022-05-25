@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class UnitButtonControl : MonoBehaviour {
+public class BuildingButtonControl : MonoBehaviour {
     public void OnClick() {
         PlayerController playerController = FindObjectOfType<PlayerController>();
-        playerController.prefabFromUI = Resources.Load<CommonKnight>("CommonKnight");
+        playerController.prefabFromUI = Resources.Load<House>("House");
     }
 }

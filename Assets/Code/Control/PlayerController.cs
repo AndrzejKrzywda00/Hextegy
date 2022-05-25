@@ -6,15 +6,13 @@ public class PlayerController : MonoBehaviour {
     private int _balance;
     private HexCell _selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
-    public HexCell cellTmp;
 
     public int Balance => _balance;
     public int Coins => _coins;
 
     public void Handle(HexCell cell) {
         // TODO refactor or sth to look better
-        cellTmp = cell;
-        if (prefabFromUI != null) {
+        if (prefabFromUI != null && cell.IsEmpty()) {
             HandleEntityBuying(cell);
         } else if (_selectedCellWithUnit == null) {
              if (cell.HasUnit()) {
@@ -25,7 +23,7 @@ public class PlayerController : MonoBehaviour {
             if (cell.Equals(_selectedCellWithUnit)) {
                 //the same cell unselected
                 _selectedCellWithUnit = null;
-            } else if (cell.prefabInstance.name.Equals("NoElement(Clone)")) {
+            } else if (cell.IsEmpty()) {
                 //unit moved to the different empty cell
                 (cell.prefabInstance, _selectedCellWithUnit.prefabInstance) = (_selectedCellWithUnit.prefabInstance, cell.prefabInstance);
                 cell.AlignPrefabInstancePositionWithCellPosition();
@@ -35,13 +33,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void HandleEntityBuying(HexCell cell) {
-        cell.PutOnCell(prefabFromUI);
+    private void HandleEntityBuying(HexCell hexCell) {
+        Destroy(hexCell.prefabInstance.gameObject);
+        hexCell.PutOnCell(prefabFromUI);
         prefabFromUI = null;
-    }
-
-    public void SetEntityToBuy(MonoBehaviour entity) {
-        prefabFromUI = entity;
     }
 
     public void EndTurn() {
