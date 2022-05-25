@@ -41,7 +41,6 @@ public class GridGenerator {
     }
     
     private Cell CreateCell(float height) {
-        Debug.Log(height);
         return height > 0.4 ? new Cell(_noElement) : null;
     }
 }

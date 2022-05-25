@@ -5,14 +5,14 @@ public class CameraController : MonoBehaviour {
     private Vector3 _camPosition;
     private const float MovementSpeed = 30f;
     private const float ReactionSpaceThickness = 10f;
-    private readonly Vector2 _movementLimit = new Vector2(200, 200);
+    private readonly Vector2 _movementLimit = new Vector2(1000, 1000);
 
     private Camera _cam;
     private const float ScrollSpeed = 50f;
     private const float NormalizationValueForScrollSpeed = 100f;
     private float _orthographicSize;
-    private const float MaxOrthographicSize = 100f;
-    private const float MinOrthographicSize = 20f;
+    private const float MaxOrthographicSize = 200f;
+    private const float MinOrthographicSize = 40f;
     
     private Vector3 _dragOrigin;
 
