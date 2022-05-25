@@ -30,12 +30,11 @@ public class GridGenerator {
         float[,] noiseMap = new float[height, width];
         for (int zIndex = 0; zIndex < height; zIndex ++) {
             for (int xIndex = 0; xIndex < width; xIndex++) {
+                
                 // calculate sample indices based on the coordinates and the scale
                 float sampleX = xIndex / scale;
                 float sampleZ = zIndex / scale;
-
-                Debug.Log(sampleX + " "+ sampleZ);
-
+                
                 // generate noise value using PerlinNoise
                 float noise = Mathf.PerlinNoise(sampleX, sampleZ);
                 noiseMap [zIndex, xIndex] = noise;
