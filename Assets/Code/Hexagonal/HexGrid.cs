@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
     
-    public int gridWidth = 10;
-    public int gridHeight = 10;
+    public int gridWidth = 100;
+    public int gridHeight = 100;
     public HexCell hexCellPrefab;
 
     private PlayerController _playerController;
