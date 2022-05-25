@@ -80,13 +80,14 @@ public class HexGrid : MonoBehaviour {
 
     private void InteractWithCell(Vector3 position) {
         var cellIndex = GetCellIndex(position);
-        _playerController.Handle(_cells[cellIndex]);
+        if(_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
     }
 
     private int GetCellIndex(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = hexCoordinates.X + hexCoordinates.Z * gridWidth + hexCoordinates.Z / 2;
+        Debug.Log(hexCoordinates.ToString());
         return cellIndex;
     }
 }
