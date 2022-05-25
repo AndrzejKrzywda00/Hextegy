@@ -10,8 +10,6 @@ public class HexMesh : MonoBehaviour {
     private List<Color> _colors;
     private MeshCollider _collider;
 
-    public HexFeatureManager features;
-
     private void Awake() {
         CreateMeshAndCollider();
         InstantiateLists();
@@ -35,7 +33,6 @@ public class HexMesh : MonoBehaviour {
         ClearData();
         foreach (HexCell hexCell in cells) Triangulate(hexCell);
         GenerateTrianglesFromData();
-        features.Apply();
         AddColliderToMesh();
     }
 
@@ -44,7 +41,6 @@ public class HexMesh : MonoBehaviour {
         _vertices.Clear();
         _triangles.Clear();
         _colors.Clear();
-        features.Clear();
     }
 
     private void Triangulate(HexCell hexCell) {
@@ -56,7 +52,7 @@ public class HexMesh : MonoBehaviour {
                 center + HexMetrics.Corners[i], 
                 center + HexMetrics.Corners[(i + 1) % 6]
                 );
-            AddTriangleColor(hexCell.CellColor(hexCell));
+            AddTriangleColor(hexCell.GetCellColor());
         }
     }
 
