@@ -5,13 +5,18 @@ public class PlayerController : MonoBehaviour {
     private int _coins;
     private int _balance;
     private HexCell _selectedCellWithUnit;
+    public MonoBehaviour prefabFromUI;
+    public HexCell cellTmp;
 
     public int Balance => _balance;
     public int Coins => _coins;
 
     public void Handle(HexCell cell) {
         // TODO refactor or sth to look better
-        if (_selectedCellWithUnit == null) {
+        cellTmp = cell;
+        if (prefabFromUI != null) {
+            HandleEntityBuying(cell);
+        } else if (_selectedCellWithUnit == null) {
              if (cell.HasUnit()) {
                  //cell selected
                  _selectedCellWithUnit = cell;
@@ -30,8 +35,17 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void HandleEntityBuying(HexCell cell) {
+        cell.PutOnCell(prefabFromUI);
+        prefabFromUI = null;
+    }
+
+    public void SetEntityToBuy(MonoBehaviour entity) {
+        prefabFromUI = entity;
+    }
+
     public void EndTurn() {
         _coins += _balance;
-        if (_coins <= 0) throw new NoMoneyException();
+        // if (_coins <= 0) throw new NoMoneyException();
     }
 }
