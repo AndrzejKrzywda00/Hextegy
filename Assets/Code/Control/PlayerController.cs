@@ -46,6 +46,6 @@ public class PlayerController : MonoBehaviour {
 
     public void EndTurn() {
         _coins += _balance;
-        // if (_coins <= 0) throw new NoMoneyException();
+        if (_coins <= 0) throw new NoMoneyException();
     }
 }

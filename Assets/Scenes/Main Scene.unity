@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 918367933}
   - component: {fileID: 918367932}
   - component: {fileID: 918367931}
+  - component: {fileID: 918367934}
   m_Layer: 5
   m_Name: UnitAddingButton
   m_TagString: Untagged
@@ -800,7 +801,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 918367932}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 918367934}
+        m_TargetAssemblyTypeName: UnitButtonControl, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &918367932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +852,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918367929}
   m_CullTransparentMesh: 1
+--- !u!114 &918367934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918367929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1090213087 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7788295410767925922, guid: 50e4dbb5f4872dc48988af602f243210, type: 3}
@@ -861,7 +886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7715f556f2d4f0a9671ae7af1269e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  featurePrefab: {fileID: 7831398855845196592, guid: 163ea88d30034374eb0cc5f969e30918, type: 3}
 --- !u!1 &1256343120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,6 +1294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3245f98e581754da2a9154cb3e7660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabFromUI: {fileID: 0}
+  cellTmp: {fileID: 0}
 --- !u!1 &1699572012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,8 +1325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0663e3db622904dafc345bd7ca2616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 10
-  gridHeight: 10
   hexCellPrefab: {fileID: 3937313493098854687, guid: b0132660a43e6524e8b80d64869dfa43, type: 3}
 --- !u!4 &1699572017
 Transform:

@@ -80,7 +80,7 @@ public class HexGrid : MonoBehaviour {
 
     private void InteractWithCell(Vector3 position) {
         var cellIndex = GetCellIndex(position);
-        if(_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
+        if (_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
     }
 
     private int GetCellIndex(Vector3 position) {
