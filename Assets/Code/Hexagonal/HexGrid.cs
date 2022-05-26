@@ -17,7 +17,7 @@ public class HexGrid : MonoBehaviour {
         _playerController = gameObject.AddComponent<PlayerController>();
         _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
-        _cellPrototypes = new GridGenerator().GenerateGrid(GridWidth, GridHeight);
+        _cellPrototypes = new GridGenerator().GenerateMap(GridWidth, GridHeight);
         CreateCells();
     }
 

@@ -1,49 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GridGenerator {
-    
-    private House _house = Resources.Load<House>("House");
-    private Tree _tree = Resources.Load<Tree>("Tree");
-    private NormalTower _normalTower = Resources.Load<NormalTower>("NormalTower");
-    private SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
-    private NoElement _noElement = Resources.Load<NoElement>("NoElement");
-    private CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
-    
-    // this is capital of the player
-    // use SetPlayerId before adding
-    private Capital _capital = Resources.Load<Capital>("Capital");
-
-    public Cell[] GenerateGrid(int height, int width) {
-        Cell[] cells = new Cell[height * width];
-
-        float[,] perlinNoise = GenerateNoiseMap(height, width, 10);
+namespace Code.Generator {
+    public class GridGenerator {
+        public static MapGrid GenerateGrid(int height, int width) {
+            MapGrid map = new MapGrid(width, height);
+            
+            
+            bool[,] perlinNoise = PerlinNoise.Generate(height, width, 5, 0.4f);
         
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                cells[i * width + j] = CreateCell(perlinNoise[i, j]);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    Cell newCell = new Cell(x, y);
+                    map.setCell(perlinNoise[x, y] ? newCell : null);
+                }
             }
-        }
-        return cells;
-    }
 
-    public float[,] GenerateNoiseMap(int height, int width, float scale) {
-        float[,] noiseMap = new float[height, width];
-        for (int zIndex = 0; zIndex < height; zIndex ++) {
-            for (int xIndex = 0; xIndex < width; xIndex++) {
-                
-                // calculate sample indices based on the coordinates and the scale
-                float sampleX = xIndex / scale;
-                float sampleZ = zIndex / scale;
-                
-                // generate noise value using PerlinNoise
-                float noise = Mathf.PerlinNoise(sampleX, sampleZ);
-                noiseMap [zIndex, xIndex] = noise;
+
+            List<Cell> cells = map.getRing(new Coordinates(10, 10), 5);
+            //map.getCell(new Coordinates(10, 10)).PlayerId = 3;
+            foreach (Cell c in cells) {
+                map.getCell(c.coordinates).PlayerId = 2;
             }
+
+
+            return map;
         }
-        return noiseMap;
-    }
-    
-    private Cell CreateCell(float height) {
-        return height > 0.4 ? new Cell(_noElement) : null;
+        
     }
 }
