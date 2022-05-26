@@ -1270,6 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3245f98e581754da2a9154cb3e7660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedCellWithUnit: {fileID: 0}
   prefabFromUI: {fileID: 0}
 --- !u!1 &1699572012
 GameObject:
