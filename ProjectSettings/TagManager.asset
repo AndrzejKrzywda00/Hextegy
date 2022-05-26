@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Capital
+  - UnitTier1
+  - UnitTier2
+  - UnitTier3
+  - House
+  - Tree
+  - NoElement
+  - TowerTier1
+  - TowerTier2
+  - HexCell
   layers:
   - Default
   - TransparentFX

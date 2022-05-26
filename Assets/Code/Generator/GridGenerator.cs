@@ -20,7 +20,7 @@ namespace Code.Generator {
             List<Cell> cells = map.getRing(new Coordinates(10, 10), 5);
             //map.getCell(new Coordinates(10, 10)).PlayerId = 3;
             foreach (Cell c in cells) {
-                map.getCell(c.coordinates).PlayerId = 2;
+                map.getCell(c.coordinates).PlayerId = 1;
             }
 
 

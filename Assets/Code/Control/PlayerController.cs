@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
         _balance = 0;
     }
 
-    public void Handle(HexCell hexCell) {
+    public void Handleng(HexCell hexCell) {
         // TODO refactor or sth to look better
         if (prefabFromUI != null && hexCell.IsEmpty()) {
             HandleBuyingEntityOnFriendlyCell(hexCell);
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void Handleng(HexCell hexCell) {
+    public void Handle(HexCell hexCell) {
         if (IsItemFromUISelected()) {
             if (hexCell.IsFriendlyCell()) {
                 if (hexCell.IsEmpty() && HasEnoughMoneyToBuyEntity()) {
@@ -120,10 +120,5 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleMovingUnitOnNeutralOrEnemyCell(HexCell hexCell) {
         //TODO move unit, conquer cell, destroy what was there, create new noElement on the cell where unit was before
-    }
-
-    public void EndTurn() {
-        _coins += _balance;
-        if (_coins <= 0) throw new NoMoneyException();
     }
 }

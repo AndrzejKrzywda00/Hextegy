@@ -47,14 +47,12 @@ public class HexMesh : MonoBehaviour {
         if (hexCell == null) return;
         
         Vector3 center = hexCell.transform.localPosition;
-        for (int i = 0; i < HexMetrics.NumOfTrianglesInHexagon; i++)
-        {
+        for (int i = 0; i < HexMetrics.NumOfTrianglesInHexagon; i++) {
             AddTriangleAndColorIt(hexCell, center, i);
         }
     }
 
-    private void AddTriangleAndColorIt(HexCell hexCell, Vector3 center, int i)
-    {
+    private void AddTriangleAndColorIt(HexCell hexCell, Vector3 center, int i) {
         AddTriangle(
             center,
             center + HexMetrics.Corners[i],
