@@ -81,6 +81,11 @@ public class HexGrid : MonoBehaviour {
         return x * GridWidth + z;
     }
 
+    public bool ContainsCellAtCoordinates(HexCoordinates coordinates)
+    {
+        return _cells[GetCellIndexByHexCoordinates(coordinates)] != null;
+    }
+
     private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
         hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab); 
         hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;

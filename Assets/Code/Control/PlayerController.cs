@@ -1,3 +1,4 @@
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -73,7 +74,10 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
-        
+        foreach (HexCoordinates coordinates in neighbors)
+        {
+            grid.ContainsCellAtCoordinates(coordinates);
+        }
         return true;
     }
     
