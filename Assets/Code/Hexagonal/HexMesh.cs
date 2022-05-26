@@ -45,15 +45,22 @@ public class HexMesh : MonoBehaviour {
 
     private void Triangulate(HexCell hexCell) {
         if (hexCell == null) return;
+        
         Vector3 center = hexCell.transform.localPosition;
-        for (int i = 0; i < 6; i++) {
-            AddTriangle (
-                center,
-                center + HexMetrics.Corners[i], 
-                center + HexMetrics.Corners[(i + 1) % 6]
-                );
-            AddTriangleColor(hexCell.GetCellColor());
+        for (int i = 0; i < HexMetrics.NumOfTrianglesInHexagon; i++)
+        {
+            AddTriangleAndColorIt(hexCell, center, i);
         }
+    }
+
+    private void AddTriangleAndColorIt(HexCell hexCell, Vector3 center, int i)
+    {
+        AddTriangle(
+            center,
+            center + HexMetrics.Corners[i],
+            center + HexMetrics.Corners[(i + 1) % HexMetrics.NumOfTrianglesInHexagon]
+        );
+        AddTriangleColor(hexCell.GetCellColor());
     }
 
     private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
