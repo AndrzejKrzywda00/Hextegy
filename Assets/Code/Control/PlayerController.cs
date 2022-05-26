@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour { 
+public class PlayerController : MonoBehaviour {
     
     public static int CurrentPlayerId = 1;
     public HexCell selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
+    
+    // grid is necessary, without it we can't perform any neighbor checking operations
+    // instance bind via editor
+    public HexGrid grid;
         
     private int _coins;
     private int _balance;
@@ -69,6 +73,7 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
+        
         return true;
     }
     
