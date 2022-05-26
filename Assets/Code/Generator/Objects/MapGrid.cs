@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Code.Generator {
     public class MapGrid {
@@ -21,27 +20,51 @@ namespace Code.Generator {
         }
 
         public Cell getCell(Coordinates coordinates) {
-            if (!isCoordinateOk(coordinates)) throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
+            if (!isCoordinateOk(coordinates))
+                throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
             return cells[coordinates.x * width + coordinates.y];
         }
 
         public void setCell(Cell cell) {
             if (cell == null) return;
-            if (!isCoordinateOk(cell.coordinates)) throw new ArgumentOutOfRangeException("Out of range :) " + cell.coordinates.toString());
-            Debug.Log(cell.coordinates.toString() + " len: " + cells.Length + " i: " + (cell.coordinates.x * width + cell.coordinates.y));
+            if (!isCoordinateOk(cell.coordinates))
+                throw new ArgumentOutOfRangeException("Out of range :) " + cell.coordinates.toString());
             cells[cell.coordinates.x * width + cell.coordinates.y] = cell;
+        }
+
+        public Cell getRandomCell() {
+            return getClosestCell(Coordinates.Random(width, height));
         }
 
         public Cell getClosestCell(Coordinates coordinates) {
             if (getCell(coordinates) != null) return getCell(coordinates);
-            throw new Exception("XDD");
+
+            for (int r = 1; r < Math.Max(width, height); r++) {
+                foreach (Cell cell in getRing(coordinates, r)) {
+                    if (cell != null) return cell;
+                }
+            }
+
+            return null;
         }
 
         public List<Cell> getRing(Coordinates coordinates, int radius) {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
-                if(cell == null) continue;
+                if (cell == null) continue;
                 if (Coordinates.Distance(coordinates, cell.coordinates) == radius) {
+                    radiusCells.Add(cell);
+                }
+            }
+
+            return radiusCells;
+        }
+        
+        public List<Cell> getCircle(Coordinates coordinates, int radius) {
+            List<Cell> radiusCells = new List<Cell>();
+            foreach (Cell cell in cells) {
+                if (cell == null) continue;
+                if (Coordinates.Distance(coordinates, cell.coordinates) <= radius) {
                     radiusCells.Add(cell);
                 }
             }

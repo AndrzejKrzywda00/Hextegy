@@ -10,18 +10,18 @@ public class Cell {
     
 
     public Cell(int x, int y) {
-        coordinates = new Coordinates(x, y);
-        
-        Prefab = Resources.Load<NoElement>("NoElement");
+        this.coordinates = new Coordinates(x, y);
+
+        Prefab = Prefabs.getNoElement();
         PlayerId = 0;
     }
     
-    public Cell(Coordinates coordinates, int playerId) {
+    public Cell(Coordinates coordinates) {
         this.coordinates = coordinates;
-        this.PlayerId = playerId;
-        
-        Prefab = Resources.Load<NoElement>("NoElement");
+
+        Prefab = Prefabs.getNoElement();
         PlayerId = 0;
     }
+    
     
 }
