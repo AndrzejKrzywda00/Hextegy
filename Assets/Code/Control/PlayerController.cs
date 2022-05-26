@@ -76,9 +76,11 @@ public class PlayerController : MonoBehaviour {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
         foreach (HexCoordinates coordinates in neighbors)
         {
-            grid.ContainsCellAtCoordinates(coordinates);
+            HexCell neighborCell = grid.CellAtCoordinates(coordinates);
+            if (neighborCell == null) continue;
+            if (neighborCell.playerId == CurrentPlayerId) return true;
         }
-        return true;
+        return false;
     }
     
     private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
