@@ -11,7 +11,7 @@ public class Pathfinder {
     
     private HexCell destination;
     private HexCell source;
-    private List<HexCell> openList;
+    private SortedList<HexCell, float> openList;
     private List<HexCell> closedList;
     private float scaleOfDistanceMetric;
 
@@ -21,7 +21,8 @@ public class Pathfinder {
     }
 
     private void InitializePathfindingProcess(HexCell from) {
-        openList.Add(from);
+        openList = new SortedList<HexCell, float>();
+        openList.Add(from, CalculateMetricOfCell(from));
     }
 
     private HexCoordinates[] CalculatePathFromTo(HexCell from, HexCell to) {
