@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
-        //TODO implement checking if cell is bordering friendly cell
+        HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
         return true;
     }
     

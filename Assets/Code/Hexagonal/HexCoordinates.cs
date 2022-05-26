@@ -56,16 +56,15 @@ public struct HexCoordinates {
         return x + "\n" + Y + "\n" + z;
     }
 
-    public HexCoordinates[] NeighborsOf(HexCoordinates hexCoordinates) {
-        const int neighborsInHex = 6;
-        HexCoordinates[] neighbors = new HexCoordinates[neighborsInHex];
+    public HexCoordinates[] Neighbors() {
+        HexCoordinates[] neighbors = new HexCoordinates[HexMetrics.NumOfTrianglesInHexagon];
         
-        neighbors[0] = FromOffsetCoordinates(hexCoordinates.x - 1, hexCoordinates.z + 1);
-        neighbors[1] = FromOffsetCoordinates(hexCoordinates.x, hexCoordinates.z + 1);
-        neighbors[2] = FromOffsetCoordinates(hexCoordinates.x + 1, hexCoordinates.z);
-        neighbors[3] = FromOffsetCoordinates(hexCoordinates.x + 1, hexCoordinates.z - 1);
-        neighbors[4] = FromOffsetCoordinates(hexCoordinates.x, hexCoordinates.z - 1);
-        neighbors[5] = FromOffsetCoordinates(hexCoordinates.x - 1, hexCoordinates.z);
+        neighbors[0] = FromOffsetCoordinates(x - 1, z + 1);
+        neighbors[1] = FromOffsetCoordinates(x, z + 1);
+        neighbors[2] = FromOffsetCoordinates(x + 1, z);
+        neighbors[3] = FromOffsetCoordinates(x + 1, z - 1);
+        neighbors[4] = FromOffsetCoordinates(x, z - 1);
+        neighbors[5] = FromOffsetCoordinates(x - 1, z);
         
         return neighbors;
     }
