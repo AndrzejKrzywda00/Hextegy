@@ -75,11 +75,11 @@ public class HexMesh : MonoBehaviour {
     private void GenerateTrianglesFromData() {
         SetVerticesToMesh();
         SetTrianglesToMesh();
-        SetColorToMesh();
+        SetColorsToMesh();
         _hexMesh.RecalculateNormals();
     }
 
-    private void SetColorToMesh()
+    private void SetColorsToMesh()
     {
         _hexMesh.colors = _colors.ToArray();
     }
