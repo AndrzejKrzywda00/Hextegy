@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovingUnitOnFriendlyCells(HexCell hexCell) {
         (hexCell.prefabInstance, selectedCellWithUnit.prefabInstance) = (selectedCellWithUnit.prefabInstance, hexCell.prefabInstance);
         hexCell.AlignPrefabInstancePositionWithCellPosition();
+        hexCell.playerId = selectedCellWithUnit.playerId;       // adding color to the new cell
         selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
         selectedCellWithUnit = null;
     }

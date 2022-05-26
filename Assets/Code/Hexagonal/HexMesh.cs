@@ -71,14 +71,29 @@ public class HexMesh : MonoBehaviour {
         _colors.Add(color);
         _colors.Add(color);
     }
-
+    
     private void GenerateTrianglesFromData() {
-        _hexMesh.vertices = _vertices.ToArray();
-        _hexMesh.triangles = _triangles.ToArray();
-        _hexMesh.colors = _colors.ToArray();
+        SetVerticesToMesh();
+        SetTrianglesToMesh();
+        SetColorToMesh();
         _hexMesh.RecalculateNormals();
     }
-    
+
+    private void SetColorToMesh()
+    {
+        _hexMesh.colors = _colors.ToArray();
+    }
+
+    private void SetTrianglesToMesh()
+    {
+        _hexMesh.triangles = _triangles.ToArray();
+    }
+
+    private void SetVerticesToMesh()
+    {
+        _hexMesh.vertices = _vertices.ToArray();
+    }
+
     private void AddColliderToMesh() {
         _collider.sharedMesh = _hexMesh;
     }

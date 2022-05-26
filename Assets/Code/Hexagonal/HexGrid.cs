@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
+    
     private const int GridWidth = 100;
     private const int GridHeight = 100;
     
@@ -87,7 +88,6 @@ public class HexGrid : MonoBehaviour {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = hexCoordinates.X + hexCoordinates.Z * GridWidth + hexCoordinates.Z / 2;
-        Debug.Log(hexCoordinates.ToString());
         return cellIndex;
     }
 }
