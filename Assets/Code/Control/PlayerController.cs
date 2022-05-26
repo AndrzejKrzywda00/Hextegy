@@ -1,36 +1,21 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public static int CurrentPlayerId = 1;
     
-    private int _coins;
-    private int _balance;
+    public static int CurrentPlayerId = 1;
     public HexCell selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
-
+    
+    // grid is necessary, without it we can't perform any neighbor checking operations
+    // instance bind via editor
+    public HexGrid grid;
+        
+    private int _coins;
+    private int _balance;
+    
     private void Start() {
         _coins = 10;
         _balance = 0;
-    }
-
-    public void Handleng(HexCell hexCell) {
-        // TODO refactor or sth to look better
-        if (prefabFromUI != null && hexCell.IsEmpty()) {
-            HandleBuyingEntityOnFriendlyCell(hexCell);
-        } else if (selectedCellWithUnit == null) {
-            if (hexCell.HasUnit()) {
-                //cell selected
-                selectedCellWithUnit = hexCell;
-            }
-        } else {
-            if (hexCell.Equals(selectedCellWithUnit)) {
-                //the same cell unselected
-                selectedCellWithUnit = null;
-            } else if (hexCell.IsEmpty()) {
-                //unit moved to the different empty cell
-                HandleMovingUnitOnFriendlyCell(hexCell);
-            }
-        }
     }
 
     public void Handle(HexCell hexCell) {
@@ -87,7 +72,8 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
-        //TODO implement checking if cell is bordering friendly cell
+        HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
+        
         return true;
     }
     

@@ -38,6 +38,11 @@ public class HexCell : MonoBehaviour {
             _ => throw new ArgumentException()
         };
     }
+
+    public HexCoordinates[] NeighborsCoordinates()
+    {
+        return coordinates.Neighbors();
+    }
     
     public bool IsEmpty() {
         return prefabInstance.name.Equals("NoElement(Clone)");

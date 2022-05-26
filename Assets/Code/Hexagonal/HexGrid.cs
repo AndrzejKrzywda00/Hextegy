@@ -57,16 +57,28 @@ public class HexGrid : MonoBehaviour {
         };
     }
 
-    private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
-        int prototypeIndex = x * GridWidth + z;
+    private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position)
+    {
+        int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
         
+        // TODO -- refactor this to new method
         HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
         Transform cellTransform = hexCell.transform;
         cellTransform.SetParent(transform, false); 
         cellTransform.localPosition = position; 
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         MapPrototypeToHexCell(prototypeIndex, hexCell);
+    }
+
+    public int GetCellIndexByHexCoordinates(HexCoordinates coordinates)
+    {
+        return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
+    }
+
+    public int GetCellIndexByPosition(int x, int z)
+    {
+        return x * GridWidth + z;
     }
 
     private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
@@ -88,7 +100,7 @@ public class HexGrid : MonoBehaviour {
     private int GetCellIndex(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
-        int cellIndex = hexCoordinates.X + hexCoordinates.Z * GridWidth + hexCoordinates.Z / 2;
+        int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
     }
 }
