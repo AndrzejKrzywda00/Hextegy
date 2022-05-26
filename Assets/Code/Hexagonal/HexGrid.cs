@@ -72,14 +72,12 @@ public class HexGrid : MonoBehaviour {
         MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
-    public int GetCellIndexByHexCoordinates(HexCoordinates coordinates)
-    {
-        return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
+    public int GetCellIndexByPosition(int x, int z) {
+        return x * GridWidth + z;
     }
 
-    public int GetCellIndexByPosition(int x, int z)
-    {
-        return x * GridWidth + z;
+    public int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
+        return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
     }
 
     public HexCell CellAtCoordinates(HexCoordinates coordinates) {

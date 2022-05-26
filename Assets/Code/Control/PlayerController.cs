@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -71,11 +72,9 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
-        foreach (HexCoordinates coordinates in neighbors)
-        {
+        foreach (HexCoordinates coordinates in neighbors) {
             HexCell neighborCell = _grid.CellAtCoordinates(coordinates);
-            if (neighborCell == null) continue;
-            if (neighborCell.playerId == CurrentPlayerId) return true;
+            if (neighborCell != null && neighborCell.IsFriendlyCell()) return true;
         }
         return false;
     }
@@ -89,6 +88,10 @@ public class PlayerController : MonoBehaviour {
     private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
         HandleBuyingEntityOnFriendlyCell(hexCell);
         AdjustCellColor(hexCell);
+    }
+
+    private void AdjustCellColor(HexCell hexCell) {
+        hexCell.playerId = selectedCellWithUnit.playerId;
     }
 
     private bool IsSomeCellAlreadySelected() {
@@ -108,9 +111,5 @@ public class PlayerController : MonoBehaviour {
         selectedCellWithUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
         selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
         selectedCellWithUnit = null;
-    }
-
-    private void AdjustCellColor(HexCell hexCell) {
-        hexCell.playerId = selectedCellWithUnit.playerId;
     }
 }
