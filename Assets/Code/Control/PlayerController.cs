@@ -6,15 +6,13 @@ public class PlayerController : MonoBehaviour {
     public static int CurrentPlayerId = 1;
     public HexCell selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
-    
-    // grid is necessary, without it we can't perform any neighbor checking operations
-    // instance bind via editor
-    public HexGrid grid;
+    private HexGrid _grid;
         
     private int _coins;
     private int _balance;
     
     private void Start() {
+        _grid = FindObjectOfType<HexGrid>();
         _coins = 10;
         _balance = 0;
     }
@@ -76,7 +74,7 @@ public class PlayerController : MonoBehaviour {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
         foreach (HexCoordinates coordinates in neighbors)
         {
-            HexCell neighborCell = grid.CellAtCoordinates(coordinates);
+            HexCell neighborCell = _grid.CellAtCoordinates(coordinates);
             if (neighborCell == null) continue;
             if (neighborCell.playerId == CurrentPlayerId) return true;
         }
