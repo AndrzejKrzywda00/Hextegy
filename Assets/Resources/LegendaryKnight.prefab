@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8841727868414216549}
   m_Layer: 0
   m_Name: LegendaryKnight
-  m_TagString: Untagged
+  m_TagString: UnitTier3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

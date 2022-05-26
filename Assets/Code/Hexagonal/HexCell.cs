@@ -63,23 +63,23 @@ public class HexCell : MonoBehaviour {
         return UnitNames.Contains(prefabInstance.name);
     }
 
-    private bool IsEnemyCell(HexCell cell) {
+    public bool IsEnemyCell() {
         // different than this and not neutral
-        return cell.playerId != playerId && cell.playerId != 0;
+        return playerId != PlayerController.CurrentPlayerId && playerId != 0;
     }
 
-    private bool IsFriendlyCell(HexCell cell) {
-        return cell.playerId == playerId;
+    public bool IsFriendlyCell() {
+        return playerId == PlayerController.CurrentPlayerId;
     }
 
     // ------------------------ ACCESS TYPES ------------------------
 
-    public bool NoConditionAccess(HexCell source) {
-        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell(source));
+    public bool NoConditionAccess() {
+        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell());
     }
 
     public bool EnemyUnitWeakerAccess(HexCell source) {
-        if (!IsEnemyCell(source)) return false;
+        if (!source.IsEnemyCell()) return false;
         
         // towers & units are treated likewise here
         IComparable sourceUnit = (IComparable) source.prefabInstance;
@@ -88,7 +88,7 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool SamePlayerUnitPromotionAccess(HexCell source) {
-        if (IsFriendlyCell(source) && HasUnit()) {
+        if (source.IsFriendlyCell() && HasUnit()) {
             Debug.Log("Here perform promotion");
         }
         return false;

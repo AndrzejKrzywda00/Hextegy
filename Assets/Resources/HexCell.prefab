@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3937313493098854687}
   m_Layer: 0
   m_Name: HexCell
-  m_TagString: Untagged
+  m_TagString: HexCell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,4 +112,6 @@ MonoBehaviour:
   coordinates:
     x: 0
     z: 0
-  prefab: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  prefabInstance: {fileID: 0}
+  playerId: 0
