@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Code.Generator {
     public class PerlinNoise {
         public static Boolean[,] Generate(int height, int width, float scale, float heightTrigger) {
             float offsetX = Random.value * scale;
@@ -23,4 +22,3 @@ namespace Code.Generator {
             return noiseMap;
         }
     }
-}
