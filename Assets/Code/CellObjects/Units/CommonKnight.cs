@@ -3,7 +3,7 @@ using UnityEngine;
 public class CommonKnight : MonoBehaviour, IComparable {
 
     private int _price = 10;
-    private int _maintainCost = 1;
+    private int _maintainCost = 2;
 
     public int Price => _price;
     public int MaintainCost => _maintainCost;

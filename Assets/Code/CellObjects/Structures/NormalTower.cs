@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class NormalTower : MonoBehaviour, IComparable {
     
-    private int _price;
+    private int _price = 15;
+    private int _maintainCost = 1;
     public int Price => _price;
-
-    private void Start() {
-        _price = 15;
-    }
+    public int MaintainCost => _maintainCost;
 
     public bool IsWeakerThan(IComparable unit) {
         return Level() - unit.Level() < 0;
