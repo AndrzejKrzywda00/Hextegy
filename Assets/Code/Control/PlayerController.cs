@@ -34,13 +34,13 @@ public class PlayerController : MonoBehaviour {
             if (IsSomeCellAlreadySelected()) {
                 if (IsCellInUnitMovementRange(hexCell)) {
                     if (hexCell.IsFriendlyCell()) {
-                        if (hexCell.IsEmpty()) {
-                            HandleMovingUnitOnFriendlyCell(hexCell);
+                        if (hexCell.IsEmpty() || hexCell.HasTree()) {
+                            HandleMovingUnit(hexCell);
                             return;
                         }
                     } else {
                         if (IsObjectOnCellWeakEnoughToMoveUnitThere(hexCell)) {
-                            HandleMovingUnitOnNeutralOrEnemyCell(hexCell);
+                            HandleMovingUnit(hexCell);
                             return;
                         }
                     }
@@ -99,15 +99,8 @@ public class PlayerController : MonoBehaviour {
         //TODO implement checking if cell is in unit movement range
         return true;
     }
-    
-    private void HandleMovingUnitOnFriendlyCell(HexCell hexCell) {
-        (hexCell.prefabInstance, selectedCellWithUnit.prefabInstance) = (selectedCellWithUnit.prefabInstance, hexCell.prefabInstance);
-        hexCell.AlignPrefabInstancePositionWithCellPosition();
-        selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
-        selectedCellWithUnit = null;
-    }
 
-    private void HandleMovingUnitOnNeutralOrEnemyCell(HexCell hexCell) {
+    private void HandleMovingUnit(HexCell hexCell) {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();
