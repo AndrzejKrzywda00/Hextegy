@@ -73,7 +73,7 @@ public class HexGrid : MonoBehaviour {
 
     public int GetCellIndexByHexCoordinates(HexCoordinates coordinates)
     {
-        return coordinates.X * GridWidth + coordinates.Z;
+        return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
     }
 
     public int GetCellIndexByPosition(int x, int z)
@@ -100,7 +100,7 @@ public class HexGrid : MonoBehaviour {
     private int GetCellIndex(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
-        int cellIndex = hexCoordinates.X + hexCoordinates.Z * GridWidth + hexCoordinates.Z / 2;
+        int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
     }
 }
