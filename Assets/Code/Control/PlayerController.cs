@@ -6,14 +6,11 @@ public class PlayerController : MonoBehaviour {
     public HexCell selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
     private HexGrid _grid;
-        
-    private int _coins;
-    private int _balance;
+    private MoneyManager _moneyManager;
     
     private void Start() {
         _grid = FindObjectOfType<HexGrid>();
-        _coins = 10;
-        _balance = 0;
+        _moneyManager = FindObjectOfType<MoneyManager>();
     }
 
     public void Handle(HexCell hexCell) {
@@ -60,8 +57,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
-        //TODO implement checking amount of money when buying
-        return true;
+        return _moneyManager.HasEnoughMoneyToBuy((IBuyable)prefabFromUI);
     }
     
     private bool IsObjectOnCellWeakEnoughToMoveUnitThere(HexCell hexCell) {
@@ -83,6 +79,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.PutOnCell(prefabFromUI);
+        _moneyManager.Buy((IBuyable)prefabFromUI);
         prefabFromUI = null;
     }
 
