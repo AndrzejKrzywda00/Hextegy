@@ -2,33 +2,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    private int _playerId;
     private int _coins;
     private int _balance;
-    private HexCell _selectedCellWithUnit;
+    public HexCell selectedCellWithUnit;
     public MonoBehaviour prefabFromUI;
 
-    public int Balance => _balance;
-    public int Coins => _coins;
+    private void Start() {
+        _playerId = 1;
+    }
 
-    public void Handle(HexCell cell) {
+    public void Handle(HexCell hexCell) {
         // TODO refactor or sth to look better
-        if (prefabFromUI != null && cell.IsEmpty()) {
-            HandleEntityBuying(cell);
-        } else if (_selectedCellWithUnit == null) {
-             if (cell.HasUnit()) {
-                 //cell selected
-                 _selectedCellWithUnit = cell;
-             }
+        if (prefabFromUI != null && hexCell.IsEmpty()) {
+            HandleEntityBuying(hexCell);
+        } else if (selectedCellWithUnit == null) {
+            if (hexCell.HasUnit()) {
+                //cell selected
+                selectedCellWithUnit = hexCell;
+            }
         } else {
-            if (cell.Equals(_selectedCellWithUnit)) {
+            if (hexCell.Equals(selectedCellWithUnit)) {
                 //the same cell unselected
-                _selectedCellWithUnit = null;
-            } else if (cell.IsEmpty()) {
+                selectedCellWithUnit = null;
+            } else if (hexCell.IsEmpty()) {
                 //unit moved to the different empty cell
-                (cell.prefabInstance, _selectedCellWithUnit.prefabInstance) = (_selectedCellWithUnit.prefabInstance, cell.prefabInstance);
-                cell.AlignPrefabInstancePositionWithCellPosition();
-                _selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
-                _selectedCellWithUnit = null;
+                HandleMovingUnitOnFriendlyCells(hexCell);
             }
         }
     }
@@ -37,6 +36,14 @@ public class PlayerController : MonoBehaviour {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.PutOnCell(prefabFromUI);
         prefabFromUI = null;
+    }
+
+    private void HandleMovingUnitOnFriendlyCells(HexCell hexCell) {
+        (hexCell.prefabInstance, selectedCellWithUnit.prefabInstance) = (selectedCellWithUnit.prefabInstance, hexCell.prefabInstance);
+        hexCell.AlignPrefabInstancePositionWithCellPosition();
+        hexCell.playerId = selectedCellWithUnit.playerId;       // adding color to the new cell
+        selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
+        selectedCellWithUnit = null;
     }
 
     public void EndTurn() {

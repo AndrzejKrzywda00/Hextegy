@@ -15,8 +15,6 @@ public class HexCell : MonoBehaviour {
     public MonoBehaviour prefabInstance;
     public int playerId;
 
-    public Vector3 Position => transform.localPosition;
-
     public void PutOnCell(MonoBehaviour prefab) {
         prefabInstance = Instantiate(prefab);
         AlignPrefabInstancePositionWithCellPosition();
@@ -28,8 +26,7 @@ public class HexCell : MonoBehaviour {
         prefabInstance.transform.position = position;
     }
 
-    public Color CellColor(HexCell cell) {
-        int playerId = cell.playerId;
+    public Color GetCellColor() {
         return playerId switch {
             0 => Color.gray,
             1 => new Color32(95, 181, 94, 255),         // olive green
@@ -54,10 +51,14 @@ public class HexCell : MonoBehaviour {
         return prefabInstance.name.Equals("Tree(Clone)");
     }
 
-    private bool HasHouse() {
+    public bool HasHouse() {
         return prefabInstance.name.Equals("House(Clone)");
     }
 
+    public bool HasTower() {
+        return prefabInstance.name.Equals("NormalTower(Clone)") || prefabInstance.name.Equals("SuperTower(Clone)");
+    }
+    
     public bool HasUnit() {
         return UnitNames.Contains(prefabInstance.name);
     }
