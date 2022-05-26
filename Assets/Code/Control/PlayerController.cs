@@ -90,7 +90,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
-        //TODO buy unit, conquer cell, destroy what was there
+        HandleBuyingEntityOnFriendlyCell(hexCell);
+        AdjustCellColor(hexCell);
     }
 
     private bool IsSomeCellAlreadySelected() {
@@ -114,9 +115,13 @@ public class PlayerController : MonoBehaviour {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();
-        hexCell.playerId = selectedCellWithUnit.playerId;       // adding color to the new cell
+        AdjustCellColor(hexCell);
         selectedCellWithUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
         selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
         selectedCellWithUnit = null;
+    }
+
+    private void AdjustCellColor(HexCell hexCell) {
+        hexCell.playerId = selectedCellWithUnit.playerId;
     }
 }
