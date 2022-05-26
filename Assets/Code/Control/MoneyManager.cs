@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Code.CellObjects;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour {

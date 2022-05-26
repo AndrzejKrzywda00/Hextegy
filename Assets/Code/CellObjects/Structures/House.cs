@@ -1,4 +1,3 @@
-using Code.CellObjects;
 using UnityEngine;
 
 public class House : MonoBehaviour, IBuyable {

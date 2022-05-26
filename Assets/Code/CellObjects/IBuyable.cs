@@ -1,6 +1,4 @@
-namespace Code.CellObjects {
-    public interface IBuyable {
-        int GetPrice();
-        int GetMaintenanceCost();
-    }
+public interface IBuyable {
+    int GetPrice();
+    int GetMaintenanceCost();
 }
