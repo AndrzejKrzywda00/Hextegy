@@ -1,19 +1,21 @@
+using Code.CellObjects;
 using UnityEngine;
 
-public class House : MonoBehaviour {
+public class House : MonoBehaviour, IBuyable {
     
     private int _moneyGeneratedPerTurn;
     private int _price;
-
-    public int Price => _price;
-    public int MoneyPerTurn => _moneyGeneratedPerTurn;
 
     private void Start() {
         _moneyGeneratedPerTurn = 4;
         _price = 12;
     }
+    
+    public int GetPrice() {
+        return _price;
+    }
 
-    private void IncreasePrice() { 
-        _price += 2;
+    public int GetMaintenanceCost() {
+        return -_moneyGeneratedPerTurn;
     }
 }
