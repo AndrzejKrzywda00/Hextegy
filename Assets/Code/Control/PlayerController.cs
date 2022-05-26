@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     public void Handle(HexCell hexCell) {
         if (IsItemFromUISelected()) {
             if (hexCell.IsFriendlyCell()) {
-                if (hexCell.IsEmpty() && HasEnoughMoneyToBuyEntity()) {
+                if ((hexCell.IsEmpty() || hexCell.HasTree()) && HasEnoughMoneyToBuyEntity()) {
                     HandleBuyingEntityOnFriendlyCell(hexCell);
                     return;
                 }
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void AdjustCellColor(HexCell hexCell) {
-        hexCell.playerId = selectedCellWithUnit.playerId;
+        hexCell.playerId = CurrentPlayerId;
     }
 
     private bool IsSomeCellAlreadySelected() {
