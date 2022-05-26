@@ -1,4 +1,3 @@
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -109,7 +108,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleMovingUnitOnNeutralOrEnemyCell(HexCell hexCell) {
-        //TODO move unit, conquer cell, destroy what was there, create new noElement on the cell where unit was before
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();
