@@ -11,7 +11,7 @@ using UnityEngine.XR;
  */
 public class Pathfinder : MonoBehaviour {
     
-    private HexCell destination;
+    private Node destination;
     private HexCell source;
     private List<Node> _openList;
     private List<HexCell> _closedList;
@@ -30,7 +30,7 @@ public class Pathfinder : MonoBehaviour {
 
     private void InitializePathfindingProcess(HexCell from) {
         _openList = new List<Node>();
-        _openList.Add(new Node(from, CalculateMetricOfCell(from), null));
+        _openList.Add(new Node(from, Mathf.Infinity, null));
         _closedList = new List<HexCell>();
     }
 
@@ -44,8 +44,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private HexCoordinates[] GeneratePathBasedOnLists() {
-        // TODO -- fix this to actually work
-        var node = new Node(new HexCell());
+        var node = destination;
         List<HexCoordinates> path = new List<HexCoordinates>();
         while (node.Parent != null) {
             path.Add(node.GetCell.coordinates);
@@ -67,25 +66,58 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private void HandleNeighborCells(HexCoordinates[] coordinates, Node parentNode) {
-        List<HexCell> neighborCells = new List<HexCell>();
-        foreach (HexCoordinates coordinate in coordinates) {
-            var hexCell = _grid.CellAtCoordinates(coordinate);
-            if(CellDoesntExistOrIsInClosedList(hexCell)) continue;
-            _openList.Add(new Node(hexCell, CalculateMetricOfCell(hexCell), parentNode));
-            if (IsDestination(hexCell)) break;
+        List<HexCell> neighborCells = GenerateNeighbors(coordinates);
+
+        foreach (HexCell neighbor in neighborCells) {
+            if (IsDestination(neighbor)) {
+                destination.SetParent(parentNode);
+                break;
+            }
+            Node node = CreateNode(parentNode, neighbor);
+            if (OpenListContainsNodeWithLowerMetric(node)) continue;
+            if (ClosedListContainsNode(node)) continue;
+            _openList.Add(node);
         }
     }
 
+    private bool ClosedListContainsNode(Node node) {
+        HexCell cellFromList = _closedList.Find(cellInList => cellInList.Equals(node.GetCell));
+        if (cellFromList != null) return true;
+        return false;
+    }
+
+    private bool OpenListContainsNodeWithLowerMetric(Node node) {
+        Node nodeFromList = _openList.Find(nodeInList => nodeInList.GetCell.Equals(node.GetCell));
+        if (nodeFromList != null && nodeFromList.Metric < node.Metric) return true;
+        return false;
+    }
+
+    private Node CreateNode(Node parentNode, HexCell neighbor) {
+        return new Node(neighbor, CalculateMetricOfCell(parentNode, neighbor), parentNode);
+    }
+
+    private List<HexCell> GenerateNeighbors(HexCoordinates[] coordinates) {
+        List<HexCell> neighborCells = new List<HexCell>();
+        
+        foreach (HexCoordinates coordinate in coordinates) {
+            var hexCell = _grid.CellAtCoordinates(coordinate);
+            if(CellDoesntExist(hexCell)) continue;
+            neighborCells.Add(hexCell);
+        }
+
+        return neighborCells;
+    }
+
     private bool IsDestination(HexCell hexCell) {
-        return hexCell == destination;
+        return hexCell == destination.GetCell;
     }
 
-    private bool CellDoesntExistOrIsInClosedList(HexCell hexCell) {
-        return hexCell == null || _closedList.Contains(hexCell);
+    private bool CellDoesntExist(HexCell hexCell) {
+        return hexCell == null;
     }
 
-    private float CalculateMetricOfCell(HexCell cell) {
-        return _scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, destination);
+    private float CalculateMetricOfCell(Node parentNode, HexCell cell) {
+        return _scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, destination.GetCell) + cell.HexDistanceTo(parentNode.GetCell);
     }
 
     private float GaussianDistanceBetweenCells(HexCell c1, HexCell c2) {
