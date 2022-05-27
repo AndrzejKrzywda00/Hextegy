@@ -21,11 +21,11 @@ public class Pathfinder : MonoBehaviour {
     private void Awake() {
         _grid = FindObjectOfType<HexGrid>();
     }
-
+    
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
         _scaleOfDistanceMetric = 1f;
         InitializePathfindingProcess(from);
-        return CalculatePathFromTo(from, to).Length > 2;        // from and to always inside
+        return CalculatePathFromTo(from, to).Length > 2;
     }
 
     private void InitializePathfindingProcess(HexCell from) {
@@ -35,13 +35,15 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private HexCoordinates[] CalculatePathFromTo(HexCell from, HexCell to) {
-        
         while (_openList.Count > 0) {
             var lowestMetricNode = _openList[0];
             ExpandNode(lowestMetricNode);
             SortOpenListByMetric();
         }
+        return GeneratePathBasedOnLists();
+    }
 
+    private HexCoordinates[] GeneratePathBasedOnLists() {
         return new HexCoordinates[2];
     }
 
@@ -79,7 +81,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private float GaussianDistanceBetweenCells(HexCell c1, HexCell c2) {
-        return Mathf.Sqrt((c1.coordinates.X - c2.coordinates.X) ^ 2 + (c1.coordinates.Z - c1.coordinates.Z) ^ 2);
+        return Mathf.Sqrt((c1.coordinates.X - c2.coordinates.X) ^ 2 + (c1.coordinates.Z - c2.coordinates.Z) ^ 2);
     }
 
 }

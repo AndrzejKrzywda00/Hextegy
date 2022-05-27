@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -70,5 +71,9 @@ public struct HexCoordinates {
         neighbors[5] = new HexCoordinates(x - 1, z);
         
         return neighbors;
+    }
+
+    public int DistanceTo(HexCoordinates coordinates) {
+        return Math.Abs(x - coordinates.X) + Math.Abs(Y - coordinates.Y) + Math.Abs(z - coordinates.Z);
     }
 }

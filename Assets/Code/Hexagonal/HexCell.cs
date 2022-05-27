@@ -75,8 +75,11 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool IsEnemyCell() {
-        // different than this and not neutral
         return playerId != PlayerController.CurrentPlayerId && playerId != 0;
+    }
+
+    public int HexDistanceTo(HexCell hexCell) {
+        return coordinates.DistanceTo(hexCell.coordinates);
     }
 
     public bool IsFriendlyCell() {
