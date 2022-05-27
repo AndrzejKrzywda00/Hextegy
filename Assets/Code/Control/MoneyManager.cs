@@ -13,12 +13,12 @@ public class MoneyManager : MonoBehaviour {
         return _balance;
     }
 
-    public void Buy(IBuyable entity) {
+    public void Buy(CellObject entity) {
         _currentMoney -= entity.GetPrice();
         _balance -= entity.GetMaintenanceCost();
     }
 
-    public bool HasEnoughMoneyToBuy(IBuyable entity) {
+    public bool HasEnoughMoneyToBuy(CellObject entity) {
         return entity.GetPrice() <= _currentMoney;
     }
 

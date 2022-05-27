@@ -1,11 +1,10 @@
-using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     
     public static int CurrentPlayerId = 1;
     public HexCell selectedCellWithUnit;
-    public MonoBehaviour prefabFromUI;
+    public CellObject prefabFromUI;
     private HexGrid _grid;
     private MoneyManager _moneyManager;
     
@@ -16,15 +15,17 @@ public class PlayerController : MonoBehaviour {
 
     public void Handle(HexCell hexCell) {
         if (IsItemFromUISelected()) {
-            if (hexCell.IsFriendlyCell()) {
-                if ((hexCell.IsEmpty() || hexCell.HasTree()) && HasEnoughMoneyToBuyEntity()) {
-                    HandleBuyingEntityOnFriendlyCell(hexCell);
-                    return;
-                }
-            } else {
-                if (IsObjectOnCellWeakEnoughToMoveUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
-                    HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
-                    return;
+            if (HasEnoughMoneyToBuyEntity()) {
+                if (hexCell.IsFriendlyCell()) {
+                    if (hexCell.IsEmpty() || hexCell.HasTree()) {
+                        HandleBuyingEntityOnFriendlyCell(hexCell);
+                        return;
+                    }
+                } else {
+                    if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                        HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
+                        return;
+                    }
                 }
             }
             prefabFromUI = null;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour {
                             return;
                         }
                     } else {
-                        if (IsObjectOnCellWeakEnoughToMoveUnitThere(hexCell)) {
+                        if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell)) {
                             HandleMovingUnit(hexCell);
                             return;
                         }
@@ -58,10 +59,10 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
-        return _moneyManager.HasEnoughMoneyToBuy((IBuyable)prefabFromUI);
+        return _moneyManager.HasEnoughMoneyToBuy((CellObject)prefabFromUI);
     }
     
-    private bool IsObjectOnCellWeakEnoughToMoveUnitThere(HexCell hexCell) {
+    private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
         //TODO implement checking if object on non friendly cell is weak enough to move our unit there
         return true;
     }
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.PutOnCell(prefabFromUI);
-        _moneyManager.Buy((IBuyable)prefabFromUI);
+        _moneyManager.Buy((CellObject)prefabFromUI);
         prefabFromUI = null;
     }
 

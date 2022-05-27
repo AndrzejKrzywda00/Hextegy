@@ -1,17 +1,13 @@
-using UnityEngine;
-
-public class NormalTower : MonoBehaviour, IComparable {
-    
-    private int _price = 15;
-    private int _maintainCost = 1;
-    public int Price => _price;
-    public int MaintainCost => _maintainCost;
-
-    public bool IsWeakerThan(IComparable unit) {
-        return Level() - unit.Level() < 0;
+public class NormalTower : CellObject {
+    public override int GetPrice() {
+        return 15;
     }
 
-    public int Level() {
+    public override int GetMaintenanceCost() {
+        return 1;
+    }
+
+    public override int Level() {
         return 1;
     }
 }

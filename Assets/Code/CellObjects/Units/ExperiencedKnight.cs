@@ -1,18 +1,13 @@
-using UnityEngine;
-
-public class ExperiencedKnight : MonoBehaviour, IComparable {
-    
-    private int _price = 20;
-    private int _maintainCost = 6;
-
-    public int Price => _price;
-    public int MaintainCost => _maintainCost;
-
-    public bool IsWeakerThan(IComparable unit) {
-        return Level() - unit.Level() < 0;
+public class ExperiencedKnight : CellObject {
+    public override int GetPrice() {
+        return 20;
     }
 
-    public int Level() {
+    public override int GetMaintenanceCost() {
+        return 6;
+    }
+
+    public override int Level() {
         return 2;
     }
 }

@@ -87,8 +87,8 @@ public class HexCell : MonoBehaviour {
         if (!source.IsEnemyCell()) return false;
         
         // towers & units are treated likewise here
-        IComparable sourceUnit = (IComparable) source.prefabInstance;
-        IComparable thisUnit = (IComparable) prefabInstance;
+        CellObject sourceUnit = (CellObject) source.prefabInstance;
+        CellObject thisUnit = (CellObject) prefabInstance;
         return thisUnit.IsWeakerThan(sourceUnit);
     }
 

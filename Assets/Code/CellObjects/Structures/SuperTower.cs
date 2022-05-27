@@ -1,21 +1,13 @@
-using UnityEngine;
-
-public class SuperTower : MonoBehaviour, IComparable {
-    
-    private int _price;
-    private int _maintainCost = 6;
-    public int Price => _price;
-    public int MaintainCost => _maintainCost;
-
-    private void Start() {
-        _price = 35;
+public class SuperTower : CellObject {
+    public override int GetPrice() {
+        return 35;
     }
 
-    public bool IsWeakerThan(IComparable unit) {
-        return Level() - unit.Level() < 0;
+    public override int GetMaintenanceCost() {
+        return 6;
     }
 
-    public int Level() {
+    public override int Level() {
         return 2;
     }
 }

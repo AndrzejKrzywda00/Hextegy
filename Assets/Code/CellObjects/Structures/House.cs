@@ -1,20 +1,13 @@
-using UnityEngine;
-
-public class House : MonoBehaviour, IBuyable {
-    
-    private int _moneyGeneratedPerTurn;
-    private int _price;
-
-    private void Start() {
-        _moneyGeneratedPerTurn = 4;
-        _price = 12;
-    }
-    
-    public int GetPrice() {
-        return _price;
+public class House : CellObject {
+    public override int GetPrice() {
+        return 12;
     }
 
-    public int GetMaintenanceCost() {
-        return -_moneyGeneratedPerTurn;
+    public override int GetMaintenanceCost() {
+        return -4;
+    }
+
+    public override int Level() {
+        return 0;
     }
 }
