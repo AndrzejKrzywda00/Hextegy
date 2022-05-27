@@ -6,17 +6,18 @@ public class Node {
 
     private HexCell _hexCell;
     private float _metric;
-    private HexCell _parent;
+    private Node _parent;
     
     public HexCell GetCell => _hexCell;
 
     public float Metric => _metric;
 
-    public HexCell Parent => _parent;
+    public Node Parent => _parent;
     
-    public Node(HexCell hexCell, float metric) {
+    public Node(HexCell hexCell, float metric, Node parent) {
         _hexCell = hexCell;
         _metric = metric;
+        _parent = parent;
     }
 
     public Node(HexCell hexCell) {

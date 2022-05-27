@@ -30,7 +30,7 @@ public class Pathfinder : MonoBehaviour {
 
     private void InitializePathfindingProcess(HexCell from) {
         _openList = new List<Node>();
-        _openList.Add(new Node(from, CalculateMetricOfCell(from)));
+        _openList.Add(new Node(from, CalculateMetricOfCell(from), null));
         _closedList = new List<HexCell>();
     }
 
@@ -44,7 +44,15 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private HexCoordinates[] GeneratePathBasedOnLists() {
-        return new HexCoordinates[2];
+        // TODO -- fix this to actually work
+        var node = new Node(new HexCell());
+        List<HexCoordinates> path = new List<HexCoordinates>();
+        while (node.Parent != null) {
+            path.Add(node.GetCell.coordinates);
+            node = node.Parent;
+        }
+
+        return path.ToArray();
     }
 
     private void SortOpenListByMetric() {
@@ -54,16 +62,16 @@ public class Pathfinder : MonoBehaviour {
     private void ExpandNode(Node node) {
         _openList.Remove(node);
         var neighborsCoordinates = node.FindNeighbors();
-        HandleAddingNeighborCellsToOpenList(neighborsCoordinates);
+        HandleAddingNeighborCellsToOpenList(neighborsCoordinates, node);
         _closedList.Add(node.GetCell);
     }
 
-    private void HandleAddingNeighborCellsToOpenList(HexCoordinates[] coordinates) {
+    private void HandleAddingNeighborCellsToOpenList(HexCoordinates[] coordinates, Node parentNode) {
         List<HexCell> neighborCells = new List<HexCell>();
         foreach (HexCoordinates coordinate in coordinates) {
             var hexCell = _grid.CellAtCoordinates(coordinate);
             if(CellDoesntExistOrIsInClosedList(hexCell)) continue;
-            _openList.Add(new Node(hexCell, CalculateMetricOfCell(hexCell)));
+            _openList.Add(new Node(hexCell, CalculateMetricOfCell(hexCell), parentNode));
             if (IsDestination(hexCell)) break;
         }
     }
