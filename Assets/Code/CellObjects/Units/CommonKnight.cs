@@ -1,4 +1,5 @@
 public class CommonKnight : CellObject {
+    
     public override int GetPrice() {
         return 10;
     }
@@ -10,4 +11,9 @@ public class CommonKnight : CellObject {
     public override int Level() {
         return 1;
     }
+
+    public int Range() {
+        return 4;
+    }
+
 }

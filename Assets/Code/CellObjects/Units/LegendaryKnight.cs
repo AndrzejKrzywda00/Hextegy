@@ -10,4 +10,8 @@ public class LegendaryKnight : CellObject {
     public override int Level() {
         return 3;
     }
+
+    public int Range() {
+        return 6;
+    }
 }
