@@ -11,9 +11,9 @@ public class Pathfinder {
     
     private HexCell destination;
     private HexCell source;
-    private SortedList<HexCell, float> openList;
-    private List<HexCell> closedList;
-    private float scaleOfDistanceMetric;
+    private List<Node> _openList;
+    private List<Node> _closedList;
+    private float _scaleOfDistanceMetric;
 
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
         InitializePathfindingProcess(from);
@@ -21,20 +21,31 @@ public class Pathfinder {
     }
 
     private void InitializePathfindingProcess(HexCell from) {
-        openList = new SortedList<HexCell, float>();
-        openList.Add(from, CalculateMetricOfCell(from));
+        _openList = new List<Node>();
+        _openList.Add(new Node(from));
     }
 
     private HexCoordinates[] CalculatePathFromTo(HexCell from, HexCell to) {
-        while (openList.Count > 0) {
-            return new HexCoordinates[2];
+        
+        while (_openList.Count > 0) {
+            var lowestMetricNode = _openList[0];
+            ExpandNode(lowestMetricNode);
         }
 
         return new HexCoordinates[2];
     }
 
+    private void ExpandNode(Node node) {
+        var neighborsCoordinates = node.FindNeighbors();
+        /*
+         * Access itd
+         */
+        _openList.Remove(node);
+        _closedList.Add(node);
+    }
+
     private float CalculateMetricOfCell(HexCell cell) {
-        return scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, destination);
+        return _scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, destination);
     }
 
     private float GaussianDistanceBetweenCells(HexCell c1, HexCell c2) {
