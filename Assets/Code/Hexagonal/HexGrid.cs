@@ -58,8 +58,7 @@ public class HexGrid : MonoBehaviour {
         };
     }
 
-    private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position)
-    {
+    private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
         int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
         

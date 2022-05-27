@@ -11,7 +11,6 @@ public class HexCell : MonoBehaviour {
     };
     
     public HexCoordinates coordinates;
-    public Color color;
     public MonoBehaviour prefabInstance;
     public int playerId;
 
@@ -29,12 +28,19 @@ public class HexCell : MonoBehaviour {
     public Color GetCellColor() {
         return playerId switch {
             0 => Color.gray,
-            1 => new Color32(95, 181, 94, 255),         // olive green
-            2 => new Color32(182, 92, 120, 255),        // pink
-            3 => new Color32(93, 182, 176, 255),        // sky
-            4 => new Color32(166, 78, 64, 255),         // tomato
-            5 => new Color32(180, 189, 100, 255),       // yellowish
-            6 => new Color32(114, 91, 179, 255),        // violet
+            1 => new Color32(95, 181, 94, 255),                 // olive green
+            2 => new Color32(182, 92, 120, 255),                // pink
+            3 => new Color32(93, 182, 176, 255),                // sky
+            4 => new Color32(166, 78, 64, 255),                 // tomato
+            5 => new Color32(180, 189, 100, 255),               // yellowish
+            6 => new Color32(114, 91, 179, 255),                // violet
+            
+            101 => new Color32(95-40, 181-40, 94-40, 255),      // dark olive green
+            102 => new Color32(182-40, 92-40, 120-40, 255),     // dark pink
+            103 => new Color32(93-40, 182-40, 176-40, 255),     // dark sky
+            104 => new Color32(166-40, 78-40, 64-40, 255),      // dark tomato
+            105 => new Color32(180-40, 189-40, 100-40, 255),    // dark yellowish
+            106 => new Color32(114-40, 91-40, 179-40, 255),     // dark violet
             _ => throw new ArgumentException()
         };
     }

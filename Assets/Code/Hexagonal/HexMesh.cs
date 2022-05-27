@@ -84,18 +84,15 @@ public class HexMesh : MonoBehaviour {
         _hexMesh.RecalculateNormals();
     }
 
-    private void SetColorsToMesh()
-    {
+    private void SetColorsToMesh() {
         _hexMesh.colors = _colors.ToArray();
     }
 
-    private void SetTrianglesToMesh()
-    {
+    private void SetTrianglesToMesh() {
         _hexMesh.triangles = _triangles.ToArray();
     }
 
-    private void SetVerticesToMesh()
-    {
+    private void SetVerticesToMesh() {
         _hexMesh.vertices = _vertices.ToArray();
     }
 
