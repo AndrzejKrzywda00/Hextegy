@@ -12,4 +12,8 @@ public class MenuEventSystem : MonoBehaviour
     public void QuitClick() {
         Application.Quit();
     }
+
+    public void BackToMenuClick() {
+        SceneManager.LoadScene("Scenes/Menu");
+    }
 }
