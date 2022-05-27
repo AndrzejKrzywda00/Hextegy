@@ -62,11 +62,11 @@ public class Pathfinder : MonoBehaviour {
     private void ExpandNode(Node node) {
         _openList.Remove(node);
         var neighborsCoordinates = node.FindNeighbors();
-        HandleAddingNeighborCellsToOpenList(neighborsCoordinates, node);
+        HandleNeighborCells(neighborsCoordinates, node);
         _closedList.Add(node.GetCell);
     }
 
-    private void HandleAddingNeighborCellsToOpenList(HexCoordinates[] coordinates, Node parentNode) {
+    private void HandleNeighborCells(HexCoordinates[] coordinates, Node parentNode) {
         List<HexCell> neighborCells = new List<HexCell>();
         foreach (HexCoordinates coordinate in coordinates) {
             var hexCell = _grid.CellAtCoordinates(coordinate);
