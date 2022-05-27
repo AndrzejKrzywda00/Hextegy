@@ -8,6 +8,8 @@ public class Node {
     private float _metric;
     
     public HexCell GetCell => _hexCell;
+
+    public float Metric => _metric;
     
     public Node(HexCell hexCell, float metric) {
         _hexCell = hexCell;

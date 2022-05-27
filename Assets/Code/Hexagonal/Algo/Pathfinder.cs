@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.XR;
 
 /*
  * Implementation of pathfinding algorithm adjusted for our kind of map
@@ -22,6 +23,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
+        _scaleOfDistanceMetric = 1f;
         InitializePathfindingProcess(from);
         return CalculatePathFromTo(from, to).Length > 2;        // from and to always inside
     }
@@ -29,6 +31,7 @@ public class Pathfinder : MonoBehaviour {
     private void InitializePathfindingProcess(HexCell from) {
         _openList = new List<Node>();
         _openList.Add(new Node(from, CalculateMetricOfCell(from)));
+        _closedList = new List<HexCell>();
     }
 
     private HexCoordinates[] CalculatePathFromTo(HexCell from, HexCell to) {
@@ -36,27 +39,35 @@ public class Pathfinder : MonoBehaviour {
         while (_openList.Count > 0) {
             var lowestMetricNode = _openList[0];
             ExpandNode(lowestMetricNode);
+            SortOpenListByMetric();
         }
 
         return new HexCoordinates[2];
     }
 
+    private void SortOpenListByMetric() {
+        _openList.Sort((n1, n2) => Math.Sign(n1.Metric - n2.Metric));
+    }
+
     private void ExpandNode(Node node) {
-        var neighborsCoordinates = node.FindNeighbors();
-        /*
-         * Access itd
-         */
         _openList.Remove(node);
+        var neighborsCoordinates = node.FindNeighbors();
+        HandleAddingNeighborCellsToOpenList(neighborsCoordinates);
         _closedList.Add(node.GetCell);
     }
 
-    private void FindNeighborCells(HexCoordinates[] coordinates) {
+    private void HandleAddingNeighborCellsToOpenList(HexCoordinates[] coordinates) {
         List<HexCell> neighborCells = new List<HexCell>();
         foreach (HexCoordinates coordinate in coordinates) {
             var hexCell = _grid.CellAtCoordinates(coordinate);
             if(CellDoesntExistOrIsInClosedList(hexCell)) continue;
             _openList.Add(new Node(hexCell, CalculateMetricOfCell(hexCell)));
+            if (IsDestination(hexCell)) break;
         }
+    }
+
+    private bool IsDestination(HexCell hexCell) {
+        return hexCell == destination;
     }
 
     private bool CellDoesntExistOrIsInClosedList(HexCell hexCell) {
