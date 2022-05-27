@@ -6,6 +6,9 @@ public struct HexCoordinates {
     [SerializeField]
     private int x, z;
 
+    /*
+     * 
+     */
     public int Y => -x - z;
     public int X => x;
     public int Z => z;
@@ -59,12 +62,12 @@ public struct HexCoordinates {
     public HexCoordinates[] Neighbors() {
         HexCoordinates[] neighbors = new HexCoordinates[HexMetrics.NumOfTrianglesInHexagon];
         
-        neighbors[0] = FromOffsetCoordinates(x - 1, z + 1);
-        neighbors[1] = FromOffsetCoordinates(x, z + 1);
-        neighbors[2] = FromOffsetCoordinates(x + 1, z);
-        neighbors[3] = FromOffsetCoordinates(x + 1, z - 1);
-        neighbors[4] = FromOffsetCoordinates(x, z - 1);
-        neighbors[5] = FromOffsetCoordinates(x - 1, z);
+        neighbors[0] = new HexCoordinates(x - 1, z + 1);
+        neighbors[1] = new HexCoordinates(x, z + 1);
+        neighbors[2] = new HexCoordinates(x + 1, z);           
+        neighbors[3] = new HexCoordinates(x + 1, z - 1);     
+        neighbors[4] = new HexCoordinates(x, z - 1);
+        neighbors[5] = new HexCoordinates(x - 1, z);
         
         return neighbors;
     }

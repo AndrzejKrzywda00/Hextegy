@@ -17,14 +17,12 @@ public class PlayerController : MonoBehaviour {
         if (IsItemFromUISelected()) {
             if (HasEnoughMoneyToBuyEntity()) {
                 if (hexCell.IsFriendlyCell()) {
-                    Debug.Log("Placing unit on friendly cell");
                     if (hexCell.IsEmpty() || hexCell.HasTree()) {
                         HandleBuyingEntityOnFriendlyCell(hexCell);
                         return;
                     }
                 } else {
                     if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
-                        Debug.Log("Placing unit on neutral or enemy cell");
                         HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
                         return;
                     }
@@ -40,7 +38,6 @@ public class PlayerController : MonoBehaviour {
                             return;
                         }
                     } else {
-                        // testing 1 cell movement
                         if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
                             HandleMovingUnit(hexCell);
                             return;
@@ -75,11 +72,9 @@ public class PlayerController : MonoBehaviour {
         foreach (HexCoordinates coordinates in neighbors) {
             HexCell neighborCell = _grid.CellAtCoordinates(coordinates);
             if (neighborCell != null && neighborCell.IsFriendlyCell()) {
-                Debug.Log("Found friendly cell in neighbors!");
                 return true;
             }
         }
-        Debug.Log("Not found friendly cell in neighbors");
         return false;
     }
     
