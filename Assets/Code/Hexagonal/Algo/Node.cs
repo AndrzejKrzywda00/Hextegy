@@ -7,10 +7,11 @@ public class Node {
     private HexCell _hexCell;
     private float _metric;
     
-    public Node CreateNodeWithMetric(HexCell hexCell, float metric) {
+    public HexCell GetCell => _hexCell;
+    
+    public Node(HexCell hexCell, float metric) {
         _hexCell = hexCell;
         _metric = metric;
-        return this;
     }
 
     public Node(HexCell hexCell) {
