@@ -6,6 +6,8 @@ public class Cell {
 
     public MonoBehaviour Prefab;
     public int PlayerId;
+
+    public bool isMainLand;
     
 
     public Cell(int x, int y) {
@@ -13,6 +15,7 @@ public class Cell {
 
         Prefab = Prefabs.getNoElement();
         PlayerId = 0;
+        isMainLand = false;
     }
     
     public Cell(Coordinates coordinates) {
@@ -20,6 +23,7 @@ public class Cell {
 
         Prefab = Prefabs.getNoElement();
         PlayerId = 0;
+        isMainLand = false;
     }
     
     
