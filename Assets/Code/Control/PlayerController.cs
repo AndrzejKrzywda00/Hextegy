@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour {
     public CellObject prefabFromUI;
     private HexGrid _grid;
     private MoneyManager _moneyManager;
+    private Pathfinder _pf;
     
     private void Start() {
+        _pf = FindObjectOfType<Pathfinder>();
         _grid = FindObjectOfType<HexGrid>();
         _moneyManager = FindObjectOfType<MoneyManager>();
     }

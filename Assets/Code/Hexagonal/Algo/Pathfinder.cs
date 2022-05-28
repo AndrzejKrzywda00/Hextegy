@@ -42,6 +42,7 @@ public class Pathfinder : MonoBehaviour {
     private HexCoordinates[] GeneratePathBasedOnLists() {
         var node = destination;
         List<HexCoordinates> path = new List<HexCoordinates>();
+        
         while (node.Parent != null) {
             path.Add(node.GetCell.coordinates);
             node = node.Parent;

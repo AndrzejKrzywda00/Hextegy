@@ -1,11 +1,11 @@
 ﻿using System;
-using UnityEngine;
+
 /*
  * Wrapper class for HexCell with added metric of pathfinding
  */
 public class Node {
 
-    private HexCell _hexCell;
+    private readonly HexCell _hexCell;
     private float _metric;
     private Node _parent;
      
@@ -17,12 +17,18 @@ public class Node {
 
 
     public override bool Equals(object o) {
+        if (o == null) return false;
         try {
             Node otherNode = (Node) o;
-            if (otherNode._hexCell.Equals(_hexCell)) return true;
+            return otherNode._hexCell.Equals(_hexCell);
         }
-        catch (Exception e) {} 
-        return false;
+        catch (InvalidCastException) {
+            return false;
+        }
+    }
+
+    public override int GetHashCode() {
+        return _hexCell.GetHashCode();
     }
     
     public Node(HexCell hexCell, float metric, Node parent) {
