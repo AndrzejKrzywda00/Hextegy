@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
-        return _moneyManager.HasEnoughMoneyToBuy((CellObject)prefabFromUI);
+        return _moneyManager.HasEnoughMoneyToBuy(prefabFromUI);
     }
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
