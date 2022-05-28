@@ -39,6 +39,7 @@ namespace Code.Generator {
             Debug.Log("Generating trees...");
             GenerateTrees();
 
+            Debug.Log("Generation finished!");
             return map.cells;
         }
 
