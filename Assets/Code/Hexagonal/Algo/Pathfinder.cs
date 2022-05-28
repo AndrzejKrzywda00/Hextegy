@@ -8,8 +8,8 @@ using UnityEngine;
  */
 public class Pathfinder : MonoBehaviour {
     
-    private Node destination;
-    private HexCell source;
+    private Node _destination;
+    private Node _source;
     private List<Node> _openList;
     private List<HexCell> _closedList;
     private float _scaleOfDistanceMetric;
@@ -17,16 +17,22 @@ public class Pathfinder : MonoBehaviour {
 
     private void Awake() {
         _grid = FindObjectOfType<HexGrid>();
+        _scaleOfDistanceMetric = 1f;
     }
     
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
-        _scaleOfDistanceMetric = 1f;
-        InitializePathfindingProcess(from);
-        return CalculatePathFromTo().Length > 2;
+        return PathFromTo(from, to).Length > 1;
     }
 
-    private void InitializePathfindingProcess(HexCell from) {
-        _openList = new List<Node>{new Node(from, Mathf.Infinity, null)};
+    public HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
+        InitializePathfindingProcessParameters(from, to);
+        return CalculatePathFromTo();
+    }
+
+    private void InitializePathfindingProcessParameters(HexCell from, HexCell to) {
+        _destination = new Node(to, 0, null);
+        _source = new Node(from, Mathf.Infinity, null);
+        _openList = new List<Node>{_source};
         _closedList = new List<HexCell>();
     }
 
@@ -40,7 +46,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private HexCoordinates[] GeneratePathBasedOnLists() {
-        var node = destination;
+        var node = _destination;
         List<HexCoordinates> path = new List<HexCoordinates>();
         
         while (node.Parent != null) {
@@ -67,7 +73,7 @@ public class Pathfinder : MonoBehaviour {
 
         foreach (HexCell neighbor in neighborCells) {
             if (IsDestination(neighbor)) {
-                destination.SetParent(parentNode);
+                _destination.SetParent(parentNode);
                 break;
             }
             Node node = CreateNode(parentNode, neighbor);
@@ -106,7 +112,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private bool IsDestination(HexCell hexCell) {
-        return hexCell == destination.GetCell;
+        return hexCell == _destination.GetCell;
     }
 
     private bool CellDoesntExist(HexCell hexCell) {
@@ -114,7 +120,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private float CalculateMetricOfCell(Node parentNode, HexCell cell) {
-        return _scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, destination.GetCell) + cell.HexDistanceTo(parentNode.GetCell);
+        return _scaleOfDistanceMetric * GaussianDistanceBetweenCells(cell, _destination.GetCell) + cell.HexDistanceTo(parentNode.GetCell);
     }
 
     private float GaussianDistanceBetweenCells(HexCell c1, HexCell c2) {
