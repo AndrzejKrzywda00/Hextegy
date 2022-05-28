@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.XR;
 
 /*
  * Implementation of pathfinding algorithm adjusted for our kind of map
@@ -25,16 +22,15 @@ public class Pathfinder : MonoBehaviour {
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
         _scaleOfDistanceMetric = 1f;
         InitializePathfindingProcess(from);
-        return CalculatePathFromTo(from, to).Length > 2;
+        return CalculatePathFromTo().Length > 2;
     }
 
     private void InitializePathfindingProcess(HexCell from) {
-        _openList = new List<Node>();
-        _openList.Add(new Node(from, Mathf.Infinity, null));
+        _openList = new List<Node>{new Node(from, Mathf.Infinity, null)};
         _closedList = new List<HexCell>();
     }
 
-    private HexCoordinates[] CalculatePathFromTo(HexCell from, HexCell to) {
+    private HexCoordinates[] CalculatePathFromTo() {
         while (_openList.Count > 0) {
             var lowestMetricNode = _openList[0];
             ExpandNode(lowestMetricNode);

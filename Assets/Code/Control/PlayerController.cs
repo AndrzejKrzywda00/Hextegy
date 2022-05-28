@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
-        //TODO implement checking if object on non friendly cell is weak enough to move our unit there
+        //TODO test this
         try {
             CellObject enemyUnit = (CellObject) hexCell.prefabInstance;
             CellObject selectedUnit = (CellObject) selectedCellWithUnit.prefabInstance;
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.PutOnCell(prefabFromUI);
-        _moneyManager.Buy((CellObject)prefabFromUI);
+        _moneyManager.Buy(prefabFromUI);
         prefabFromUI = null;
     }
 
