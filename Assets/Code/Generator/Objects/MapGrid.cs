@@ -102,5 +102,13 @@ namespace Code.Generator {
             }
             return touchingCells;
         }
+
+        public int numberOfNoEmptyCells() {
+            int number = 0;
+            foreach (Cell cell in cells) {
+                if (cell != null) number++;
+            }
+            return number;
+        }
     }
 }
