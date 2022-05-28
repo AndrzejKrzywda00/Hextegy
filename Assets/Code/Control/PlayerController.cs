@@ -66,15 +66,17 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
-        //TODO test this
+        
         try {
             CellObject enemyUnit = (CellObject) hexCell.prefabInstance;
-            CellObject selectedUnit = (CellObject) selectedCellWithUnit.prefabInstance;
+            CellObject selectedUnit;
+            if (selectedCellWithUnit != null) selectedUnit = (CellObject) selectedCellWithUnit.prefabInstance;
+            else selectedUnit = prefabFromUI;
             return enemyUnit.IsWeakerThan(selectedUnit);
         }
         catch (InvalidCastException) {return false;}
     }
-    
+
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
         foreach (HexCoordinates coordinates in neighbors) {
