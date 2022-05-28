@@ -1,3 +1,5 @@
+
+using Code.Generator;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
@@ -17,7 +19,7 @@ public class HexGrid : MonoBehaviour {
         _playerController = gameObject.AddComponent<PlayerController>();
         _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
-        _cellPrototypes = new MapGenerator().GenerateMap(GridWidth, GridHeight);
+        _cellPrototypes = GridGenerator.GenerateMap(GridHeight, GridWidth);
         CreateCells();
     }
 

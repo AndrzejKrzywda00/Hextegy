@@ -13,23 +13,29 @@ namespace Code.Generator {
             cells = new Cell[height * width];
         }
 
-        private bool isCoordinateOk(Coordinates coordinates) {
+        public bool isOutOfRange(Coordinates coordinates) {
             if (coordinates.x >= width || coordinates.x < 0 || coordinates.y >= height || coordinates.y < 0)
-                return false;
-            return true;
+                return true;
+            return false;
         }
 
         public Cell getCell(Coordinates coordinates) {
-            if (!isCoordinateOk(coordinates))
+            if (isOutOfRange(coordinates))
                 throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
             return cells[coordinates.x * width + coordinates.y];
         }
 
         public void setCell(Cell cell) {
             if (cell == null) return;
-            if (!isCoordinateOk(cell.coordinates))
+            if (isOutOfRange(cell.coordinates))
                 throw new ArgumentOutOfRangeException("Out of range :) " + cell.coordinates.toString());
             cells[cell.coordinates.x * width + cell.coordinates.y] = cell;
+        }
+
+        public void clearCell(Coordinates coordinates) {
+            if (isOutOfRange(coordinates))
+                throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
+            cells[coordinates.x * width + coordinates.y] = null;
         }
 
         public Cell getRandomCell() {
@@ -59,7 +65,7 @@ namespace Code.Generator {
 
             return radiusCells;
         }
-        
+
         public List<Cell> getCircle(Coordinates coordinates, int radius) {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
@@ -70,6 +76,31 @@ namespace Code.Generator {
             }
 
             return radiusCells;
+        }
+
+        public List<Cell> getAllNotEmptyCells() {
+            List<Cell> allNotEmptyCell = new List<Cell>();
+            foreach (Cell cell in cells)
+                if (cell != null)
+                    allNotEmptyCell.Add(cell);
+
+            return allNotEmptyCell;
+        }
+
+        public Coordinates getCenterCoordinates() {
+            return new Coordinates(width / 2, height / 2);
+        }
+
+        public List<Cell> getTouchingCells(Coordinates coordinates) {
+            List<Cell> touchingCells = new List<Cell>();
+            Coordinates[] touchingCoordinates = Coordinates.getTouchingCoordinates(coordinates);
+
+            foreach (Coordinates touchingCoord in touchingCoordinates) {
+                if(isOutOfRange(touchingCoord)) continue;
+                Cell touchingCell = getCell(touchingCoord);
+                if(touchingCell != null) touchingCells.Add(touchingCell);
+            }
+            return touchingCells;
         }
     }
 }

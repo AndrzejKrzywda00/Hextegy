@@ -30,5 +30,17 @@ namespace Code.Generator {
             int y = RandomNumber.getInt(0, height);
             return new Coordinates(x, y);
         }
+        
+        public static Coordinates[] getTouchingCoordinates(Coordinates coordinates) {
+            Coordinates[] touchingCoordinates = {
+                new Coordinates(coordinates.x + 1, coordinates.y),
+                new Coordinates(coordinates.x + 1, coordinates.y - 1),
+                new Coordinates(coordinates.x, coordinates.y - 1),
+                new Coordinates(coordinates.x - 1, coordinates.y),
+                new Coordinates(coordinates.x, coordinates.y + 1),
+                new Coordinates(coordinates.x + 1, coordinates.y + 1)
+            };
+            return touchingCoordinates;
+        }
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using Code.Generator.Util;
 using UnityEngine;
 
@@ -7,15 +9,15 @@ namespace Code.Generator {
     public class GridGenerator {
         private static MapGrid map;
 
-        public static MapGrid GenerateGrid(int height, int width) {
+        public static Cell[] GenerateMap(int height, int width) {
             map = new MapGrid(width, height);
             
             GenerateByPerlinNoise();
             ClearUnconnectedIslands();
             AddPlayersFields(new[] {1, 1, 2, 3, 4}, 2);
             GenerateTrees(0.2f);
-            
-            return map;
+
+            return map.cells;
         }
         
 
@@ -31,9 +33,31 @@ namespace Code.Generator {
         }
 
         private static void ClearUnconnectedIslands() {
-            //todo
+            Cell center = map.getClosestCell(map.getCenterCoordinates());
+
+            SetMainLandCellsRecursively(center.coordinates);
+
+            foreach (Cell cell in map.cells) {
+                if (cell != null) {
+                    if (cell.isMainLand == false) {
+                        map.clearCell(cell.coordinates);
+                    }
+                }
+            }
         }
-        
+
+        private static void SetMainLandCellsRecursively(Coordinates startingPoint) {
+            Coordinates[] touchingCoordinates = Coordinates.getTouchingCoordinates(startingPoint);
+            foreach (Coordinates coordinates in touchingCoordinates) {
+                if(map.isOutOfRange(coordinates)) continue;
+                if(map.getCell(coordinates) == null) continue;
+                if (!map.getCell(coordinates).isMainLand) {
+                    map.getCell(coordinates).isMainLand = true;
+                    SetMainLandCellsRecursively(coordinates);
+                }
+            }
+        }
+
         private static void AddPlayersFields(int[] playersIds, int radius) {
             foreach (int playerId in playersIds) {
                 Cell startingCell = map.getRandomCell();
