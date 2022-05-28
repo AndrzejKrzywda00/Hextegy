@@ -65,7 +65,12 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
         //TODO implement checking if object on non friendly cell is weak enough to move our unit there
-        return true;
+        try {
+            CellObject enemyUnit = (CellObject) hexCell.prefabInstance;
+            CellObject selectedUnit = (CellObject) selectedCellWithUnit.prefabInstance;
+            return enemyUnit.IsWeakerThan(selectedUnit);
+        }
+        catch (InvalidCastException) {return false;}
     }
     
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
