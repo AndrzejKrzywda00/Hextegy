@@ -47,14 +47,12 @@ public class HexMesh : MonoBehaviour {
         if (hexCell == null) return;
         
         Vector3 center = hexCell.transform.localPosition;
-        for (int i = 0; i < HexMetrics.NumOfTrianglesInHexagon; i++)
-        {
+        for (int i = 0; i < HexMetrics.NumOfTrianglesInHexagon; i++) {
             AddTriangleAndColorIt(hexCell, center, i);
         }
     }
 
-    private void AddTriangleAndColorIt(HexCell hexCell, Vector3 center, int i)
-    {
+    private void AddTriangleAndColorIt(HexCell hexCell, Vector3 center, int i) {
         AddTriangle(
             center,
             center + HexMetrics.Corners[i],
@@ -86,18 +84,15 @@ public class HexMesh : MonoBehaviour {
         _hexMesh.RecalculateNormals();
     }
 
-    private void SetColorsToMesh()
-    {
+    private void SetColorsToMesh() {
         _hexMesh.colors = _colors.ToArray();
     }
 
-    private void SetTrianglesToMesh()
-    {
+    private void SetTrianglesToMesh() {
         _hexMesh.triangles = _triangles.ToArray();
     }
 
-    private void SetVerticesToMesh()
-    {
+    private void SetVerticesToMesh() {
         _hexMesh.vertices = _vertices.ToArray();
     }
 

@@ -1,19 +1,19 @@
-using UnityEngine;
-
-public class CommonKnight : MonoBehaviour, IComparable {
-
-    private int _price = 10;
-    private int _maintainCost = 2;
-
-    public int Price => _price;
-    public int MaintainCost => _maintainCost;
+public class CommonKnight : CellObject {
     
-    public bool IsWeakerThan(IComparable unit) {
-        return Level() - unit.Level() < 0;
+    public override int GetPrice() {
+        return 10;
     }
 
-    public int Level() {
+    public override int GetMaintenanceCost() {
+        return 2;
+    }
+
+    public override int Level() {
         return 1;
     }
-    
+
+    public int Range() {
+        return 4;
+    }
+
 }

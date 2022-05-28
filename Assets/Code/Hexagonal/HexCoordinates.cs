@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -6,6 +7,9 @@ public struct HexCoordinates {
     [SerializeField]
     private int x, z;
 
+    /*
+     * 
+     */
     public int Y => -x - z;
     public int X => x;
     public int Z => z;
@@ -56,17 +60,20 @@ public struct HexCoordinates {
         return x + "\n" + Y + "\n" + z;
     }
 
-    public HexCoordinates[] NeighborsOf(HexCoordinates hexCoordinates) {
-        const int neighborsInHex = 6;
-        HexCoordinates[] neighbors = new HexCoordinates[neighborsInHex];
+    public HexCoordinates[] Neighbors() {
+        HexCoordinates[] neighbors = new HexCoordinates[HexMetrics.NumOfTrianglesInHexagon];
         
-        neighbors[0] = FromOffsetCoordinates(hexCoordinates.x - 1, hexCoordinates.z + 1);
-        neighbors[1] = FromOffsetCoordinates(hexCoordinates.x, hexCoordinates.z + 1);
-        neighbors[2] = FromOffsetCoordinates(hexCoordinates.x + 1, hexCoordinates.z);
-        neighbors[3] = FromOffsetCoordinates(hexCoordinates.x + 1, hexCoordinates.z - 1);
-        neighbors[4] = FromOffsetCoordinates(hexCoordinates.x, hexCoordinates.z - 1);
-        neighbors[5] = FromOffsetCoordinates(hexCoordinates.x - 1, hexCoordinates.z);
+        neighbors[0] = new HexCoordinates(x - 1, z + 1);
+        neighbors[1] = new HexCoordinates(x, z + 1);
+        neighbors[2] = new HexCoordinates(x + 1, z);           
+        neighbors[3] = new HexCoordinates(x + 1, z - 1);     
+        neighbors[4] = new HexCoordinates(x, z - 1);
+        neighbors[5] = new HexCoordinates(x - 1, z);
         
         return neighbors;
+    }
+
+    public int DistanceTo(HexCoordinates coordinates) {
+        return Math.Abs(x - coordinates.X) + Math.Abs(Y - coordinates.Y) + Math.Abs(z - coordinates.Z);
     }
 }

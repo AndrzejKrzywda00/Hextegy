@@ -1,7 +1,7 @@
-using Code.Generator;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
+    
     private const int GridWidth = 30;
     private const int GridHeight = 30;
     
@@ -58,15 +58,30 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
-        int prototypeIndex = x * GridWidth + z;
+        int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
         
+        // TODO -- refactor this to new method
         HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
         Transform cellTransform = hexCell.transform;
         cellTransform.SetParent(transform, false); 
         cellTransform.localPosition = position; 
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         MapPrototypeToHexCell(prototypeIndex, hexCell);
+    }
+
+    public int GetCellIndexByPosition(int x, int z) {
+        return x * GridWidth + z;
+    }
+
+    public int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
+        return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
+    }
+
+    public HexCell CellAtCoordinates(HexCoordinates coordinates) {
+        int index = GetCellIndexByHexCoordinates(coordinates);
+        if(index < _cells.Length) return _cells[index];
+        return null;
     }
 
     private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
@@ -82,13 +97,13 @@ public class HexGrid : MonoBehaviour {
     private void InteractWithCell(Vector3 position) {
         var cellIndex = GetCellIndex(position);
         if (_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
+        _hexMesh.Triangulate(_cells);
     }
 
     private int GetCellIndex(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
-        int cellIndex = hexCoordinates.X + hexCoordinates.Z * GridWidth + hexCoordinates.Z / 2;
-        Debug.Log(hexCoordinates.ToString());
+        int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
     }
 }

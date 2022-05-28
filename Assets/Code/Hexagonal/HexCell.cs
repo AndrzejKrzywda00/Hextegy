@@ -11,7 +11,6 @@ public class HexCell : MonoBehaviour {
     };
     
     public HexCoordinates coordinates;
-    public Color color;
     public MonoBehaviour prefabInstance;
     public int playerId;
 
@@ -29,14 +28,26 @@ public class HexCell : MonoBehaviour {
     public Color GetCellColor() {
         return playerId switch {
             0 => Color.gray,
-            1 => new Color32(95, 181, 94, 255),         // olive green
-            2 => new Color32(182, 92, 120, 255),        // pink
-            3 => new Color32(93, 182, 176, 255),        // sky
-            4 => new Color32(166, 78, 64, 255),         // tomato
-            5 => new Color32(180, 189, 100, 255),       // yellowish
-            6 => new Color32(114, 91, 179, 255),        // violet
+            1 => new Color32(95, 181, 94, 255),                 // olive green
+            2 => new Color32(182, 92, 120, 255),                // pink
+            3 => new Color32(93, 182, 176, 255),                // sky
+            4 => new Color32(166, 78, 64, 255),                 // tomato
+            5 => new Color32(180, 189, 100, 255),               // yellowish
+            6 => new Color32(114, 91, 179, 255),                // violet
+            
+            101 => new Color32(95-40, 181-40, 94-40, 255),      // dark olive green
+            102 => new Color32(182-40, 92-40, 120-40, 255),     // dark pink
+            103 => new Color32(93-40, 182-40, 176-40, 255),     // dark sky
+            104 => new Color32(166-40, 78-40, 64-40, 255),      // dark tomato
+            105 => new Color32(180-40, 189-40, 100-40, 255),    // dark yellowish
+            106 => new Color32(114-40, 91-40, 179-40, 255),     // dark violet
             _ => throw new ArgumentException()
         };
+    }
+
+    public HexCoordinates[] NeighborsCoordinates()
+    {
+        return coordinates.Neighbors();
     }
     
     public bool IsEmpty() {
@@ -63,32 +74,35 @@ public class HexCell : MonoBehaviour {
         return UnitNames.Contains(prefabInstance.name);
     }
 
-    private bool IsEnemyCell(HexCell cell) {
-        // different than this and not neutral
-        return cell.playerId != playerId && cell.playerId != 0;
+    public bool IsEnemyCell() {
+        return playerId != PlayerController.CurrentPlayerId && playerId != 0;
     }
 
-    private bool IsFriendlyCell(HexCell cell) {
-        return cell.playerId == playerId;
+    public int HexDistanceTo(HexCell hexCell) {
+        return coordinates.DistanceTo(hexCell.coordinates);
+    }
+
+    public bool IsFriendlyCell() {
+        return playerId == PlayerController.CurrentPlayerId;
     }
 
     // ------------------------ ACCESS TYPES ------------------------
 
-    public bool NoConditionAccess(HexCell source) {
-        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell(source));
+    public bool NoConditionAccess() {
+        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell());
     }
 
     public bool EnemyUnitWeakerAccess(HexCell source) {
-        if (!IsEnemyCell(source)) return false;
+        if (!source.IsEnemyCell()) return false;
         
         // towers & units are treated likewise here
-        IComparable sourceUnit = (IComparable) source.prefabInstance;
-        IComparable thisUnit = (IComparable) prefabInstance;
+        CellObject sourceUnit = (CellObject) source.prefabInstance;
+        CellObject thisUnit = (CellObject) prefabInstance;
         return thisUnit.IsWeakerThan(sourceUnit);
     }
 
     public bool SamePlayerUnitPromotionAccess(HexCell source) {
-        if (IsFriendlyCell(source) && HasUnit()) {
+        if (source.IsFriendlyCell() && HasUnit()) {
             Debug.Log("Here perform promotion");
         }
         return false;

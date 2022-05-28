@@ -1,19 +1,13 @@
-using UnityEngine;
-
-public class House : MonoBehaviour {
-    
-    private int _moneyGeneratedPerTurn;
-    private int _price;
-
-    public int Price => _price;
-    public int MoneyPerTurn => _moneyGeneratedPerTurn;
-
-    private void Start() {
-        _moneyGeneratedPerTurn = 4;
-        _price = 12;
+public class House : CellObject {
+    public override int GetPrice() {
+        return 12;
     }
 
-    private void IncreasePrice() { 
-        _price += 2;
+    public override int GetMaintenanceCost() {
+        return -4;
+    }
+
+    public override int Level() {
+        return 0;
     }
 }

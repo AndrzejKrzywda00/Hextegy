@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Capital : MonoBehaviour {
+public class Capital : CellObject {
     private int _playerId;
 
     public int PlayerId => _playerId;
@@ -10,5 +6,16 @@ public class Capital : MonoBehaviour {
     public void SetPlayerId(int id) {
         _playerId = id;
     }
-    
+
+    public override int GetPrice() {
+        throw new ThatShouldntBeUsedException();
+    }
+
+    public override int GetMaintenanceCost() {
+        throw new ThatShouldntBeUsedException();
+    }
+
+    public override int Level() {
+        return 1;
+    }
 }
