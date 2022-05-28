@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
     public class PerlinNoise {
-        public static Boolean[,] Generate(int height, int width, float scale, float heightTrigger) {
+        public static Boolean[,] Generate(int height, int width, float scale, float fulfil) {
             float offsetX = Random.value * scale;
             float offsetY = Random.value * scale;
             bool[,] noiseMap = new bool[height, width];
@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
                 
                     // generate noise value using PerlinNoise
                     float noise = Mathf.PerlinNoise(sampleX + offsetX, sampleZ + offsetY);
-                    noiseMap[zIndex, xIndex] = noise > heightTrigger;
+                    noiseMap[zIndex, xIndex] = noise < fulfil;
                 }
             }
             return noiseMap;

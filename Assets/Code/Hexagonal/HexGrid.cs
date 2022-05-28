@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using Code.Generator;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
-    
     private const int GridWidth = 30;
     private const int GridHeight = 30;
-    
+
     public HexCell hexCellPrefab;
 
     private PlayerController _playerController;
@@ -18,8 +18,21 @@ public class HexGrid : MonoBehaviour {
         _playerController = gameObject.AddComponent<PlayerController>();
         _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
-        _cellPrototypes = new MapGenerator().GenerateMap(GridWidth, GridHeight);
+        _cellPrototypes = GenerateMap();
         CreateCells();
+    }
+
+    private static Cell[] GenerateMap() {
+        GridGenerator generator = new GridGenerator();
+
+        generator.GeneratePlayerFields(4, 1);
+        // you can change parameters here!!!
+        //generator.scale = 1f;
+        //generator.fulfil = 0.3f;
+        //generator.playerFields.Add(new GridGenerator.PlayerField(1,2));
+        //generator.treeRatio = 0.7f;
+        
+        return generator.GenerateMap(GridHeight, GridWidth);
     }
 
     private void Start() {
@@ -61,12 +74,12 @@ public class HexGrid : MonoBehaviour {
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
         int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
-        
+
         // TODO -- refactor this to new method
         HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
         Transform cellTransform = hexCell.transform;
-        cellTransform.SetParent(transform, false); 
-        cellTransform.localPosition = position; 
+        cellTransform.SetParent(transform, false);
+        cellTransform.localPosition = position;
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
@@ -81,12 +94,12 @@ public class HexGrid : MonoBehaviour {
 
     public HexCell CellAtCoordinates(HexCoordinates coordinates) {
         int index = GetCellIndexByHexCoordinates(coordinates);
-        if(index < _cells.Length) return _cells[index];
+        if (index < _cells.Length) return _cells[index];
         return null;
     }
 
     private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
-        hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab); 
+        hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab);
         hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;
     }
 
