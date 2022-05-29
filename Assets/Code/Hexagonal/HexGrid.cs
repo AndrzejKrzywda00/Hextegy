@@ -25,7 +25,7 @@ public class HexGrid : MonoBehaviour {
     private static Cell[] GenerateMap() {
         GridGenerator generator = new GridGenerator();
 
-        generator.GeneratePlayerFields(4, 1);
+        generator.GeneratePlayerFields(4, 4);
         // you can change parameters here!!!
         //generator.scale = 1f;
         //generator.fulfil = 0.3f;

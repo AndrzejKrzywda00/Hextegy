@@ -109,9 +109,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool IsCellInUnitMovementRange(HexCell hexCell) {
-        bool pathExists = _pf.IsTherePathFromTo(selectedCellWithUnit, hexCell);
-        Debug.Log("Path exists = " + pathExists);
-        return pathExists;
+        HexCoordinates[] path = _pf.PathFromTo(selectedCellWithUnit, hexCell);
+        CommonKnight unit = (CommonKnight) selectedCellWithUnit.prefabInstance;
+        return path.Length <= unit.Range();
     }
 
     private void HandleMovingUnit(HexCell hexCell) {

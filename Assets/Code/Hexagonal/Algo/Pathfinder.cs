@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using TMPro;
 using UnityEngine;
 
 /*
@@ -18,12 +16,14 @@ public class Pathfinder : MonoBehaviour {
     private HexGrid _grid;
     private float _maximumMetric = 100000f;
     private bool _searchEnded;
+    
     private void Awake() {
         _grid = FindObjectOfType<HexGrid>();
     }
     
     public bool IsTherePathFromTo(HexCell from, HexCell to) {
-        return PathFromTo(from, to).Length > 1;
+        var path = PathFromTo(from, to);
+        return path.Contains(from.coordinates) && path.Contains(to.coordinates);
     }
 
     public HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
@@ -51,10 +51,10 @@ public class Pathfinder : MonoBehaviour {
 
     private HexCoordinates[] GeneratePathBasedOnLists() {
         var node = _destination;
-        List<HexCoordinates> path = new List<HexCoordinates>{_destination.GetCell.coordinates};
+        List<HexCoordinates> path = new List<HexCoordinates>();
         
         int limit = 0;
-        while (node.Parent != null && limit++ < 100) {
+        while (node != null && limit++ < 100) {
             path.Add(node.GetCell.coordinates);
             node = node.Parent;
         }
@@ -70,7 +70,6 @@ public class Pathfinder : MonoBehaviour {
         _openList.Remove(node);
         var neighborsCoordinates = node.FindNeighbors();
         HandleNeighborCells(neighborsCoordinates, node);
-        node.GetCell.playerId = 105;
         _closedList.Add(node);
     }
 
@@ -85,13 +84,12 @@ public class Pathfinder : MonoBehaviour {
             }
             Node node = CreateNode(parentNode, neighbor);
             if (OpenListContainsNodeWithLowerMetric(node)) continue;
-            if (ClosedListContainsNodeWithLowerMetric(node)) continue; 
-            node.GetCell.playerId = 104;
+            if (ClosedListContainsNode(node)) continue;
             _openList.Add(node);
         }
     }
 
-    private bool ClosedListContainsNodeWithLowerMetric(Node node) {
+    private bool ClosedListContainsNode(Node node) {
         Node nodeFromList = _closedList.Find(nodeInList => nodeInList.Equals(node));
         if (nodeFromList != null) return true;
         return false;
