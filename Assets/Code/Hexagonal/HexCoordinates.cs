@@ -73,7 +73,11 @@ public struct HexCoordinates {
         return neighbors;
     }
 
-    public int DistanceTo(HexCoordinates coordinates) {
-        return Math.Abs(x - coordinates.X) + Math.Abs(Y - coordinates.Y) + Math.Abs(z - coordinates.Z);
+    public int HexDistanceTo(HexCoordinates coordinates) {
+        return Math.Abs(Y - coordinates.Y);
+    }
+
+    public float GaussianDistanceTo(HexCoordinates coordinates) {
+        return Mathf.Sqrt((x - coordinates.x)*(x - coordinates.x) + (z - coordinates.z)*(z - coordinates.z));
     }
 }

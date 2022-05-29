@@ -94,7 +94,7 @@ public class HexGrid : MonoBehaviour {
 
     public HexCell CellAtCoordinates(HexCoordinates coordinates) {
         int index = GetCellIndexByHexCoordinates(coordinates);
-        if (index < _cells.Length) return _cells[index];
+        if (index < _cells.Length && index >= 0) return _cells[index];
         return null;
     }
 

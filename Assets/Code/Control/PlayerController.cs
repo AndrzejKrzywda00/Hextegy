@@ -109,8 +109,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool IsCellInUnitMovementRange(HexCell hexCell) {
-        //TODO implement checking if cell is in unit movement range
-        return true;
+        bool pathExists = _pf.IsTherePathFromTo(selectedCellWithUnit, hexCell);
+        Debug.Log("Path exists = " + pathExists);
+        return pathExists;
     }
 
     private void HandleMovingUnit(HexCell hexCell) {

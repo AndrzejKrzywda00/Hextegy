@@ -41,6 +41,7 @@ public class HexCell : MonoBehaviour {
             104 => new Color32(166-40, 78-40, 64-40, 255),      // dark tomato
             105 => new Color32(180-40, 189-40, 100-40, 255),    // dark yellowish
             106 => new Color32(114-40, 91-40, 179-40, 255),     // dark violet
+            
             _ => throw new ArgumentException()
         };
     }
@@ -79,7 +80,11 @@ public class HexCell : MonoBehaviour {
     }
 
     public int HexDistanceTo(HexCell hexCell) {
-        return coordinates.DistanceTo(hexCell.coordinates);
+        return coordinates.HexDistanceTo(hexCell.coordinates);
+    }
+
+    public float GaussianDistanceTo(HexCell hexCell) {
+        return coordinates.GaussianDistanceTo(hexCell.coordinates);
     }
 
     public bool IsFriendlyCell() {
