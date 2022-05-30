@@ -140,4 +140,20 @@ public class HexGrid : MonoBehaviour {
         int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
     }
+
+    public void GenerateTreesNextToExistingTrees() {
+        foreach (HexCell cell in _cells) if(cell != null && cell.HasTree()) GenerateTreeInRandomAdjacentCell(cell);
+    }
+
+    private void GenerateTreeInRandomAdjacentCell(HexCell hexCell) {
+        int randomIndex = Random.Range(0, HexMetrics.NumOfTrianglesInHexagon);
+        int index = 0;
+        HexCoordinates[] neighborsCoordinates = hexCell.NeighborsCoordinates();
+        foreach (HexCoordinates coordinates in neighborsCoordinates) {
+            HexCell neighbor = CellAtCoordinates(coordinates);
+            if (neighbor != null && index++ == randomIndex && neighbor.IsEmpty()) {
+                neighbor.PutOnCell(Prefabs.GetTree());
+            } 
+        }
+    }
 }
