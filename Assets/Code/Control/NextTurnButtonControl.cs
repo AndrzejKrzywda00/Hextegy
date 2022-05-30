@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class NextTurnButtonControl : MonoBehaviour {
+
     public void OnClick() {
         PlayerController playerController = FindObjectOfType<PlayerController>();
         playerController.MoneyManager.CalculateWalletOnTurnEnd();
@@ -14,5 +15,7 @@ public class NextTurnButtonControl : MonoBehaviour {
             if (hexCell != null && hexCell.prefabInstance is Unit unit)
                 unit.SetHasMoveLeftInThisTurn = true;
         }
+
+        PlayerController.AddTreesOnEndOfTurn();
     }
 }

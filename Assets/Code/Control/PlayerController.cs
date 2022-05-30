@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     public HexCell selectedCellWithUnit;
     public CellObject prefabFromUI;
     private MoneyManager _moneyManager;
-    private HexGrid _hexGrid;
+    private static HexGrid _hexGrid;
     private Pathfinder _pf;
 
     public MoneyManager MoneyManager => _moneyManager;
@@ -64,6 +64,10 @@ public class PlayerController : MonoBehaviour {
             }
             selectedCellWithUnit = null;
         }
+    }
+    
+    public static void AddTreesOnEndOfTurn() {
+        _hexGrid.GenerateTreesNextToExistingTrees();
     }
     
     private bool IsItemFromUISelected() {
