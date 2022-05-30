@@ -12,6 +12,6 @@ public class ExperiencedKnight : CellObject {
     }
     
     public override int Range() {
-        return 5;
+        return 4;
     }
 }

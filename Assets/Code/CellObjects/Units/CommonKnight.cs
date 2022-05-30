@@ -13,7 +13,7 @@ public class CommonKnight : CellObject {
     }
 
     public override int Range() {
-        return 4;
+        return 5;
     }
 
 }

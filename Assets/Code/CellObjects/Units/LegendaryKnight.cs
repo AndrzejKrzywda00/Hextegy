@@ -12,6 +12,6 @@ public class LegendaryKnight : CellObject {
     }
 
     public override int Range() {
-        return 6;
+        return 3;
     }
 }
