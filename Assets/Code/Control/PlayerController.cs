@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour {
 
     public MoneyManager MoneyManager => _moneyManager;
 
+    public int GetPlayerId() {
+        return CurrentPlayerId;
+    }
+
     public HexGrid HexGrid => _hexGrid;
 
     private void Start() {

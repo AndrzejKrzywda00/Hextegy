@@ -152,8 +152,13 @@ public class HexGrid : MonoBehaviour {
         foreach (HexCoordinates coordinates in neighborsCoordinates) {
             HexCell neighbor = CellAtCoordinates(coordinates);
             if (neighbor != null && index++ == randomIndex && neighbor.IsEmpty()) {
-                neighbor.PutOnCell(Prefabs.GetTree());
+                HandleAddingTreeToCell(neighbor);
             } 
         }
+    }
+
+    private void HandleAddingTreeToCell(HexCell neighbor) {
+        neighbor.PutOnCell(Prefabs.GetTree());
+        _playerController.MoneyManager.DecrementBalanceOfPlayer(neighbor.playerId);
     }
 }
