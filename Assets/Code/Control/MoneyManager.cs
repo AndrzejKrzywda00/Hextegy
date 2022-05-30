@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour {
     
-    private readonly int _initialMoney = 10;
+    private readonly int _initialMoney = 1000;
     private Dictionary<int, int> _playersBalances;
     private Dictionary<int, int> _playersWallets;
 
