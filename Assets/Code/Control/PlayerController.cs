@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     
@@ -68,7 +66,6 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
-        
         try {
             CellObject enemyUnit = (CellObject) hexCell.prefabInstance;
             CellObject selectedUnit;
@@ -99,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
         HandleBuyingEntityOnFriendlyCell(hexCell);
+        _moneyManager.IncrementBalance();
         AdjustCellColor(hexCell);
     }
 
@@ -122,6 +120,7 @@ public class PlayerController : MonoBehaviour {
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();
         AdjustCellColor(hexCell);
+        _moneyManager.IncrementBalance();
         selectedCellWithUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
         selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
         selectedCellWithUnit = null;
