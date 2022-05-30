@@ -108,7 +108,7 @@ namespace Code.Generator {
         private void AddPlayerField(PlayerField playerField) {
             Cell startingCell = map.GetRandomCell();
             
-            while(isAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = map.GetRandomCell();
+            while(IsAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = map.GetRandomCell();
             
             foreach (Cell cell in map.GetCircle(startingCell.Coordinates, playerField.radius)) {
                 cell.PlayerId = playerField.playerId;
@@ -117,7 +117,7 @@ namespace Code.Generator {
             startingCell.Prefab = Prefabs.GetCapital(playerField.playerId);
         }
 
-        private bool isAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
+        private bool IsAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
             List<Cell> cellsInRange = map.GetCircle(startingPoint, playerField.radius);
             foreach (Cell cell in cellsInRange) {
                 if(cell == null) continue;
