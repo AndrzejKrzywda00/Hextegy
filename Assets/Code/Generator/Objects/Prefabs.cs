@@ -10,6 +10,7 @@ namespace Code.Generator {
         private static NoElement _noElement = Resources.Load<NoElement>("NoElement");
         private static CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
         private static Capital _capital = Resources.Load<Capital>("Capital");
+        private static Grave _grave = Resources.Load<Grave>("Grave");
         
         // trees
         // in future different script for small tree
