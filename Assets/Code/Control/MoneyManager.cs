@@ -21,11 +21,11 @@ public class MoneyManager : MonoBehaviour {
     }
 
     public void IncrementBalanceOfPlayer(int playerId) {
-        _playersBalances[playerId] += 1;
+        if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] += 1;
     }
 
     public void DecrementBalanceOfPlayer(int playerId) {
-        _playersBalances[playerId] -= 1;
+        if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] -= 1;
     }
 
     public void TransferBalanceOfFieldFromPlayerToPlayer(int pid1, int pid2) {
@@ -33,12 +33,8 @@ public class MoneyManager : MonoBehaviour {
         IncrementBalanceOfPlayer(pid2);
     }
 
-    public void CalculateInitialBalanceOfPlayers(int[] players) {
-        foreach (int player in players) CalculateInitialBalanceOfPlayer(player);
-    }
-    
-    private void CalculateInitialBalanceOfPlayer(int playerId) {
-        
+    public void SetInitialBalanceOfPlayers(Dictionary<int, int> initialBalanceOfPlayers) {
+        _playersBalances = initialBalanceOfPlayers;
     }
 
     public int GetBalance() {

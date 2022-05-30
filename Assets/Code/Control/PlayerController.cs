@@ -13,7 +13,12 @@ public class PlayerController : MonoBehaviour {
     private void Start() {
         _pf = FindObjectOfType<Pathfinder>();
         _grid = FindObjectOfType<HexGrid>();
+        InitializeMoneyManager();
+    }
+
+    private void InitializeMoneyManager() {
         _moneyManager = FindObjectOfType<MoneyManager>();
+        _moneyManager.SetInitialBalanceOfPlayers(_grid.MapCellsToInitialBalanceOfPlayers());
     }
 
     public void Handle(HexCell hexCell) {

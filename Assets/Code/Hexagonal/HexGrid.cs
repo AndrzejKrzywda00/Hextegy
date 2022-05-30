@@ -92,7 +92,8 @@ public class HexGrid : MonoBehaviour {
         
         foreach (Cell cellPrototype in _cellPrototypes) {
             if (cellPrototype == null) continue;
-            if(!cellPrototype.Prefab.name.Equals("Tree(Clone)")) playersInitialBalances[cellPrototype.PlayerId] += 1;
+            if (!playersInitialBalances.ContainsKey(cellPrototype.PlayerId)) playersInitialBalances.Add(cellPrototype.PlayerId, 0);
+            if (!cellPrototype.Prefab.name.Equals("Tree(Clone)")) playersInitialBalances[cellPrototype.PlayerId] += 1;
         }
 
         return playersInitialBalances;
