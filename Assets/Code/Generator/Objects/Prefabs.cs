@@ -11,15 +11,11 @@ namespace Code.Generator {
         private static CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
         private static Capital _capital = Resources.Load<Capital>("Capital");
         
-        /*
-         * Trees have 5 different prefabs
-         */
+        // trees
+        // in future different script for small tree
         private static Tree _basicTree = Resources.Load<Tree>("Tree");
-        private static Tree _pineTree = Resources.Load<Tree>("PineTree");
-        private static Tree _tallTree = Resources.Load<Tree>("TallTree");
         private static Tree _smallTree = Resources.Load<Tree>("SmallTree");
-        private static Tree _palmTree = Resources.Load<Tree>("PalmTree");
-        private static List<Tree> _trees = new List<Tree>{_basicTree, _pineTree, _tallTree, _smallTree, _palmTree};
+        private static List<Tree> _trees = new List<Tree>{_basicTree, _smallTree};
 
         public static House GetHouse() {
             return _house;
