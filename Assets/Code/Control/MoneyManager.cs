@@ -35,6 +35,9 @@ public class MoneyManager : MonoBehaviour {
 
     public void SetInitialBalanceOfPlayers(Dictionary<int, int> initialBalanceOfPlayers) {
         _playersBalances = initialBalanceOfPlayers;
+        foreach (KeyValuePair<int, int> item in _playersBalances) {
+            Debug.Log(item.Key + " => " + item.Value);
+        }
     }
 
     public int GetBalance() {

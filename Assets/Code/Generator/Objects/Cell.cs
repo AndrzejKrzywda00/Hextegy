@@ -23,6 +23,9 @@ public class Cell {
         PlayerId = 0;
         IsMainLand = false;
     }
-    
-    
+
+    public bool HasTree() {
+        return Prefab.name.Equals(Prefabs.getTree().name);
+    }
+
 }

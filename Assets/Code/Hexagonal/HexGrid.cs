@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Code.Generator;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
@@ -93,7 +92,7 @@ public class HexGrid : MonoBehaviour {
         foreach (Cell cellPrototype in _cellPrototypes) {
             if (cellPrototype == null) continue;
             if (!playersInitialBalances.ContainsKey(cellPrototype.PlayerId)) playersInitialBalances.Add(cellPrototype.PlayerId, 0);
-            if (!cellPrototype.Prefab.name.Equals("Tree(Clone)")) playersInitialBalances[cellPrototype.PlayerId] += 1;
+            if (!cellPrototype.HasTree()) playersInitialBalances[cellPrototype.PlayerId] += 1;
         }
 
         return playersInitialBalances;
@@ -134,9 +133,5 @@ public class HexGrid : MonoBehaviour {
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
-    }
-
-    private void CalculateFieldsOfPlayers() {
-        
     }
 }
