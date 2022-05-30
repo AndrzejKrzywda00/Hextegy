@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexMesh : MonoBehaviour {
     
-    private Mesh _hexMesh;
+    private Mesh _mesh;
     private List<Vector3> _vertices;
     private List<int> _triangles;
     private List<Color> _colors;
@@ -16,10 +16,8 @@ public class HexMesh : MonoBehaviour {
     }
 
     private void CreateMeshAndCollider() {
-        _hexMesh = new Mesh {
-            name = "Hex Mesh"
-        };
-        GetComponent<MeshFilter>().mesh = _hexMesh;
+        _mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = _mesh;
         _collider = gameObject.AddComponent<MeshCollider>();
     }
 
@@ -37,7 +35,7 @@ public class HexMesh : MonoBehaviour {
     }
 
     private void ClearData() {
-        _hexMesh.Clear();
+        _mesh.Clear();
         _vertices.Clear();
         _triangles.Clear();
         _colors.Clear();
@@ -81,22 +79,22 @@ public class HexMesh : MonoBehaviour {
         SetVerticesToMesh();
         SetTrianglesToMesh();
         SetColorsToMesh();
-        _hexMesh.RecalculateNormals();
+        _mesh.RecalculateNormals();
     }
 
     private void SetColorsToMesh() {
-        _hexMesh.colors = _colors.ToArray();
+        _mesh.colors = _colors.ToArray();
     }
 
     private void SetTrianglesToMesh() {
-        _hexMesh.triangles = _triangles.ToArray();
+        _mesh.triangles = _triangles.ToArray();
     }
 
     private void SetVerticesToMesh() {
-        _hexMesh.vertices = _vertices.ToArray();
+        _mesh.vertices = _vertices.ToArray();
     }
 
     private void AddColliderToMesh() {
-        _collider.sharedMesh = _hexMesh;
+        _collider.sharedMesh = _mesh;
     }
 }
