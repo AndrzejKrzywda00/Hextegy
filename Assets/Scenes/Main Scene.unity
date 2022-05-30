@@ -579,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &265436635
 MonoBehaviour:
@@ -593,7 +593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!114 &265436636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +639,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 265436635}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnBuildingButtonClick
+        m_MethodName: OnTower2ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -768,7 +767,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &334076136
 MonoBehaviour:
@@ -782,7 +781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!114 &334076137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,8 +826,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 334076136}
-        m_TargetAssemblyTypeName: UnitButtonControl, Assembly-CSharp
-        m_MethodName: OnUnitButtonClick
+        m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
+        m_MethodName: OnUnit3ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1031,7 +1029,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 32
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1389,7 +1387,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803062016
 MonoBehaviour:
@@ -1403,7 +1401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!114 &803062017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1449,8 +1446,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 803062016}
-        m_TargetAssemblyTypeName: UnitButtonControl, Assembly-CSharp
-        m_MethodName: OnUnitButtonClick
+        m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
+        m_MethodName: OnUnit2ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1610,7 +1607,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918367931
 MonoBehaviour:
@@ -1657,8 +1654,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 918367934}
-        m_TargetAssemblyTypeName: UnitButtonControl, Assembly-CSharp
-        m_MethodName: OnUnitButtonClick
+        m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
+        m_MethodName: OnUnit1ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1718,7 +1715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!1 &1256343120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,9 +1926,9 @@ RectTransform:
   m_Father: {fileID: 1256343124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 28.132, y: 48.746002}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 19, y: -446.25}
   m_SizeDelta: {x: 231.2, y: 97.492}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1410674491
@@ -2277,7 +2273,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745142880
 MonoBehaviour:
@@ -2291,7 +2287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!114 &1745142881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,7 +2497,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1928164810
 MonoBehaviour:
@@ -2550,7 +2545,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1928164813}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnBuildingButtonClick
+        m_MethodName: OnTower1ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2588,7 +2583,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1928164812
 CanvasRenderer:
@@ -2610,7 +2605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bec382945cdb074fa2a81f1fa563339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
 --- !u!1 &1954122203
 GameObject:
   m_ObjectHideFlags: 0
