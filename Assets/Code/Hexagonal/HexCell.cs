@@ -1,14 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HexCell : MonoBehaviour {
-    
-    private static readonly List<string> UnitNames = new List<string> {
-        "CommonKnight(Clone)",
-        "ExperiencedKnight(Clone)",
-        "LegendaryKnight(Clone)"
-    };
     
     public HexCoordinates coordinates;
     public MonoBehaviour prefabInstance;
@@ -46,33 +39,33 @@ public class HexCell : MonoBehaviour {
         };
     }
 
-    public HexCoordinates[] NeighborsCoordinates()
-    {
+    public HexCoordinates[] NeighborsCoordinates() {
         return coordinates.Neighbors();
     }
     
     public bool IsEmpty() {
-        return prefabInstance.name.Equals("NoElement(Clone)");
+        return prefabInstance is NoElement;
     }
 
     public bool IsNeutral() {
-        return playerId == 0;
+        return playerId.Equals(0);
     }
 
     public bool HasTree() {
-        return prefabInstance.name.Equals("Tree(Clone)");
+        return prefabInstance is Tree;
     }
 
     public bool HasHouse() {
-        return prefabInstance.name.Equals("House(Clone)");
+        return prefabInstance is House;
     }
 
     public bool HasTower() {
-        return prefabInstance.name.Equals("NormalTower(Clone)") || prefabInstance.name.Equals("SuperTower(Clone)");
+        return prefabInstance is NormalTower || prefabInstance is SuperTower;
     }
     
     public bool HasUnit() {
-        return UnitNames.Contains(prefabInstance.name);
+        return prefabInstance is CommonKnight || prefabInstance is ExperiencedKnight ||
+               prefabInstance is LegendaryKnight;
     }
 
     public bool IsEnemyCell() {
@@ -88,6 +81,6 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool IsFriendlyCell() {
-        return playerId == PlayerController.CurrentPlayerId;
+        return playerId.Equals(PlayerController.CurrentPlayerId);
     }
 }
