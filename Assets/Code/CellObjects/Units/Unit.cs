@@ -11,7 +11,7 @@ public abstract class Unit : CellObject {
         }
         Vector3 transformPosition = transform.position;
         transformPosition.z += (float) Math.Sin(_upDownAnimationValue) / 15;
-        _upDownAnimationValue += Math.PI / 100;
+        _upDownAnimationValue += Math.PI / 30;
         if (_upDownAnimationValue >= 2*Math.PI) _upDownAnimationValue = 0;
         transform.position = transformPosition;
     }
