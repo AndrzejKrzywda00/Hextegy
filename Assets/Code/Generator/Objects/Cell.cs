@@ -11,21 +11,21 @@ public class Cell {
     public Cell(int x, int y) {
         Coordinates = new Coordinates(x, y);
 
-        Prefab = Prefabs.getNoElement();
+        Prefab = Prefabs.GetNoElement();
         PlayerId = 0;
         IsMainLand = false;
     }
     
     public Cell(Coordinates coordinates) {
-        this.Coordinates = coordinates;
+        Coordinates = coordinates;
 
-        Prefab = Prefabs.getNoElement();
+        Prefab = Prefabs.GetNoElement();
         PlayerId = 0;
         IsMainLand = false;
     }
 
     public bool HasTree() {
-        return Prefab.name.Equals(Prefabs.getTree().name);
+        return Prefab.name.Equals(Prefabs.GetTree().name);
     }
 
 }

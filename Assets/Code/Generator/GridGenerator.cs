@@ -113,7 +113,7 @@ namespace Code.Generator {
                 cell.PlayerId = playerField.playerId;
             }
 
-            startingCell.Prefab = Prefabs.getCapital(playerField.playerId);
+            startingCell.Prefab = Prefabs.GetCapital(playerField.playerId);
         }
 
         private bool isAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
@@ -128,8 +128,8 @@ namespace Code.Generator {
         private void GenerateTrees() {
             foreach (Cell cell in map.cells) {
                 if (cell != null && RandomNumber.getBoolByRatio(treeRatio)) {
-                    if (cell.Prefab == Prefabs.getNoElement()) {
-                        cell.Prefab = Prefabs.getTree();
+                    if (cell.Prefab == Prefabs.GetNoElement()) {
+                        cell.Prefab = Prefabs.GetTree();
                     }
                 }
             }
