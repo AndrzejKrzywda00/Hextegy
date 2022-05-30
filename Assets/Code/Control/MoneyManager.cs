@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour {
     
-    private readonly int _initialMoney = 1000;
+    private readonly int _initialMoney = 10;
     private Dictionary<int, int> _playersBalances;
     private Dictionary<int, int> _playersWallets;
 
@@ -52,7 +52,7 @@ public class MoneyManager : MonoBehaviour {
 
     public void Buy(CellObject entity, int playerId) {
         _playersBalances[playerId] -= entity.GetMaintenanceCost();
-        _playersWallets[playerId] -= entity.GetMaintenanceCost();
+        _playersWallets[playerId] -= entity.GetPrice();
     }
 
     public bool HasEnoughMoneyToBuy(CellObject entity, int playerId) {
