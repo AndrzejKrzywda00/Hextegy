@@ -19,7 +19,7 @@ public class HexGrid : MonoBehaviour {
     public HexCell[] Cells => _cells;
 
     private void Awake() {
-        _playerController = gameObject.AddComponent<PlayerController>();
+        _playerController = FindObjectOfType<PlayerController>();
         _cam = Camera.main;
         _hexMesh = GetComponentInChildren<HexMesh>();
         _cellPrototypes = GenerateMap();
@@ -159,6 +159,6 @@ public class HexGrid : MonoBehaviour {
 
     private void HandleAddingTreeToCell(HexCell neighbor) {
         neighbor.PutOnCell(Prefabs.GetTree());
-        _playerController.MoneyManager.DecrementBalanceOfPlayer(neighbor.playerId);
+        MoneyManager.DecrementBalanceOfPlayer(neighbor.playerId);
     }
 }
