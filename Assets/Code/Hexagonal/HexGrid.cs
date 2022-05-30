@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Code.Generator;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
@@ -84,6 +86,18 @@ public class HexGrid : MonoBehaviour {
         MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
+    public Dictionary<int, int> MapCellsToInitialBalanceOfPlayers() {
+
+        Dictionary<int, int> playersInitialBalances = new Dictionary<int, int>();
+        
+        foreach (Cell cellPrototype in _cellPrototypes) {
+            if (cellPrototype == null) continue;
+            if(!cellPrototype.Prefab.name.Equals("Tree(Clone)")) playersInitialBalances[cellPrototype.PlayerId] += 1;
+        }
+
+        return playersInitialBalances;
+    }
+
     private int GetCellIndexByPosition(int x, int z) {
         return x * GridWidth + z;
     }
@@ -109,15 +123,19 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InteractWithCell(Vector3 position) {
-        var cellIndex = GetCellIndex(position);
+        var cellIndex = GetCellIndexFromPosition(position);
         if (_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
         _hexMesh.Triangulate(_cells);
     }
 
-    private int GetCellIndex(Vector3 position) {
+    private int GetCellIndexFromPosition(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         HexCoordinates hexCoordinates = HexCoordinates.FromPosition(position);
         int cellIndex = GetCellIndexByHexCoordinates(hexCoordinates);
         return cellIndex;
+    }
+
+    private void CalculateFieldsOfPlayers() {
+        
     }
 }

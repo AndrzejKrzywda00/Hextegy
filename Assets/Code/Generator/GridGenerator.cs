@@ -69,12 +69,12 @@ namespace Code.Generator {
         private void ClearUnconnectedIslands() {
             Cell center = map.getClosestCell(map.getCenterCoordinates());
 
-            SetMainLandCellsRecursively(center.coordinates);
+            SetMainLandCellsRecursively(center.Coordinates);
 
             foreach (Cell cell in map.cells) {
                 if (cell != null) {
-                    if (cell.isMainLand == false) {
-                        map.clearCell(cell.coordinates);
+                    if (cell.IsMainLand == false) {
+                        map.clearCell(cell.Coordinates);
                     }
                 }
             }
@@ -85,8 +85,8 @@ namespace Code.Generator {
             foreach (Coordinates coordinates in touchingCoordinates) {
                 if(map.isOutOfRange(coordinates)) continue;
                 if(map.getCell(coordinates) == null) continue;
-                if (!map.getCell(coordinates).isMainLand) {
-                    map.getCell(coordinates).isMainLand = true;
+                if (!map.getCell(coordinates).IsMainLand) {
+                    map.getCell(coordinates).IsMainLand = true;
                     SetMainLandCellsRecursively(coordinates);
                 }
             }
@@ -107,9 +107,9 @@ namespace Code.Generator {
         private void AddPlayerField(PlayerField playerField) {
             Cell startingCell = map.getRandomCell();
             
-            while(isAnotherPlayerFieldInRange(startingCell.coordinates, playerField)) startingCell = map.getRandomCell();
+            while(isAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = map.getRandomCell();
             
-            foreach (Cell cell in map.getCircle(startingCell.coordinates, playerField.radius)) {
+            foreach (Cell cell in map.getCircle(startingCell.Coordinates, playerField.radius)) {
                 cell.PlayerId = playerField.playerId;
             }
 

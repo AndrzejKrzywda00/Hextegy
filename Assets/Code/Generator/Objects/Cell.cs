@@ -2,28 +2,26 @@ using Code.Generator;
 using UnityEngine;
 
 public class Cell {
-    public Coordinates coordinates;
-
+    
+    public readonly Coordinates Coordinates;
     public MonoBehaviour Prefab;
     public int PlayerId;
-
-    public bool isMainLand;
-    
+    public bool IsMainLand;
 
     public Cell(int x, int y) {
-        this.coordinates = new Coordinates(x, y);
+        Coordinates = new Coordinates(x, y);
 
         Prefab = Prefabs.getNoElement();
         PlayerId = 0;
-        isMainLand = false;
+        IsMainLand = false;
     }
     
     public Cell(Coordinates coordinates) {
-        this.coordinates = coordinates;
+        this.Coordinates = coordinates;
 
         Prefab = Prefabs.getNoElement();
         PlayerId = 0;
-        isMainLand = false;
+        IsMainLand = false;
     }
     
     

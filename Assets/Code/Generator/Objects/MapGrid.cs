@@ -27,9 +27,9 @@ namespace Code.Generator {
 
         public void setCell(Cell cell) {
             if (cell == null) return;
-            if (isOutOfRange(cell.coordinates))
-                throw new ArgumentOutOfRangeException("Out of range :) " + cell.coordinates.toString());
-            cells[cell.coordinates.x * width + cell.coordinates.y] = cell;
+            if (isOutOfRange(cell.Coordinates))
+                throw new ArgumentOutOfRangeException("Out of range :) " + cell.Coordinates.toString());
+            cells[cell.Coordinates.x * width + cell.Coordinates.y] = cell;
         }
 
         public void clearCell(Coordinates coordinates) {
@@ -58,7 +58,7 @@ namespace Code.Generator {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
                 if (cell == null) continue;
-                if (Coordinates.Distance(coordinates, cell.coordinates) == radius) {
+                if (Coordinates.Distance(coordinates, cell.Coordinates) == radius) {
                     radiusCells.Add(cell);
                 }
             }
@@ -70,7 +70,7 @@ namespace Code.Generator {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
                 if (cell == null) continue;
-                if (Coordinates.Distance(coordinates, cell.coordinates) <= radius) {
+                if (Coordinates.Distance(coordinates, cell.Coordinates) <= radius) {
                     radiusCells.Add(cell);
                 }
             }
