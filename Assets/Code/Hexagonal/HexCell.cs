@@ -64,8 +64,7 @@ public class HexCell : MonoBehaviour {
     }
     
     public bool HasUnit() {
-        return prefabInstance is CommonKnight || prefabInstance is ExperiencedKnight ||
-               prefabInstance is LegendaryKnight;
+        return prefabInstance is Unit;
     }
 
     public bool IsEnemyCell() {
