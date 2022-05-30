@@ -24,7 +24,6 @@ public class Cell {
     }
 
     public bool HasTree() {
-        return Prefab.name.Equals(Prefabs.GetTree().name);
+        return Prefab is Tree;
     }
-
 }
