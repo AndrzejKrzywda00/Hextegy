@@ -1,21 +1,33 @@
+using System;
 using UnityEngine;
 
 public class NextTurnButtonControl : MonoBehaviour {
+    private PlayerController _playerController;
+
+    private void Start() {
+        _playerController = FindObjectOfType<PlayerController>();
+    }
 
     public void OnClick() {
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-        playerController.MoneyManager.CalculateWalletOnTurnEnd();
+        _playerController.MoneyManager.CalculateWalletOnTurnEnd();
 
+        ChangeCurrentPlayersUnitMovementPossibilityTo(false);
+        
         if (PlayerController.CurrentPlayerId >= HexGrid.NumberOfPlayers)
             PlayerController.CurrentPlayerId = 0;
         
         PlayerController.CurrentPlayerId++;
 
-        foreach (HexCell hexCell in playerController.HexGrid.Cells) {
-            if (hexCell != null && hexCell.prefabInstance is Unit unit)
-                unit.SetHasMoveLeftInThisTurn = true;
-        }
-
+        ChangeCurrentPlayersUnitMovementPossibilityTo(true);
+        
         PlayerController.AddTreesOnEndOfTurn();
+    }
+
+    private void ChangeCurrentPlayersUnitMovementPossibilityTo(bool boolean) {
+        foreach (HexCell hexCell in _playerController.HexGrid.Cells) {
+            if (hexCell == null || !(hexCell.prefabInstance is Unit unit) || !hexCell.IsFriendlyCell()) continue;
+            unit.SetHasMoveLeftInThisTurn = boolean;
+            hexCell.AlignPrefabInstancePositionWithCellPosition();
+        }
     }
 }
