@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class MoneyManager : MonoBehaviour {
 
@@ -8,12 +10,28 @@ public class MoneyManager : MonoBehaviour {
     // balance should be recalculated after each change on the map
     private int _balance = 420;
 
+    private Dictionary<int, int> _playersBalances;
+    private Dictionary<int, int> _playersWallets;
+
     public int GetCurrentCoins() {
         return _currentMoney;
     }
 
     public void IncrementBalance() {
         _balance++;
+    }
+
+    public void IncrementBalanceOfPlayer(int playerId) {
+        _playersBalances[playerId] += 1;
+    }
+
+    public void DecrementBalanceOfPlayer(int playerId) {
+        _playersBalances[playerId] -= 1;
+    }
+
+    public void TransferBalanceOfFieldFromPlayerToPlayer(int pid1, int pid2) {
+        DecrementBalanceOfPlayer(pid1);
+        IncrementBalanceOfPlayer(pid2);
     }
 
     public int GetBalance() {
