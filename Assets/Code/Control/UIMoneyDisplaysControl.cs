@@ -12,7 +12,7 @@ public class UIMoneyDisplaysControl : MonoBehaviour {
     public TextMeshProUGUI _balanceText;
 
     private void FixedUpdate() {
-        _currentMoneyText.text = "Obecne środki: " + _moneyManager.GetCurrentCoins(PlayerController.CurrentPlayerId);
-        _balanceText.text = "Obecny przychód: " + _moneyManager.GetBalance(PlayerController.CurrentPlayerId);
+        _currentMoneyText.text = "Coins: " + _moneyManager.GetCurrentCoins(PlayerController.CurrentPlayerId);
+        _balanceText.text = "Balance: " + _moneyManager.GetBalance(PlayerController.CurrentPlayerId);
     }
 }
