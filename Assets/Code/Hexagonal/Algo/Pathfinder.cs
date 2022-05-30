@@ -28,10 +28,10 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private bool PathConsistsOfNonFriendlyCells(HexCoordinates[] coordinatesArray) {
-        int counter = 0;
+        int index = 0;
         foreach (HexCoordinates coordinates in coordinatesArray) {
-            if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && counter != 0) return false;
-            counter++;
+            if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
+            index++;
         }
         return true;
     }
