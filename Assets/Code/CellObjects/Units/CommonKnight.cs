@@ -12,6 +12,6 @@ public class CommonKnight : Unit {
     }
 
     public override int Range() {
-        return 4;
+        return 5;
     }
 }

@@ -78,14 +78,17 @@ public class HexGrid : MonoBehaviour {
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
         int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
-
-        // TODO -- refactor this to new method
+        
         HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
+        PositionTheCellOnGrid(x, z, position, hexCell);
+        MapPrototypeToHexCell(prototypeIndex, hexCell);
+    }
+
+    private void PositionTheCellOnGrid(int x, int z, Vector3 position, HexCell hexCell) {
         Transform cellTransform = hexCell.transform;
         cellTransform.SetParent(transform, false);
         cellTransform.localPosition = position;
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
     public Dictionary<int, int> MapCellsToInitialBalanceOfPlayers() {

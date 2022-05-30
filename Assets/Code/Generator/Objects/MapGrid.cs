@@ -13,40 +13,40 @@ namespace Code.Generator {
             cells = new Cell[height * width];
         }
 
-        public bool isOutOfRange(Coordinates coordinates) {
+        public bool IsOutOfRange(Coordinates coordinates) {
             if (coordinates.x >= width || coordinates.x < 0 || coordinates.y >= height || coordinates.y < 0)
                 return true;
             return false;
         }
 
-        public Cell getCell(Coordinates coordinates) {
-            if (isOutOfRange(coordinates))
+        public Cell GetCell(Coordinates coordinates) {
+            if (IsOutOfRange(coordinates))
                 throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
             return cells[coordinates.x * width + coordinates.y];
         }
 
-        public void setCell(Cell cell) {
+        public void SetCell(Cell cell) {
             if (cell == null) return;
-            if (isOutOfRange(cell.Coordinates))
+            if (IsOutOfRange(cell.Coordinates))
                 throw new ArgumentOutOfRangeException("Out of range :) " + cell.Coordinates.toString());
             cells[cell.Coordinates.x * width + cell.Coordinates.y] = cell;
         }
 
-        public void clearCell(Coordinates coordinates) {
-            if (isOutOfRange(coordinates))
+        public void ClearCell(Coordinates coordinates) {
+            if (IsOutOfRange(coordinates))
                 throw new ArgumentOutOfRangeException("Out of range :) " + coordinates.toString());
             cells[coordinates.x * width + coordinates.y] = null;
         }
 
-        public Cell getRandomCell() {
-            return getClosestCell(Coordinates.Random(width, height));
+        public Cell GetRandomCell() {
+            return GetClosestCell(Coordinates.Random(width, height));
         }
 
-        public Cell getClosestCell(Coordinates coordinates) {
-            if (getCell(coordinates) != null) return getCell(coordinates);
+        public Cell GetClosestCell(Coordinates coordinates) {
+            if (GetCell(coordinates) != null) return GetCell(coordinates);
 
             for (int r = 1; r < Math.Max(width, height); r++) {
-                foreach (Cell cell in getRing(coordinates, r)) {
+                foreach (Cell cell in GetRing(coordinates, r)) {
                     if (cell != null) return cell;
                 }
             }
@@ -54,7 +54,7 @@ namespace Code.Generator {
             return null;
         }
 
-        public List<Cell> getRing(Coordinates coordinates, int radius) {
+        public List<Cell> GetRing(Coordinates coordinates, int radius) {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
                 if (cell == null) continue;
@@ -66,7 +66,7 @@ namespace Code.Generator {
             return radiusCells;
         }
 
-        public List<Cell> getCircle(Coordinates coordinates, int radius) {
+        public List<Cell> GetCircle(Coordinates coordinates, int radius) {
             List<Cell> radiusCells = new List<Cell>();
             foreach (Cell cell in cells) {
                 if (cell == null) continue;
@@ -78,7 +78,7 @@ namespace Code.Generator {
             return radiusCells;
         }
 
-        public List<Cell> getAllNotEmptyCells() {
+        public List<Cell> GetAllNotEmptyCells() {
             List<Cell> allNotEmptyCell = new List<Cell>();
             foreach (Cell cell in cells)
                 if (cell != null)
@@ -87,23 +87,23 @@ namespace Code.Generator {
             return allNotEmptyCell;
         }
 
-        public Coordinates getCenterCoordinates() {
+        public Coordinates GetCenterCoordinates() {
             return new Coordinates(width / 2, height / 2);
         }
 
-        public List<Cell> getTouchingCells(Coordinates coordinates) {
+        public List<Cell> GetTouchingCells(Coordinates coordinates) {
             List<Cell> touchingCells = new List<Cell>();
             Coordinates[] touchingCoordinates = Coordinates.getTouchingCoordinates(coordinates);
 
             foreach (Coordinates touchingCoord in touchingCoordinates) {
-                if(isOutOfRange(touchingCoord)) continue;
-                Cell touchingCell = getCell(touchingCoord);
+                if(IsOutOfRange(touchingCoord)) continue;
+                Cell touchingCell = GetCell(touchingCoord);
                 if(touchingCell != null) touchingCells.Add(touchingCell);
             }
             return touchingCells;
         }
 
-        public int numberOfNoEmptyCells() {
+        public int NumberOfNoEmptyCells() {
             int number = 0;
             foreach (Cell cell in cells) {
                 if (cell != null) number++;

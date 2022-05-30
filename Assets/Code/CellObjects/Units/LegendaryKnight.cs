@@ -12,6 +12,6 @@ public class LegendaryKnight : Unit {
     }
 
     public override int Range() {
-        return 6;
+        return 3;
     }
 }

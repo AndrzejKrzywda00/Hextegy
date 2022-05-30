@@ -6,8 +6,9 @@ using UnityEngine;
 
 namespace Code.Generator {
     public class GridGenerator {
-        private MapGrid map;
         
+        private MapGrid map;
+
         public float scale = 3f;                                            // good result in range [0.5, 10]
         public float fulfil = 0.5f;                                         // [0, 1]: 0 - empty map, 1 - full map
         public float treeRatio = 0.2f;                                      // [0, 1]: 0 - no trees, 1 - trees everywhere
@@ -27,19 +28,19 @@ namespace Code.Generator {
         public Cell[] GenerateMap(int height, int width) {
             map = new MapGrid(width, height);
             
-            Debug.Log("Generating perlin noise...");
+            //Debug.Log("Generating perlin noise...");
             GenerateByPerlinNoise();
             
-            Debug.Log("Clearing unconnected islands...");
+            //Debug.Log("Clearing unconnected islands...");
             ClearUnconnectedIslands();
             
-            Debug.Log("Generating players fields...");
+            //Debug.Log("Generating players fields...");
             AddPlayersFields(playerFields);
             
-            Debug.Log("Generating trees...");
+            //Debug.Log("Generating trees...");
             GenerateTrees();
 
-            Debug.Log("Generation finished!");
+            //Debug.Log("Generation finished!");
             return map.cells;
         }
 
@@ -57,24 +58,24 @@ namespace Code.Generator {
             for (int x = 0; x < map.width; x++) {
                 for (int y = 0; y < map.height; y++) {
                     Cell newCell = new Cell(x, y);
-                    map.setCell(perlinNoise[x, y] ? newCell : null);
+                    map.SetCell(perlinNoise[x, y] ? newCell : null);
                 }
             }
 
-            if (map.numberOfNoEmptyCells() < map.width * map.height * 0.5 * fulfil + 1)
+            if (map.NumberOfNoEmptyCells() < map.width * map.height * 0.5 * fulfil + 1)
                 throw new Exception(
                     "Map generator error: for this parameters generated map is mostly empty. Try one more time");
         }
 
         private void ClearUnconnectedIslands() {
-            Cell center = map.getClosestCell(map.getCenterCoordinates());
+            Cell center = map.GetClosestCell(map.GetCenterCoordinates());
 
             SetMainLandCellsRecursively(center.Coordinates);
 
             foreach (Cell cell in map.cells) {
                 if (cell != null) {
                     if (cell.IsMainLand == false) {
-                        map.clearCell(cell.Coordinates);
+                        map.ClearCell(cell.Coordinates);
                     }
                 }
             }
@@ -83,10 +84,10 @@ namespace Code.Generator {
         private void SetMainLandCellsRecursively(Coordinates startingPoint) {
             Coordinates[] touchingCoordinates = Coordinates.getTouchingCoordinates(startingPoint);
             foreach (Coordinates coordinates in touchingCoordinates) {
-                if(map.isOutOfRange(coordinates)) continue;
-                if(map.getCell(coordinates) == null) continue;
-                if (!map.getCell(coordinates).IsMainLand) {
-                    map.getCell(coordinates).IsMainLand = true;
+                if(map.IsOutOfRange(coordinates)) continue;
+                if(map.GetCell(coordinates) == null) continue;
+                if (!map.GetCell(coordinates).IsMainLand) {
+                    map.GetCell(coordinates).IsMainLand = true;
                     SetMainLandCellsRecursively(coordinates);
                 }
             }
@@ -105,19 +106,19 @@ namespace Code.Generator {
         }
 
         private void AddPlayerField(PlayerField playerField) {
-            Cell startingCell = map.getRandomCell();
+            Cell startingCell = map.GetRandomCell();
             
-            while(isAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = map.getRandomCell();
+            while(IsAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = map.GetRandomCell();
             
-            foreach (Cell cell in map.getCircle(startingCell.Coordinates, playerField.radius)) {
+            foreach (Cell cell in map.GetCircle(startingCell.Coordinates, playerField.radius)) {
                 cell.PlayerId = playerField.playerId;
             }
 
             startingCell.Prefab = Prefabs.GetCapital(playerField.playerId);
         }
 
-        private bool isAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
-            List<Cell> cellsInRange = map.getCircle(startingPoint, playerField.radius);
+        private bool IsAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
+            List<Cell> cellsInRange = map.GetCircle(startingPoint, playerField.radius);
             foreach (Cell cell in cellsInRange) {
                 if(cell == null) continue;
                 if (cell.PlayerId != 0) return true;
