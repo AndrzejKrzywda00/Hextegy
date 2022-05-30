@@ -3,6 +3,7 @@ using Code.Generator;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
+    public static int NumberOfPlayers = 4;
     
     private const int GridWidth = 30;
     private const int GridHeight = 30;
@@ -15,6 +16,8 @@ public class HexGrid : MonoBehaviour {
     private HexCell[] _cells;
     private Cell[] _cellPrototypes;
 
+    public HexCell[] Cells => _cells;
+
     private void Awake() {
         _playerController = gameObject.AddComponent<PlayerController>();
         _cam = Camera.main;
@@ -26,7 +29,7 @@ public class HexGrid : MonoBehaviour {
     private static Cell[] GenerateMap() {
         GridGenerator generator = new GridGenerator();
 
-        generator.GeneratePlayerFields(4, 4);
+        generator.GeneratePlayerFields(NumberOfPlayers, 4);
         // you can change parameters here!!!
         //generator.scale = 1f;
         //generator.fulfil = 0.3f;
@@ -75,14 +78,17 @@ public class HexGrid : MonoBehaviour {
     private void InstantiateCellOnGrid(int x, int z, int i, Vector3 position) {
         int prototypeIndex = GetCellIndexByPosition(x, z);
         if (_cellPrototypes[prototypeIndex] == null) return;
-
-        // TODO -- refactor this to new method
+        
         HexCell hexCell = _cells[i] = Instantiate(hexCellPrefab);
+        PositionTheCellOnGrid(x, z, position, hexCell);
+        MapPrototypeToHexCell(prototypeIndex, hexCell);
+    }
+
+    private void PositionTheCellOnGrid(int x, int z, Vector3 position, HexCell hexCell) {
         Transform cellTransform = hexCell.transform;
         cellTransform.SetParent(transform, false);
         cellTransform.localPosition = position;
         hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
     public Dictionary<int, int> MapCellsToInitialBalanceOfPlayers() {

@@ -6,19 +6,23 @@ public class PlayerController : MonoBehaviour {
     public static int CurrentPlayerId = 1;
     public HexCell selectedCellWithUnit;
     public CellObject prefabFromUI;
-    private HexGrid _grid;
     private MoneyManager _moneyManager;
+    private HexGrid _hexGrid;
     private Pathfinder _pf;
+
+    public MoneyManager MoneyManager => _moneyManager;
+
+    public HexGrid HexGrid => _hexGrid;
 
     private void Start() {
         _pf = FindObjectOfType<Pathfinder>();
-        _grid = FindObjectOfType<HexGrid>();
+        _hexGrid = FindObjectOfType<HexGrid>();
         InitializeMoneyManager();
     }
 
     private void InitializeMoneyManager() {
         _moneyManager = FindObjectOfType<MoneyManager>();
-        _moneyManager.SetInitialBalanceOfPlayers(_grid.MapCellsToInitialBalanceOfPlayers());
+        _moneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
     }
 
     public void Handle(HexCell hexCell) {
@@ -30,7 +34,7 @@ public class PlayerController : MonoBehaviour {
                         return;
                     }
                 } else {
-                    if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                    if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsObjectFromUIUnit()) {
                         HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
                         return;
                     }
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour {
             prefabFromUI = null;
         } else {
             if (IsSomeCellAlreadySelected()) {
-                if (IsCellInUnitMovementRange(hexCell)) {
+                if (CanSelectedObjectMoveInThisTurn() && IsCellInUnitMovementRange(hexCell)) {
                     if (hexCell.IsFriendlyCell()) {
                         if (hexCell.IsEmpty() || hexCell.HasTree()) {
                             HandleMovingUnit(hexCell);
@@ -65,6 +69,10 @@ public class PlayerController : MonoBehaviour {
     private bool IsItemFromUISelected() {
         return prefabFromUI != null;
     }
+
+    private bool IsObjectFromUIUnit() {
+        return prefabFromUI.Range() > 0;
+    }
     
     private bool HasEnoughMoneyToBuyEntity() {
         return _moneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
@@ -72,9 +80,9 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
         try {
-            CellObject enemyUnit = (CellObject) hexCell.prefabInstance;
+            CellObject enemyUnit = hexCell.prefabInstance;
             CellObject selectedUnit;
-            if (selectedCellWithUnit != null) selectedUnit = (CellObject) selectedCellWithUnit.prefabInstance;
+            if (selectedCellWithUnit != null) selectedUnit = selectedCellWithUnit.prefabInstance;
             else selectedUnit = prefabFromUI;
             return enemyUnit.IsWeakerThan(selectedUnit);
         }
@@ -84,7 +92,7 @@ public class PlayerController : MonoBehaviour {
     private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
         HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
         foreach (HexCoordinates coordinates in neighbors) {
-            HexCell neighborCell = _grid.CellAtCoordinates(coordinates);
+            HexCell neighborCell = _hexGrid.CellAtCoordinates(coordinates);
             if (neighborCell != null && neighborCell.IsFriendlyCell()) {
                 return true;
             }
@@ -102,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
         HandleBuyingEntityOnFriendlyCell(hexCell);
+        hexCell.prefabInstance.SetHasMoveLeftInThisTurn = false;
         _moneyManager.IncrementBalance(CurrentPlayerId);
         AdjustCellColor(hexCell);
     }
@@ -114,15 +123,20 @@ public class PlayerController : MonoBehaviour {
         return selectedCellWithUnit != null;
     }
 
+    private bool CanSelectedObjectMoveInThisTurn() {
+        return selectedCellWithUnit.prefabInstance.CanMoveInThisTurn();
+    }
+    
     private bool IsCellInUnitMovementRange(HexCell hexCell) {
         HexCoordinates[] path = _pf.OptionalPathFromTo(selectedCellWithUnit, hexCell);
-        CellObject unit = (CellObject) selectedCellWithUnit.prefabInstance;
+        CellObject unit = selectedCellWithUnit.prefabInstance;
         if (path == null) return false;
         return path.Length - 1 <= unit.Range();
     }
 
     private void HandleMovingUnit(HexCell hexCell) {
         if(hexCell.IsFriendlyCell() && hexCell.HasTree()) _moneyManager.IncrementBalance(CurrentPlayerId);
+        selectedCellWithUnit.prefabInstance.SetHasMoveLeftInThisTurn = false;
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();

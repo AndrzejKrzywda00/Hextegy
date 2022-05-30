@@ -1,4 +1,4 @@
-public class ExperiencedKnight : CellObject {
+public class ExperiencedKnight : Unit {
     public override int GetPrice() {
         return 20;
     }
@@ -12,6 +12,6 @@ public class ExperiencedKnight : CellObject {
     }
     
     public override int Range() {
-        return 5;
+        return 4;
     }
 }

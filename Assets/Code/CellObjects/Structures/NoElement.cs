@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class NoElement : CellObject {
     public override int GetPrice() {
         throw new ThatShouldntBeUsedException();

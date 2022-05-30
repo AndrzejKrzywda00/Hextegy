@@ -1,4 +1,5 @@
 public class SuperTower : CellObject {
+    
     public override int GetPrice() {
         return 35;
     }

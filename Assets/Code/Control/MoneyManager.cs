@@ -23,9 +23,9 @@ public class MoneyManager : MonoBehaviour {
         if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] -= 1;
     }
 
-    public void TransferBalanceOfFieldFromPlayerToPlayer(int pid1, int pid2) {
-        DecrementBalanceOfPlayer(pid1);
-        IncrementBalanceOfPlayer(pid2);
+    public void TransferBalanceOfFieldFromPlayerToPlayer(int playerId1, int playerId2) {
+        DecrementBalanceOfPlayer(playerId1);
+        IncrementBalanceOfPlayer(playerId2);
     }
 
     public void SetInitialBalanceOfPlayers(Dictionary<int, int> initialBalanceOfPlayers) {
@@ -40,10 +40,9 @@ public class MoneyManager : MonoBehaviour {
         }
     }
 
-    public void CalculateWalletsOnTurnEnd() {
-        foreach (KeyValuePair<int, int> balance in _playersBalances) {
-            _playersWallets[balance.Key] += balance.Value;
-        }
+    public void CalculateWalletOnTurnEnd() {
+        int currentPlayerBalance = _playersBalances[PlayerController.CurrentPlayerId];
+        _playersWallets[PlayerController.CurrentPlayerId] += currentPlayerBalance;
     }
 
     public int GetBalance(int playerId) {
