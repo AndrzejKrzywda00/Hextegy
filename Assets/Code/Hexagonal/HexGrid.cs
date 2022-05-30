@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Code.Generator;
 using UnityEngine;
 
@@ -84,11 +83,11 @@ public class HexGrid : MonoBehaviour {
         MapPrototypeToHexCell(prototypeIndex, hexCell);
     }
 
-    public int GetCellIndexByPosition(int x, int z) {
+    private int GetCellIndexByPosition(int x, int z) {
         return x * GridWidth + z;
     }
 
-    public int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
+    private int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
         return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
     }
 

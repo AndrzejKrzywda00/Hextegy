@@ -21,12 +21,13 @@ public class Pathfinder : MonoBehaviour {
         _grid = FindObjectOfType<HexGrid>();
     }
     
-    public bool IsTherePathFromTo(HexCell from, HexCell to) {
+    public HexCoordinates[] OptionalPathFromTo(HexCell from, HexCell to) {
         var path = PathFromTo(from, to);
-        return path.Contains(from.coordinates) && path.Contains(to.coordinates);
+        if (path.Contains(from.coordinates) && path.Contains(to.coordinates)) return path;
+        return null;
     }
 
-    public HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
+    private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
         InitializePathfindingProcessParameters(from, to);
         return CalculatePathFromTo();
     }
@@ -53,8 +54,7 @@ public class Pathfinder : MonoBehaviour {
         var node = _destination;
         List<HexCoordinates> path = new List<HexCoordinates>();
         
-        int limit = 0;
-        while (node != null && limit++ < 100) {
+        while (node != null) {
             path.Add(node.GetCell.coordinates);
             node = node.Parent;
         }
@@ -118,7 +118,7 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private bool IsDestination(HexCell hexCell) {
-        return hexCell == _destination.GetCell;
+        return hexCell.Equals(_destination.GetCell);
     }
 
     private bool CellDoesntExist(HexCell hexCell) {

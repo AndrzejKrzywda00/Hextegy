@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     
@@ -109,9 +111,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool IsCellInUnitMovementRange(HexCell hexCell) {
-        HexCoordinates[] path = _pf.PathFromTo(selectedCellWithUnit, hexCell);
+        HexCoordinates[] path = _pf.OptionalPathFromTo(selectedCellWithUnit, hexCell);
         CommonKnight unit = (CommonKnight) selectedCellWithUnit.prefabInstance;
-        return path.Length - 1 <= unit.Range();         // -1 bc path contains both source & destination
+        if (path == null) return false;
+        return path.Length - 1 <= unit.Range();
     }
 
     private void HandleMovingUnit(HexCell hexCell) {
