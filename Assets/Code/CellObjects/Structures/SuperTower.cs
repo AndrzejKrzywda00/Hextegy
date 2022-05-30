@@ -10,4 +10,8 @@ public class SuperTower : CellObject {
     public override int Level() {
         return 2;
     }
+    
+    public override int Range() {
+        return 0;
+    }
 }

@@ -18,4 +18,8 @@ public class Capital : CellObject {
     public override int Level() {
         return 1;
     }
+    
+    public override int Range() {
+        return 0;
+    }
 }

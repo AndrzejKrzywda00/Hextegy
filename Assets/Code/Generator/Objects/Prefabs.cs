@@ -8,7 +8,6 @@ namespace Code.Generator {
         private static SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
         private static NoElement _noElement = Resources.Load<NoElement>("NoElement");
         private static CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
-        // this is capital of the player, use SetPlayerId before adding
         private static Capital _capital = Resources.Load<Capital>("Capital");
 
         public static House getHouse() {

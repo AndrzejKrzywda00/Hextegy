@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool IsCellInUnitMovementRange(HexCell hexCell) {
         HexCoordinates[] path = _pf.OptionalPathFromTo(selectedCellWithUnit, hexCell);
-        CommonKnight unit = (CommonKnight) selectedCellWithUnit.prefabInstance;
+        CellObject unit = (CellObject) selectedCellWithUnit.prefabInstance;
         if (path == null) return false;
         return path.Length - 1 <= unit.Range();
     }

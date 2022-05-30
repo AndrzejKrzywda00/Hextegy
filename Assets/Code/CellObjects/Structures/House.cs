@@ -10,4 +10,8 @@ public class House : CellObject {
     public override int Level() {
         return 0;
     }
+    
+    public override int Range() {
+        return 0;
+    }
 }

@@ -6,10 +6,7 @@ public struct HexCoordinates {
     
     [SerializeField]
     private int x, z;
-
-    /*
-     * 
-     */
+    
     public int Y => -x - z;
     public int X => x;
     public int Z => z;

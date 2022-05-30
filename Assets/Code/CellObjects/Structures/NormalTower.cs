@@ -10,4 +10,8 @@ public class NormalTower : CellObject {
     public override int Level() {
         return 1;
     }
+    
+    public override int Range() {
+        return 0;
+    }
 }
