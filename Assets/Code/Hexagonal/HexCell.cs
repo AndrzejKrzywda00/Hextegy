@@ -90,26 +90,4 @@ public class HexCell : MonoBehaviour {
     public bool IsFriendlyCell() {
         return playerId == PlayerController.CurrentPlayerId;
     }
-
-    // ------------------------ ACCESS TYPES ------------------------
-
-    public bool NoConditionAccess() {
-        return IsEmpty() || HasTree() || (HasHouse() && IsEnemyCell());
-    }
-
-    public bool EnemyUnitWeakerAccess(HexCell source) {
-        if (!source.IsEnemyCell()) return false;
-        
-        // towers & units are treated likewise here
-        CellObject sourceUnit = (CellObject) source.prefabInstance;
-        CellObject thisUnit = (CellObject) prefabInstance;
-        return thisUnit.IsWeakerThan(sourceUnit);
-    }
-
-    public bool SamePlayerUnitPromotionAccess(HexCell source) {
-        if (source.IsFriendlyCell() && HasUnit()) {
-            Debug.Log("Here perform promotion");
-        }
-        return false;
-    }
 }
