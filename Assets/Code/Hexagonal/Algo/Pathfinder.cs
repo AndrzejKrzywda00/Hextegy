@@ -23,8 +23,17 @@ public class Pathfinder : MonoBehaviour {
     
     public HexCoordinates[] OptionalPathFromTo(HexCell from, HexCell to) {
         var path = PathFromTo(from, to);
-        if (path.Contains(from.coordinates) && path.Contains(to.coordinates)) return path;
+        if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfNonFriendlyCells(path)) return path;
         return null;
+    }
+
+    private bool PathConsistsOfNonFriendlyCells(HexCoordinates[] coordinatesArray) {
+        int counter = 0;
+        foreach (HexCoordinates coordinates in coordinatesArray) {
+            if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && counter != 0) return false;
+            counter++;
+        }
+        return true;
     }
 
     private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
@@ -110,7 +119,7 @@ public class Pathfinder : MonoBehaviour {
         
         foreach (HexCoordinates coordinate in coordinates) {
             var hexCell = _grid.CellAtCoordinates(coordinate);
-            if(CellDoesntExist(hexCell)) continue;
+            if(CellNotFeasible(hexCell)) continue;
             neighborCells.Add(hexCell);
         }
 
@@ -127,6 +136,11 @@ public class Pathfinder : MonoBehaviour {
 
     private float CalculateMetricOfCell(HexCell cell) {
         return cell.GaussianDistanceTo(_destination.GetCell);
+    }
+
+    private bool CellNotFeasible(HexCell hexCell) {
+        // implement any additional filters here
+        return CellDoesntExist(hexCell);
     }
     
 }
