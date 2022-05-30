@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Tree : CellObject {
     
     public override int GetPrice() {

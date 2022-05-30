@@ -1,10 +1,9 @@
 using Code.Generator;
-using UnityEngine;
 
 public class Cell {
     
     public readonly Coordinates Coordinates;
-    public MonoBehaviour Prefab;
+    public CellObject Prefab;
     public int PlayerId;
     public bool IsMainLand;
 

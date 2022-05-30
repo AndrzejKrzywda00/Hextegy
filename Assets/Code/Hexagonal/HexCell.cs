@@ -4,10 +4,10 @@ using UnityEngine;
 public class HexCell : MonoBehaviour {
     
     public HexCoordinates coordinates;
-    public MonoBehaviour prefabInstance;
+    public CellObject prefabInstance;
     public int playerId;
 
-    public void PutOnCell(MonoBehaviour prefab) {
+    public void PutOnCell(CellObject prefab) {
         prefabInstance = Instantiate(prefab);
         AlignPrefabInstancePositionWithCellPosition();
     }

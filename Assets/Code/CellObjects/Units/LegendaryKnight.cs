@@ -1,4 +1,4 @@
-public class LegendaryKnight : CellObject {
+public class LegendaryKnight : Unit {
     public override int GetPrice() {
         return 30;
     }

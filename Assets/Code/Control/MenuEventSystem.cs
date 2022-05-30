@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuEventSystem : MonoBehaviour
-{
+public class MenuEventSystem : MonoBehaviour {
     public void StartClick() {
         SceneManager.LoadScene("Scenes/Main Scene");
     }
