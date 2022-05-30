@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
 
 public class MoneyManager : MonoBehaviour {
 
@@ -32,6 +31,14 @@ public class MoneyManager : MonoBehaviour {
     public void TransferBalanceOfFieldFromPlayerToPlayer(int pid1, int pid2) {
         DecrementBalanceOfPlayer(pid1);
         IncrementBalanceOfPlayer(pid2);
+    }
+
+    public void CalculateInitialBalanceOfPlayers(int[] players) {
+        foreach (int player in players) CalculateInitialBalanceOfPlayer(player);
+    }
+    
+    private void CalculateInitialBalanceOfPlayer(int playerId) {
+        
     }
 
     public int GetBalance() {

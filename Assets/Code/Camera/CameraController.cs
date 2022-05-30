@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
     private readonly Vector2 _movementLimit = new Vector2(1000, 1000);
 
     private Camera _cam;
-    private const float ScrollSpeed = 50f;
+    private const float ScrollSpeed = 80f;
     private const float NormalizationValueForScrollSpeed = 100f;
     private float _orthographicSize;
     private const float MaxOrthographicSize = 200f;
@@ -22,6 +22,10 @@ public class CameraController : MonoBehaviour {
             new Vector3(0, 10, 0),
             Quaternion.Euler(90, 0, 0)
             );
+    }
+
+    public void SetCameraPosition(int x, int z) {
+        _cam.transform.SetPositionAndRotation(new Vector3(x, 10, z), Quaternion.Euler(90, 0, 0));
     }
 
     public void Update() {

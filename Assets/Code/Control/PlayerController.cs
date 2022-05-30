@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
     private HexGrid _grid;
     private MoneyManager _moneyManager;
     private Pathfinder _pf;
-    
+
     private void Start() {
         _pf = FindObjectOfType<Pathfinder>();
         _grid = FindObjectOfType<HexGrid>();
