@@ -2,22 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour {
-
-    // current money should be recalculated after each turn
-    private int _currentMoney = 2137;
     
-    // balance should be recalculated after each change on the map
-    private int _balance = 420;
-
+    private readonly int _initialMoney = 10;
     private Dictionary<int, int> _playersBalances;
     private Dictionary<int, int> _playersWallets;
 
-    public int GetCurrentCoins() {
-        return _currentMoney;
+    public int GetCurrentCoins(int playerId) {
+        return _playersWallets[playerId];
     }
 
-    public void IncrementBalance() {
-        _balance++;
+    public void IncrementBalance(int playerId) {
+        _playersBalances[playerId] += 1;
     }
 
     public void IncrementBalanceOfPlayer(int playerId) {
@@ -35,22 +30,33 @@ public class MoneyManager : MonoBehaviour {
 
     public void SetInitialBalanceOfPlayers(Dictionary<int, int> initialBalanceOfPlayers) {
         _playersBalances = initialBalanceOfPlayers;
+        InitializeWallets();
+    }
+
+    private void InitializeWallets() {
+        _playersWallets = new Dictionary<int, int>();
         foreach (KeyValuePair<int, int> item in _playersBalances) {
-            Debug.Log(item.Key + " => " + item.Value);
+            _playersWallets.Add(item.Key, _initialMoney);
         }
     }
 
-    public int GetBalance() {
-        return _balance;
+    public void CalculateWalletsOnTurnEnd() {
+        foreach (KeyValuePair<int, int> balance in _playersBalances) {
+            _playersWallets[balance.Key] += balance.Value;
+        }
     }
 
-    public void Buy(CellObject entity) {
-        _currentMoney -= entity.GetPrice();
-        _balance -= entity.GetMaintenanceCost();
+    public int GetBalance(int playerId) {
+        return _playersBalances[playerId];
     }
 
-    public bool HasEnoughMoneyToBuy(CellObject entity) {
-        return entity.GetPrice() <= _currentMoney;
+    public void Buy(CellObject entity, int playerId) {
+        _playersBalances[playerId] -= entity.GetMaintenanceCost();
+        _playersWallets[playerId] -= entity.GetMaintenanceCost();
+    }
+
+    public bool HasEnoughMoneyToBuy(CellObject entity, int playerId) {
+        return entity.GetPrice() <= _playersWallets[playerId];
     }
 
 }

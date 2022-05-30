@@ -12,7 +12,7 @@ public class UIMoneyDisplaysControl : MonoBehaviour {
     public TextMeshProUGUI _balanceText;
 
     private void FixedUpdate() {
-        _currentMoneyText.text = _moneyManager.GetCurrentCoins().ToString();
-        _balanceText.text = _moneyManager.GetBalance().ToString();
+        _currentMoneyText.text = "Obecne środki: " + _moneyManager.GetCurrentCoins(1).ToString();
+        _balanceText.text = "Obecny przychód: " + _moneyManager.GetBalance(1).ToString();
     }
 }

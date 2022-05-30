@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
-        return _moneyManager.HasEnoughMoneyToBuy(prefabFromUI);
+        return _moneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
     }
     
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
@@ -93,15 +93,16 @@ public class PlayerController : MonoBehaviour {
     }
     
     private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
+        _moneyManager.Buy(prefabFromUI, CurrentPlayerId);
+        if(hexCell.HasTree()) _moneyManager.IncrementBalance(CurrentPlayerId);
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.PutOnCell(prefabFromUI);
-        _moneyManager.Buy(prefabFromUI);
         prefabFromUI = null;
     }
 
     private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
         HandleBuyingEntityOnFriendlyCell(hexCell);
-        _moneyManager.IncrementBalance();
+        _moneyManager.IncrementBalance(CurrentPlayerId);
         AdjustCellColor(hexCell);
     }
 
@@ -121,11 +122,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleMovingUnit(HexCell hexCell) {
+        if(hexCell.IsFriendlyCell() && hexCell.HasTree()) _moneyManager.IncrementBalance(CurrentPlayerId);
         Destroy(hexCell.prefabInstance.gameObject);
         hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
         hexCell.AlignPrefabInstancePositionWithCellPosition();
+        _moneyManager.TransferBalanceOfFieldFromPlayerToPlayer(hexCell.playerId, CurrentPlayerId);
         AdjustCellColor(hexCell);
-        _moneyManager.IncrementBalance();
         selectedCellWithUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
         selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
         selectedCellWithUnit = null;
