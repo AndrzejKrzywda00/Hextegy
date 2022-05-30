@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
                         return;
                     }
                 } else {
-                    if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                    if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsObjectFromUIAUnit()) {
                         HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
                         return;
                     }
@@ -64,6 +64,10 @@ public class PlayerController : MonoBehaviour {
     
     private bool IsItemFromUISelected() {
         return prefabFromUI != null;
+    }
+
+    private bool IsObjectFromUIAUnit() {
+        return prefabFromUI.Range() > 0;
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
