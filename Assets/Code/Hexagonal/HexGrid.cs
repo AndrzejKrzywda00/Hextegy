@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.CellObjects;
 using Code.Control;
 using Code.Control.Game;
 using Code.Generator;

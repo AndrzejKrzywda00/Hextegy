@@ -1,5 +1,5 @@
+using Code.CellObjects;
 using Code.Control.Game;
-using Code.Generator.Objects;
 using UnityEngine;
 
 namespace Code.Control.UI {

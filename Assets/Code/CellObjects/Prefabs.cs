@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Code.Generator.Objects {
+namespace Code.CellObjects {
     public abstract class Prefabs {
         
         private static readonly House House = Resources.Load<House>("House");
@@ -53,6 +53,10 @@ namespace Code.Generator.Objects {
 
         public static LegendaryKnight GetLegendaryKnight() {
             return LegendaryKnight;
+        }
+
+        public static Grave GetGrave() {
+            return Grave;
         }
         
         public static Capital GetCapital(int playerId) {

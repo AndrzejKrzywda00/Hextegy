@@ -1,3 +1,5 @@
+using Code.CellObjects;
+
 namespace Code.Generator.Objects {
     public class Cell {
     

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Code.CellObjects;
 using Code.Generator.Objects;
 using Code.Generator.Util;
 
