@@ -4,7 +4,7 @@ using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
 using UnityEngine;
-using Tree = Code.CellObjects.Structures.Tree;
+using Tree = Code.CellObjects.Structures.Trees;
 
 public class HexCell : MonoBehaviour {
     
@@ -40,7 +40,7 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool HasTree() {
-        return prefabInstance is Tree;
+        return prefabInstance is Tree.Tree;
     }
 
     public bool HasHouse() {
