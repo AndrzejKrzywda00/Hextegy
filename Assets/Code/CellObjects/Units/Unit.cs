@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public abstract class Unit : CellObject {
+    
     private double _upDownAnimationValue;
     
     private void FixedUpdate() {

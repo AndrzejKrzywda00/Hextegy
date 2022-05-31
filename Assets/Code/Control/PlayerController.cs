@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool IsObjectFromUIUnit() {
-        return prefabFromUI.Range() > 0;
+        return prefabFromUI is Unit;
     }
     
     private bool HasEnoughMoneyToBuyEntity() {
