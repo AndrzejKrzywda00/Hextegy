@@ -3,7 +3,7 @@ using Code.CellObjects.Structures;
 using Code.CellObjects.Units;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Tree = Code.CellObjects.Structures.Trees;
+using Tree = Code.CellObjects.Structures.Tree;
 
 namespace Code.CellObjects {
     public abstract class Prefabs {

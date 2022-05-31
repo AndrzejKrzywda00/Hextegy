@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
     
+        public static int CurrentPlayerId = 1;
         private static HexGrid _hexGrid;
         
-        public static int CurrentPlayerId = 1;
         public HexCell selectedCellWithUnit;
         public ActiveObject prefabFromUI;
     
