@@ -2,18 +2,14 @@ using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    private static HexGrid _hexGrid;
+    
     public static int CurrentPlayerId = 1;
-
     public HexCell selectedCellWithUnit;
     public CellObject prefabFromUI;
     
     private Pathfinder _pathfinder;
-
-    public int GetPlayerId() {
-        return CurrentPlayerId;
-    }
-
+    private static HexGrid _hexGrid;
+    
     public HexGrid HexGrid => _hexGrid;
 
     private void Start() {
