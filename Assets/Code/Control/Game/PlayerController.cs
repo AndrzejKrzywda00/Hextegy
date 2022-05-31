@@ -28,15 +28,15 @@ namespace Code.Control.Game {
 
         public void Handle(HexCell hexCell) {
             if (IsItemFromUISelected()) {
-                if (HasEnoughMoneyToBuyEntity()) {
+                if (HasEnoughMoneyToBuyObject()) {
                     if (hexCell.IsFriendlyCell()) {
                         if (IsFriendlyCellSuitableToPlateObjectThere(hexCell)) {
-                            HandleBuyingEntityOnFriendlyCell(hexCell);
+                            HandleBuyingObjectOnFriendlyCell(hexCell);
                             return;
                         }
                     } else {
-                        if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsObjectFromUIUnit()) {
-                            HandleBuyingEntityOnNeutralOrEnemyCell(hexCell);
+                        if (IsObjectOnCellWeakEnoughToPlaceNewObjectThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsObjectFromUIUnit()) {
+                            HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
                             return;
                         }
                     }
@@ -51,7 +51,7 @@ namespace Code.Control.Game {
                                 return;
                             }
                         } else {
-                            if (IsObjectOnCellWeakEnoughToPlaceEntityThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                            if (IsObjectOnCellWeakEnoughToPlaceNewObjectThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
                                 HandleMovingUnit(hexCell);
                                 return;
                             }
@@ -75,7 +75,7 @@ namespace Code.Control.Game {
             return prefabFromUI != null;
         }
 
-        private bool HasEnoughMoneyToBuyEntity() {
+        private bool HasEnoughMoneyToBuyObject() {
             return MoneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
         }
 
@@ -83,7 +83,7 @@ namespace Code.Control.Game {
             return hexCell.IsEmpty() || hexCell.HasTree();
         }
 
-        private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
+        private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
             MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
             if(hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
             Destroy(hexCell.prefabInstance.gameObject);
@@ -91,7 +91,7 @@ namespace Code.Control.Game {
             prefabFromUI = null;
         }
 
-        private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
+        private bool IsObjectOnCellWeakEnoughToPlaceNewObjectThere(HexCell hexCell) {
             try {
                 CellObject enemyUnit = hexCell.prefabInstance;
                 CellObject selectedUnit = selectedCellWithUnit != null ? selectedCellWithUnit.prefabInstance : prefabFromUI;
@@ -115,11 +115,18 @@ namespace Code.Control.Game {
             return prefabFromUI is Unit;
         }
 
-        private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
-            HandleBuyingEntityOnFriendlyCell(hexCell);
+        private void HandleBuyingObjectOnNeutralOrEnemyCell(HexCell hexCell) {
+            HandleBuyingObjectOnFriendlyCell(hexCell);
             ExtractUnitFromCell(hexCell).SetHasMoveLeftInThisTurn = false;
             MoneyManager.IncrementBalance(CurrentPlayerId);
             AdjustCellColor(hexCell);
+        }
+
+        private Unit ExtractUnitFromCell(HexCell hexCell) {
+            try {
+                return (Unit) hexCell.prefabInstance;
+            } catch (InvalidCastException) {}
+            return null;
         }
 
         private void AdjustCellColor(HexCell hexCell) {
@@ -139,14 +146,6 @@ namespace Code.Control.Game {
             Unit unit = (Unit) selectedCellWithUnit.prefabInstance;
             if (path == null) return false;
             return path.Length - 1 <= unit.MovementRange();
-        }
-
-        private Unit ExtractUnitFromCell(HexCell hexCell) {
-            try {
-                return (Unit) hexCell.prefabInstance;
-            }
-            catch (InvalidCastException) {}
-            return null;
         }
 
         private void HandleMovingUnit(HexCell hexCell) {

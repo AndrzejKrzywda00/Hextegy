@@ -55,8 +55,8 @@ namespace Code.Control.Game {
             _playersWallets[playerId] -= cellObject.Price();
         }
 
-        public static bool HasEnoughMoneyToBuy(ActiveObject entity, int playerId) {
-            return entity.Price() <= _playersWallets[playerId];
+        public static bool HasEnoughMoneyToBuy(ActiveObject activeObject, int playerId) {
+            return activeObject.Price() <= _playersWallets[playerId];
         }
     }
 }
