@@ -1,29 +1,29 @@
-using Code.Generator;
-
-public class Cell {
+namespace Code.Generator.Objects {
+    public class Cell {
     
-    public readonly Coordinates Coordinates;
-    public CellObject Prefab;
-    public int PlayerId;
-    public bool IsMainLand;
+        public readonly Coordinates Coordinates;
+        public CellObject Prefab;
+        public int PlayerId;
+        public bool IsMainLand;
 
-    public Cell(int x, int y) {
-        Coordinates = new Coordinates(x, y);
+        public Cell(int x, int y) {
+            Coordinates = new Coordinates(x, y);
 
-        Prefab = Prefabs.GetNoElement();
-        PlayerId = 0;
-        IsMainLand = false;
-    }
+            Prefab = Prefabs.GetNoElement();
+            PlayerId = 0;
+            IsMainLand = false;
+        }
     
-    public Cell(Coordinates coordinates) {
-        Coordinates = coordinates;
+        public Cell(Coordinates coordinates) {
+            Coordinates = coordinates;
 
-        Prefab = Prefabs.GetNoElement();
-        PlayerId = 0;
-        IsMainLand = false;
-    }
+            Prefab = Prefabs.GetNoElement();
+            PlayerId = 0;
+            IsMainLand = false;
+        }
 
-    public bool HasTree() {
-        return Prefab is Tree;
+        public bool HasTree() {
+            return Prefab is Tree;
+        }
     }
 }

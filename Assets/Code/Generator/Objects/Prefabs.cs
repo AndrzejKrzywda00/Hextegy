@@ -1,51 +1,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Generator {
-    public class Prefabs {
+namespace Code.Generator.Objects {
+    public abstract class Prefabs {
         
-        private static House _house = Resources.Load<House>("House");
-        private static NormalTower _normalTower = Resources.Load<NormalTower>("NormalTower");
-        private static SuperTower _superTower = Resources.Load<SuperTower>("SuperTower");
-        private static NoElement _noElement = Resources.Load<NoElement>("NoElement");
-        private static CommonKnight _commonKnight = Resources.Load<CommonKnight>("CommonKnight");
-        private static Capital _capital = Resources.Load<Capital>("Capital");
-        private static Grave _grave = Resources.Load<Grave>("Grave");
+        private static readonly House House = Resources.Load<House>("House");
+        private static readonly NormalTower NormalTower = Resources.Load<NormalTower>("NormalTower");
+        private static readonly SuperTower SuperTower = Resources.Load<SuperTower>("SuperTower");
+        private static readonly NoElement NoElement = Resources.Load<NoElement>("NoElement");
+        private static readonly CommonKnight CommonKnight = Resources.Load<CommonKnight>("CommonKnight");
+        private static readonly Capital Capital = Resources.Load<Capital>("Capital");
+        private static readonly Grave Grave = Resources.Load<Grave>("Grave");
         
         // trees
         // in future different script for small tree
-        private static Tree _basicTree = Resources.Load<Tree>("Tree");
-        private static Tree _smallTree = Resources.Load<Tree>("SmallTree");
-        private static List<Tree> _trees = new List<Tree>{_basicTree, _smallTree};
+        private static readonly Tree BasicTree = Resources.Load<Tree>("Tree");
+        private static readonly Tree SmallTree = Resources.Load<Tree>("SmallTree");
+        private static readonly List<Tree> Trees = new List<Tree>{BasicTree, SmallTree};
 
         public static House GetHouse() {
-            return _house;
+            return House;
         }
         
         public static Tree GetTree() {
-            int randomIndex = Random.Range(0, _trees.Count);
-            return _trees[randomIndex];
+            int randomIndex = Random.Range(0, Trees.Count);
+            return Trees[randomIndex];
         }
         
         public static NormalTower GetNormalTower() {
-            return _normalTower;
+            return NormalTower;
         }
         
         public static SuperTower GetSuperTower() {
-            return _superTower;
+            return SuperTower;
         }
         
         public static NoElement GetNoElement() {
-            return _noElement;
+            return NoElement;
         }
         
         public static CommonKnight GetCommonKnight() {
-            return _commonKnight;
+            return CommonKnight;
         }
         
         public static Capital GetCapital(int playerId) {
-            _capital.SetPlayerId(playerId);
-            return _capital;
+            Capital.SetPlayerId(playerId);
+            return Capital;
         }
     }
 }

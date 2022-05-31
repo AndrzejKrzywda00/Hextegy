@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Code.Generator.Objects;
 using Code.Generator.Util;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Code.Generator {
             GenerateTrees();
 
             //Debug.Log("Generation finished!");
-            return map.cells;
+            return map.Cells;
         }
 
         public void GeneratePlayerFields(int numberOfPlayers, int radius) {
@@ -53,16 +54,16 @@ namespace Code.Generator {
         
 
         private void GenerateByPerlinNoise() {
-            bool[,] perlinNoise = PerlinNoise.Generate(map.height, map.width, scale, fulfil);
+            bool[,] perlinNoise = PerlinNoise.Generate(map.Height, map.Width, scale, fulfil);
 
-            for (int x = 0; x < map.width; x++) {
-                for (int y = 0; y < map.height; y++) {
+            for (int x = 0; x < map.Width; x++) {
+                for (int y = 0; y < map.Height; y++) {
                     Cell newCell = new Cell(x, y);
                     map.SetCell(perlinNoise[x, y] ? newCell : null);
                 }
             }
 
-            if (map.NumberOfNoEmptyCells() < map.width * map.height * 0.5 * fulfil + 1)
+            if (map.NumberOfNoEmptyCells() < map.Width * map.Height * 0.5 * fulfil + 1)
                 throw new Exception(
                     "Map generator error: for this parameters generated map is mostly empty. Try one more time");
         }
@@ -72,7 +73,7 @@ namespace Code.Generator {
 
             SetMainLandCellsRecursively(center.Coordinates);
 
-            foreach (Cell cell in map.cells) {
+            foreach (Cell cell in map.Cells) {
                 if (cell != null) {
                     if (cell.IsMainLand == false) {
                         map.ClearCell(cell.Coordinates);
@@ -82,7 +83,7 @@ namespace Code.Generator {
         }
 
         private void SetMainLandCellsRecursively(Coordinates startingPoint) {
-            Coordinates[] touchingCoordinates = Coordinates.getTouchingCoordinates(startingPoint);
+            Coordinates[] touchingCoordinates = Coordinates.GetTouchingCoordinates(startingPoint);
             foreach (Coordinates coordinates in touchingCoordinates) {
                 if(map.IsOutOfRange(coordinates)) continue;
                 if(map.GetCell(coordinates) == null) continue;
@@ -127,7 +128,7 @@ namespace Code.Generator {
         }
 
         private void GenerateTrees() {
-            foreach (Cell cell in map.cells) {
+            foreach (Cell cell in map.Cells) {
                 if (cell != null && RandomNumber.getBoolByRatio(treeRatio)) {
                     if (cell.Prefab == Prefabs.GetNoElement()) {
                         cell.Prefab = Prefabs.GetTree();

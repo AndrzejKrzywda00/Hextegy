@@ -2,26 +2,27 @@ using System;
 using System.Linq;
 using Code.Generator.Util;
 
-namespace Code.Generator {
+namespace Code.Generator.Objects {
     public class Coordinates {
-        public int x;
-        public int y;
+        
+        public readonly int X;
+        public readonly int Y;
 
         public Coordinates(int x, int y) {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
-        public String toString() {
-            return "x: " + x + " " + "y: " + y;
+        public override String ToString() {
+            return "x: " + X + " " + "y: " + Y;
         }
         
         public static int Distance(Coordinates c1, Coordinates c2) {
             return new[] {
-                Math.Abs(c2.y - c1.y),
-                Math.Abs(((int) Math.Ceiling(c2.y / -2f)) + c2.x - ((int) Math.Ceiling(c1.y / -2f)) - c1.x),
-                Math.Abs(-c2.y - ((int) Math.Ceiling(c2.y / -2f)) - c2.x + c1.y + ((int) Math.Ceiling(c1.y / -2f)) +
-                         c1.x)
+                Math.Abs(c2.Y - c1.Y),
+                Math.Abs(((int) Math.Ceiling(c2.Y / -2f)) + c2.X - ((int) Math.Ceiling(c1.Y / -2f)) - c1.X),
+                Math.Abs(-c2.Y - ((int) Math.Ceiling(c2.Y / -2f)) - c2.X + c1.Y + ((int) Math.Ceiling(c1.Y / -2f)) +
+                         c1.X)
             }.Max();
         }
 
@@ -31,14 +32,14 @@ namespace Code.Generator {
             return new Coordinates(x, y);
         }
         
-        public static Coordinates[] getTouchingCoordinates(Coordinates coordinates) {
+        public static Coordinates[] GetTouchingCoordinates(Coordinates coordinates) {
             Coordinates[] touchingCoordinates = {
-                new Coordinates(coordinates.x + 1, coordinates.y),
-                new Coordinates(coordinates.x + 1, coordinates.y - 1),
-                new Coordinates(coordinates.x, coordinates.y - 1),
-                new Coordinates(coordinates.x - 1, coordinates.y),
-                new Coordinates(coordinates.x, coordinates.y + 1),
-                new Coordinates(coordinates.x + 1, coordinates.y + 1)
+                new Coordinates(coordinates.X + 1, coordinates.Y),
+                new Coordinates(coordinates.X + 1, coordinates.Y - 1),
+                new Coordinates(coordinates.X, coordinates.Y - 1),
+                new Coordinates(coordinates.X - 1, coordinates.Y),
+                new Coordinates(coordinates.X, coordinates.Y + 1),
+                new Coordinates(coordinates.X + 1, coordinates.Y + 1)
             };
             return touchingCoordinates;
         }
