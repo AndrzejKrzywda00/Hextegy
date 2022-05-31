@@ -1,8 +1,11 @@
 using Code.CellObjects;
-using Code.CellObjects.Structures;
+using Code.CellObjects.Structures.Passive;
+using Code.CellObjects.Structures.StateBuildings;
+using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
+using Code.Hexagonal;
 using UnityEngine;
 using Tree = Code.CellObjects.Structures.Trees;
 
@@ -48,7 +51,7 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool HasTower() {
-        return prefabInstance is NormalTower || prefabInstance is SuperTower;
+        return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
     }
     
     public bool HasUnit() {

@@ -1,6 +1,4 @@
-using Code.Control.Exceptions;
-
-namespace Code.CellObjects.Structures {
+namespace Code.CellObjects.Structures.StateBuildings {
     public class Capital : ActiveObject {
         
         private int _playerId;

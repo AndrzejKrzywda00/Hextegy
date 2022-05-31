@@ -11,18 +11,18 @@ namespace Code.Control.UI {
             _playerController = FindObjectOfType<PlayerController>();
         }
 
-        public void OnUnit1ButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetCommonKnight() : null;
+        public void OnUnitTier1ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetUnitTier1() : null;
             _playerController.selectedCellWithUnit = null;
         }
     
-        public void OnUnit2ButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetExperiencedKnight() : null;
+        public void OnUnitTier2ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetUnitTier2() : null;
             _playerController.selectedCellWithUnit = null;
         }
     
-        public void OnUnit3ButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetLegendaryKnight() : null;
+        public void OnUnitTier3ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetUnitTier3() : null;
             _playerController.selectedCellWithUnit = null;
         }
     
@@ -32,13 +32,13 @@ namespace Code.Control.UI {
             _playerController.selectedCellWithUnit = null;
         }
     
-        public void OnTower1ButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetNormalTower() : null;
+        public void OnTowerTier1ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetTowerTier1() : null;
             _playerController.selectedCellWithUnit = null;
         }
     
-        public void OnTower2ButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetSuperTower() : null;
+        public void OnTowerTier2ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetTowerTier2() : null;
             _playerController.selectedCellWithUnit = null;
         }
     }

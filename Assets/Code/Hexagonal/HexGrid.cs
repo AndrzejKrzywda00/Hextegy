@@ -3,6 +3,7 @@ using Code.CellObjects;
 using Code.Control.Game;
 using Code.Generator;
 using Code.Generator.Objects;
+using Code.Hexagonal;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour {
@@ -66,7 +67,7 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void CreateCell(int x, int z, int i) {
-        var position = CreateCellPosition(x, z);
+        Vector3 position = CreateCellPosition(x, z);
         InstantiateCellOnGrid(x, z, i, position);
     }
 
@@ -132,7 +133,7 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void InteractWithCell(Vector3 position) {
-        var cellIndex = GetCellIndexFromPosition(position);
+        int cellIndex = GetCellIndexFromPosition(position);
         if (_cells[cellIndex] != null) _playerController.Handle(_cells[cellIndex]);
         _hexMesh.Triangulate(_cells);
     }

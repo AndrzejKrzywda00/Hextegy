@@ -1,6 +1,8 @@
 using System;
 using Code.CellObjects;
 using Code.CellObjects.Units;
+using Code.Hexagonal;
+using Code.Hexagonal.Algo;
 using UnityEngine;
 
 namespace Code.Control.Game {

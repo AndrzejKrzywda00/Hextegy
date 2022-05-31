@@ -1,7 +1,5 @@
-using UnityEngine.EventSystems;
-
-namespace Code.CellObjects.Structures {
-    public class SuperTower : ActiveObject {
+namespace Code.CellObjects.Structures.Towers {
+    public class TowerTier2 : ActiveObject {
         public override int Level() {
             return 2;
         }

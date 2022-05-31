@@ -1,5 +1,5 @@
-namespace Code.CellObjects.Units {
-    public class CommonKnight : Unit {
+namespace Code.CellObjects.Units.Implementations {
+    public class UnitTier1 : Unit {
 
         public override bool IsProtectingNearbyFriendlyCells() {
             return true;

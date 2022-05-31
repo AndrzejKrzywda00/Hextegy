@@ -1,8 +1,8 @@
-namespace Code.CellObjects.Units {
-    public class LegendaryKnight : Unit {
+namespace Code.CellObjects.Units.Implementations {
+    public class UnitTier2 : Unit {
     
         public override int Price() {
-            return 30;
+            return 20;
         }
 
         public override bool IsProtectingNearbyFriendlyCells() {
@@ -10,15 +10,15 @@ namespace Code.CellObjects.Units {
         }
 
         public override int MaintenanceCost() {
-            return 18;
+            return 6;
         }
 
         public override int Level() {
-            return 3;
+            return 2;
         }
-
+    
         public override int MovementRange() {
-            return 3;
+            return 4;
         }
     }
 }

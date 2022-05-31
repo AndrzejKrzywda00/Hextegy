@@ -99,7 +99,7 @@ public class CameraController : MonoBehaviour {
     }
 
     private void AdjustOrthographicSize() {
-        var scrollMagnitude = Input.GetAxis("Mouse ScrollWheel");
+        float scrollMagnitude = Input.GetAxis("Mouse ScrollWheel");
         _orthographicSize -= scrollMagnitude * Time.deltaTime * ScrollSpeed * NormalizationValueForScrollSpeed;
     }
 

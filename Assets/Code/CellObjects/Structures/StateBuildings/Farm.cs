@@ -1,4 +1,4 @@
-namespace Code.CellObjects.Structures {
+namespace Code.CellObjects.Structures.StateBuildings {
     public class Farm : ActiveObject {
 
         private int _currentPrice = 12;

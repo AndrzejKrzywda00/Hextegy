@@ -593,7 +593,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 265436635}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnTower2ButtonClick
+        m_MethodName: OnTowerTier2ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -781,7 +781,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 334076136}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnUnit3ButtonClick
+        m_MethodName: OnUnitTier3ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1566,7 +1566,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 803062016}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnUnit2ButtonClick
+        m_MethodName: OnUnitTier2ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1774,7 +1774,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 918367934}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnUnit1ButtonClick
+        m_MethodName: OnUnitTier1ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2288,7 +2288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f8f32cb9dce6dfe49801b3114ec1effa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b25148b6ebd21654b90221450af9df90, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2470,7 +2470,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1928164813}
         m_TargetAssemblyTypeName: UIButtonControl, Assembly-CSharp
-        m_MethodName: OnTower1ButtonClick
+        m_MethodName: OnTowerTier1ButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2500,7 +2500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e8b730a1ae6fd74ea061b1830dc6a8c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35b6273e0e86b8a4489c08c02426969e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -1,5 +1,5 @@
-namespace Code.CellObjects.Structures {
-    public class NormalTower : ActiveObject {
+namespace Code.CellObjects.Structures.Towers {
+    public class TowerTier1 : ActiveObject {
         
         public override int Level() {
             return 1;
