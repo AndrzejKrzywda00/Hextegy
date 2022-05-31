@@ -1,4 +1,5 @@
 using System;
+using Code.CellObjects;
 using UnityEngine;
 
 namespace Code.Control.Game {
@@ -55,7 +56,7 @@ namespace Code.Control.Game {
                         }
                     }
                 } else {
-                    if (hexCell.IsFriendlyCell() && hexCell.HasUnit()) {
+                    if (PlayerUnitIsSelected(hexCell)) {
                         selectedCellWithUnit = hexCell;
                         return;
                     }
@@ -66,6 +67,10 @@ namespace Code.Control.Game {
     
         public static void AddTreesOnEndOfTurn() {
             _hexGrid.GenerateTreesNextToExistingTrees();
+        }
+
+        private bool PlayerUnitIsSelected(HexCell hexCell) {
+            return hexCell.IsFriendlyCell() && hexCell.HasUnit();
         }
     
         private bool IsItemFromUISelected() {
@@ -135,16 +140,20 @@ namespace Code.Control.Game {
         }
 
         private void HandleMovingUnit(HexCell hexCell) {
-            if(hexCell.IsFriendlyCell() && hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
+            HandleDestroyingTreeIfFriendlyCell(hexCell);
             selectedCellWithUnit.prefabInstance.SetHasMoveLeftInThisTurn = false;
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
             hexCell.AlignPrefabInstancePositionWithCellPosition();
             MoneyManager.TransferBalanceOfFieldFromPlayerToPlayer(hexCell.playerId, CurrentPlayerId);
             AdjustCellColor(hexCell);
-            selectedCellWithUnit.PutOnCell(Resources.Load<NoElement>("NoElement"));
+            selectedCellWithUnit.PutOnCell(Prefabs.GetNoElement());
             selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
             selectedCellWithUnit = null;
+        }
+
+        private static void HandleDestroyingTreeIfFriendlyCell(HexCell hexCell) {
+            if (hexCell.IsFriendlyCell() && hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
         }
     }
 }
