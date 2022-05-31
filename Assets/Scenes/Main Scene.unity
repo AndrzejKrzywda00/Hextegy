@@ -268,52 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b1024867cf2247b9b4a16ca0cb28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &165058762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 165058763}
-  - component: {fileID: 165058764}
-  m_Layer: 0
-  m_Name: MoneyDisplaysControl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &165058763
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165058762}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.56213, y: -39.937378, z: -23.039873}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 615694629}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &165058764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165058762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7461001d9a15cee4487c1f88f43bcc12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moneyManager: {fileID: 1669777201}
-  _currentMoneyText: {fileID: 263465037}
-  _balanceText: {fileID: 709498065}
 --- !u!1 &221846895
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +392,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 615694629}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1056,6 +1010,7 @@ GameObject:
   - component: {fileID: 615694629}
   - component: {fileID: 615694630}
   - component: {fileID: 615694632}
+  - component: {fileID: 615694631}
   m_Layer: 5
   m_Name: MoneyDisplays
   m_TagString: Untagged
@@ -1074,7 +1029,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 165058763}
   - {fileID: 813176277}
   - {fileID: 263465036}
   - {fileID: 709498064}
@@ -1112,6 +1066,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &615694631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615694628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7461001d9a15cee4487c1f88f43bcc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMoneyText: {fileID: 263465037}
+  balanceText: {fileID: 709498065}
 --- !u!222 &615694632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1246,7 +1214,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 615694629}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1525,7 +1493,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 615694629}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1812,7 +1780,7 @@ RectTransform:
   - {fileID: 1954122204}
   - {fileID: 392028790}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1831,7 +1799,7 @@ GameObject:
   - component: {fileID: 1358145220}
   - component: {fileID: 1358145219}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: UpperBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1853,8 +1821,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.6156006, y: -22.719788}
-  m_SizeDelta: {x: 107.0164, y: 82.56}
+  m_AnchoredPosition: {x: 0, y: -32}
+  m_SizeDelta: {x: 194, y: 82.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1358145219
 MonoBehaviour:
@@ -1906,7 +1874,7 @@ GameObject:
   - component: {fileID: 1410674492}
   - component: {fileID: 1410674491}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BottomBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1928,8 +1896,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 19, y: 0.0039978027}
-  m_SizeDelta: {x: 231.2, y: 97.492004}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 194, y: 97.492}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1410674491
 MonoBehaviour:
@@ -2146,49 +2114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCellWithUnit: {fileID: 0}
   prefabFromUI: {fileID: 0}
---- !u!1 &1669777200
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1669777202}
-  - component: {fileID: 1669777201}
-  m_Layer: 0
-  m_Name: MoneyManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1669777201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669777200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f0cd3ddf9262e64bb07b861179aa787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1669777202
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669777200}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 462.78253, y: 277.81946, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699572012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +2159,7 @@ Transform:
   - {fileID: 1630494712}
   - {fileID: 310718841}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1745142878
 GameObject:
@@ -2446,7 +2371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1803792478
 MonoBehaviour:

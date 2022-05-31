@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class NextTurnButtonControl : MonoBehaviour {
@@ -9,7 +8,7 @@ public class NextTurnButtonControl : MonoBehaviour {
     }
 
     public void OnClick() {
-        _playerController.MoneyManager.CalculateWalletOnTurnEnd();
+        MoneyManager.CalculateWalletOnTurnEnd();
 
         ChangeCurrentPlayersUnitMovementPossibilityTo(false);
         
