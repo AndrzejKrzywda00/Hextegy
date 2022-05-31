@@ -20,9 +20,9 @@ namespace Code.CellObjects {
         
         // trees
         // in future different script for small tree
-        private static readonly Tree.BigTree BasicTree = Resources.Load<Tree.BigTree>("BigTree");
+        private static readonly Tree.BigTree BigTree = Resources.Load<Tree.BigTree>("BigTree");
         private static readonly Tree.SmallTree SmallTree = Resources.Load<Tree.SmallTree>("SmallTree");
-        private static readonly List<Tree.Tree> Trees = new List<Tree.Tree>{BasicTree, SmallTree};
+        private static readonly List<Tree.Tree> Trees = new List<Tree.Tree>{BigTree, SmallTree};
 
         public static Farm GetFarm() {
             return Farm;
