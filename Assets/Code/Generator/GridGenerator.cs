@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Code.Generator.Objects;
 using Code.Generator.Util;
-using UnityEngine;
 
 namespace Code.Generator {
     public class GridGenerator {
@@ -129,7 +127,7 @@ namespace Code.Generator {
 
         private void GenerateTrees() {
             foreach (Cell cell in map.Cells) {
-                if (cell != null && RandomNumber.getBoolByRatio(treeRatio)) {
+                if (cell != null && RandomNumber.GetBoolByRatio(treeRatio)) {
                     if (cell.Prefab == Prefabs.GetNoElement()) {
                         cell.Prefab = Prefabs.GetTree();
                     }

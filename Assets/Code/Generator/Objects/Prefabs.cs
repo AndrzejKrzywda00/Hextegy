@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Generator.Objects {
     public abstract class Prefabs {
@@ -9,6 +11,8 @@ namespace Code.Generator.Objects {
         private static readonly SuperTower SuperTower = Resources.Load<SuperTower>("SuperTower");
         private static readonly NoElement NoElement = Resources.Load<NoElement>("NoElement");
         private static readonly CommonKnight CommonKnight = Resources.Load<CommonKnight>("CommonKnight");
+        private static readonly ExperiencedKnight ExperiencedKnight = Resources.Load<ExperiencedKnight>("ExperiencedKnight");
+        private static readonly LegendaryKnight LegendaryKnight = Resources.Load<LegendaryKnight>("LegendaryKnight");
         private static readonly Capital Capital = Resources.Load<Capital>("Capital");
         private static readonly Grave Grave = Resources.Load<Grave>("Grave");
         
@@ -41,6 +45,14 @@ namespace Code.Generator.Objects {
         
         public static CommonKnight GetCommonKnight() {
             return CommonKnight;
+        }
+
+        public static ExperiencedKnight GetExperiencedKnight() {
+            return ExperiencedKnight;
+        }
+
+        public static LegendaryKnight GetLegendaryKnight() {
+            return LegendaryKnight;
         }
         
         public static Capital GetCapital(int playerId) {

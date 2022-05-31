@@ -27,8 +27,8 @@ namespace Code.Generator.Objects {
         }
 
         public static Coordinates Random(int width, int height) {
-            int x = RandomNumber.getInt(0, width);
-            int y = RandomNumber.getInt(0, height);
+            int x = RandomNumber.GetInt(0, width);
+            int y = RandomNumber.GetInt(0, height);
             return new Coordinates(x, y);
         }
         

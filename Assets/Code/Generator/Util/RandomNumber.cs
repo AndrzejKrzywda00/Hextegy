@@ -1,21 +1,21 @@
-using UnityEngine;
 using Random = System.Random;
 
 namespace Code.Generator.Util {
-    public class RandomNumber {
-        private static Random rand = new Random();
+    public abstract class RandomNumber {
         
-        public static int getInt() {
-            return rand.Next();
+        private static readonly Random Rand = new Random();
+        
+        public static int GetInt() {
+            return Rand.Next();
         }
         
-        public static int getInt(int min, int max) {
-            return rand.Next(min, max);
+        public static int GetInt(int min, int max) {
+            return Rand.Next(min, max);
         }
 
-        public static bool getBoolByRatio(float ration) {
+        public static bool GetBoolByRatio(float ration) {
             int prob = (int)(100 * ration);
-            return getInt(0, 100) < prob;
+            return GetInt(0, 100) < prob;
         }
     }
 }
