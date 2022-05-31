@@ -1,7 +1,7 @@
 namespace Code.CellObjects.Units {
     public class CommonKnight : Unit {
 
-        public override bool Protects() {
+        public override bool IsProtectingNearbyFriendlyCells() {
             return true;
         }
     

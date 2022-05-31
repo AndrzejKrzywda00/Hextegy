@@ -6,7 +6,7 @@ public class ExperiencedKnight : Unit {
         return 20;
     }
 
-    public override bool Protects() {
+    public override bool IsProtectingNearbyFriendlyCells() {
         return true;
     }
 

@@ -15,7 +15,7 @@ namespace Code.CellObjects.Structures {
             _currentPrice += 4;
         }
 
-        public override bool Protects() {
+        public override bool IsProtectingNearbyFriendlyCells() {
             return false;
         }
 

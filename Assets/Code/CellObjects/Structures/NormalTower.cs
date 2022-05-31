@@ -5,7 +5,7 @@ namespace Code.CellObjects.Structures {
             return 1;
         }
 
-        public override bool Protects() {
+        public override bool IsProtectingNearbyFriendlyCells() {
             return true;
         }
 

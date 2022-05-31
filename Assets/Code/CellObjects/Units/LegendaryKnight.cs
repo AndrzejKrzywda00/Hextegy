@@ -5,7 +5,7 @@ namespace Code.CellObjects.Units {
             return 30;
         }
 
-        public override bool Protects() {
+        public override bool IsProtectingNearbyFriendlyCells() {
             return true;
         }
 
