@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     
@@ -83,9 +82,7 @@ public class PlayerController : MonoBehaviour {
     private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
         try {
             CellObject enemyUnit = hexCell.prefabInstance;
-            CellObject selectedUnit;
-            if (selectedCellWithUnit != null) selectedUnit = selectedCellWithUnit.prefabInstance;
-            else selectedUnit = prefabFromUI;
+            CellObject selectedUnit = selectedCellWithUnit != null ? selectedCellWithUnit.prefabInstance : prefabFromUI;
             return enemyUnit.IsWeakerThan(selectedUnit);
         }
         catch (InvalidCastException) {return false;}
