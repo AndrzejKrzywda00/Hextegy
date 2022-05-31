@@ -1,6 +1,10 @@
+using Code.CellObjects;
+using Code.CellObjects.Structures;
+using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
 using UnityEngine;
+using Tree = Code.CellObjects.Structures.Tree;
 
 public class HexCell : MonoBehaviour {
     
@@ -40,7 +44,7 @@ public class HexCell : MonoBehaviour {
     }
 
     public bool HasHouse() {
-        return prefabInstance is House;
+        return prefabInstance is Farm;
     }
 
     public bool HasTower() {

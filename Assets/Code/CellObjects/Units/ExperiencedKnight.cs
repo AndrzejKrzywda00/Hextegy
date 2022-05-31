@@ -1,9 +1,16 @@
+using Code.CellObjects.Units;
+
 public class ExperiencedKnight : Unit {
-    public override int GetPrice() {
+    
+    public override int Price() {
         return 20;
     }
 
-    public override int GetMaintenanceCost() {
+    public override bool Protects() {
+        return true;
+    }
+
+    public override int MaintenanceCost() {
         return 6;
     }
 
@@ -11,7 +18,7 @@ public class ExperiencedKnight : Unit {
         return 2;
     }
     
-    public override int Range() {
+    public override int MovementRange() {
         return 4;
     }
 }

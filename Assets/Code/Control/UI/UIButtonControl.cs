@@ -28,7 +28,7 @@ namespace Code.Control.UI {
     
     
         public void OnBuildingButtonClick() {
-            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetHouse() : null;
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetFarm() : null;
             _playerController.selectedCellWithUnit = null;
         }
     

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Code.CellObjects.Structures;
+using Code.CellObjects.Units;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Tree = Code.CellObjects.Structures.Tree;
 
 namespace Code.CellObjects {
     public abstract class Prefabs {
         
-        private static readonly House House = Resources.Load<House>("House");
+        private static readonly Farm Farm = Resources.Load<Farm>("House");
         private static readonly NormalTower NormalTower = Resources.Load<NormalTower>("NormalTower");
         private static readonly SuperTower SuperTower = Resources.Load<SuperTower>("SuperTower");
         private static readonly NoElement NoElement = Resources.Load<NoElement>("NoElement");
@@ -22,8 +25,8 @@ namespace Code.CellObjects {
         private static readonly Tree SmallTree = Resources.Load<Tree>("SmallTree");
         private static readonly List<Tree> Trees = new List<Tree>{BasicTree, SmallTree};
 
-        public static House GetHouse() {
-            return House;
+        public static Farm GetFarm() {
+            return Farm;
         }
         
         public static Tree GetTree() {

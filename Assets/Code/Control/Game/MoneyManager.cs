@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.CellObjects;
 
 namespace Code.Control.Game {
     public static class MoneyManager {
@@ -49,13 +50,13 @@ namespace Code.Control.Game {
             return _playersBalances[playerId];
         }
 
-        public static void Buy(CellObject cellObject, int playerId) {
-            _playersBalances[playerId] -= cellObject.GetMaintenanceCost();
-            _playersWallets[playerId] -= cellObject.GetPrice();
+        public static void Buy(ActiveObject cellObject, int playerId) {
+            _playersBalances[playerId] -= cellObject.MaintenanceCost();
+            _playersWallets[playerId] -= cellObject.Price();
         }
 
-        public static bool HasEnoughMoneyToBuy(CellObject entity, int playerId) {
-            return entity.GetPrice() <= _playersWallets[playerId];
+        public static bool HasEnoughMoneyToBuy(ActiveObject entity, int playerId) {
+            return entity.Price() <= _playersWallets[playerId];
         }
     }
 }

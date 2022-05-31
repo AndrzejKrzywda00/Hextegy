@@ -1,17 +1,19 @@
 using System;
 using Code.CellObjects;
+using Code.CellObjects.Units;
 using UnityEngine;
 
 namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
     
+        private static HexGrid _hexGrid;
+        
         public static int CurrentPlayerId = 1;
         public HexCell selectedCellWithUnit;
-        public CellObject prefabFromUI;
+        public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
-        private static HexGrid _hexGrid;
-    
+
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
@@ -115,7 +117,7 @@ namespace Code.Control.Game {
 
         private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
             HandleBuyingEntityOnFriendlyCell(hexCell);
-            hexCell.prefabInstance.SetHasMoveLeftInThisTurn = false;
+            ExtractUnitFromCell(hexCell).SetHasMoveLeftInThisTurn = false;
             MoneyManager.IncrementBalance(CurrentPlayerId);
             AdjustCellColor(hexCell);
         }
@@ -129,19 +131,27 @@ namespace Code.Control.Game {
         }
 
         private bool CanSelectedObjectMoveInThisTurn() {
-            return selectedCellWithUnit.prefabInstance.CanMoveInThisTurn();
+            return ExtractUnitFromCell(selectedCellWithUnit).CanMoveInThisTurn();
         }
 
         private bool IsCellInUnitMovementRange(HexCell hexCell) {
             HexCoordinates[] path = _pathfinder.OptionalPathFromTo(selectedCellWithUnit, hexCell);
-            CellObject unit = selectedCellWithUnit.prefabInstance;
+            Unit unit = (Unit) selectedCellWithUnit.prefabInstance;
             if (path == null) return false;
-            return path.Length - 1 <= unit.Range();
+            return path.Length - 1 <= unit.MovementRange();
+        }
+
+        private Unit ExtractUnitFromCell(HexCell hexCell) {
+            try {
+                return (Unit) hexCell.prefabInstance;
+            }
+            catch (InvalidCastException) {}
+            return null;
         }
 
         private void HandleMovingUnit(HexCell hexCell) {
             AdjustBalanceIfDestroyedTreeOnFriendlyCell(hexCell);
-            selectedCellWithUnit.prefabInstance.SetHasMoveLeftInThisTurn = false;
+            ExtractUnitFromCell(selectedCellWithUnit).SetHasMoveLeftInThisTurn = false;
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
             hexCell.AlignPrefabInstancePositionWithCellPosition();

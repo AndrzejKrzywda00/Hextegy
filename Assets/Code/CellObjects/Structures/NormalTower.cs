@@ -1,17 +1,20 @@
-public class NormalTower : CellObject {
-    public override int GetPrice() {
-        return 15;
-    }
+namespace Code.CellObjects.Structures {
+    public class NormalTower : ActiveObject {
+        
+        public override int Level() {
+            return 1;
+        }
 
-    public override int GetMaintenanceCost() {
-        return 1;
-    }
+        public override bool Protects() {
+            return true;
+        }
 
-    public override int Level() {
-        return 1;
-    }
-    
-    public override int Range() {
-        return 0;
+        public override int Price() {
+            return 15;
+        }
+
+        public override int MaintenanceCost() {
+            return 1;
+        }
     }
 }

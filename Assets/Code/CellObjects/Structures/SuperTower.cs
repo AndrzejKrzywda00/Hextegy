@@ -1,18 +1,21 @@
-public class SuperTower : CellObject {
-    
-    public override int GetPrice() {
-        return 35;
-    }
+using UnityEngine.EventSystems;
 
-    public override int GetMaintenanceCost() {
-        return 6;
-    }
+namespace Code.CellObjects.Structures {
+    public class SuperTower : ActiveObject {
+        public override int Level() {
+            return 2;
+        }
 
-    public override int Level() {
-        return 2;
-    }
-    
-    public override int Range() {
-        return 0;
+        public override bool Protects() {
+            return true;
+        }
+
+        public override int Price() {
+            return 35;
+        }
+
+        public override int MaintenanceCost() {
+            return 5;
+        }
     }
 }
