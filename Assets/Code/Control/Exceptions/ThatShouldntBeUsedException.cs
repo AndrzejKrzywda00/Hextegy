@@ -1,5 +1,7 @@
 ﻿using System;
 
-public class ThatShouldntBeUsedException : Exception {
-    public ThatShouldntBeUsedException() {}
+namespace Code.Control.Exceptions {
+    public class ThatShouldntBeUsedException : Exception {
+        public ThatShouldntBeUsedException() {}
+    }
 }

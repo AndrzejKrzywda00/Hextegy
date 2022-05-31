@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Code.Control;
+using Code.Control.Game;
 using Code.Generator;
 using UnityEngine;
 

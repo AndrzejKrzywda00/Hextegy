@@ -1,3 +1,5 @@
+using Code.Control.Exceptions;
+
 public class NoElement : CellObject {
     public override int GetPrice() {
         throw new ThatShouldntBeUsedException();

@@ -1,3 +1,5 @@
+using Code.Control.Exceptions;
+
 public class Capital : CellObject {
     private int _playerId;
 

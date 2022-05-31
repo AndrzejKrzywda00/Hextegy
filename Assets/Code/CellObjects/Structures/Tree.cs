@@ -1,3 +1,5 @@
+using Code.Control.Exceptions;
+
 public class Tree : CellObject {
     
     public override int GetPrice() {

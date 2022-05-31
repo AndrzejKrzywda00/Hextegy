@@ -1,5 +1,7 @@
 using System;
 
-public class NoMoneyException : Exception {
-    public NoMoneyException(){}
+namespace Code.Control.Exceptions {
+    public class NoMoneyException : Exception {
+        public NoMoneyException(){}
+    }
 }
