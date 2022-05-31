@@ -28,7 +28,7 @@ namespace Code.Control.Game {
             if (IsItemFromUISelected()) {
                 if (HasEnoughMoneyToBuyEntity()) {
                     if (hexCell.IsFriendlyCell()) {
-                        if (hexCell.IsEmpty() || hexCell.HasTree()) {
+                        if (IsFriendlyCellSuitableToPlateObjectThere(hexCell)) {
                             HandleBuyingEntityOnFriendlyCell(hexCell);
                             return;
                         }
@@ -44,7 +44,7 @@ namespace Code.Control.Game {
                 if (IsSomeCellAlreadySelected()) {
                     if (CanSelectedObjectMoveInThisTurn() && IsCellInUnitMovementRange(hexCell)) {
                         if (hexCell.IsFriendlyCell()) {
-                            if (hexCell.IsEmpty() || hexCell.HasTree()) {
+                            if (IsFriendlyCellSuitableToPlateObjectThere(hexCell)) {
                                 HandleMovingUnit(hexCell);
                                 return;
                             }
@@ -56,7 +56,7 @@ namespace Code.Control.Game {
                         }
                     }
                 } else {
-                    if (PlayerUnitIsSelected(hexCell)) {
+                    if (IsCellWithPlayersUnitClicked(hexCell)) {
                         selectedCellWithUnit = hexCell;
                         return;
                     }
@@ -64,27 +64,31 @@ namespace Code.Control.Game {
                 selectedCellWithUnit = null;
             }
         }
-    
+
         public static void AddTreesOnEndOfTurn() {
             _hexGrid.GenerateTreesNextToExistingTrees();
         }
 
-        private bool PlayerUnitIsSelected(HexCell hexCell) {
-            return hexCell.IsFriendlyCell() && hexCell.HasUnit();
-        }
-    
         private bool IsItemFromUISelected() {
             return prefabFromUI != null;
         }
 
-        private bool IsObjectFromUIUnit() {
-            return prefabFromUI is Unit;
-        }
-    
         private bool HasEnoughMoneyToBuyEntity() {
             return MoneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
         }
-    
+
+        private static bool IsFriendlyCellSuitableToPlateObjectThere(HexCell hexCell) {
+            return hexCell.IsEmpty() || hexCell.HasTree();
+        }
+
+        private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
+            MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
+            if(hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
+            Destroy(hexCell.prefabInstance.gameObject);
+            hexCell.PutOnCell(prefabFromUI);
+            prefabFromUI = null;
+        }
+
         private bool IsObjectOnCellWeakEnoughToPlaceEntityThere(HexCell hexCell) {
             try {
                 CellObject enemyUnit = hexCell.prefabInstance;
@@ -104,13 +108,9 @@ namespace Code.Control.Game {
             }
             return false;
         }
-    
-        private void HandleBuyingEntityOnFriendlyCell(HexCell hexCell) {
-            MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
-            if(hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
-            Destroy(hexCell.prefabInstance.gameObject);
-            hexCell.PutOnCell(prefabFromUI);
-            prefabFromUI = null;
+
+        private bool IsObjectFromUIUnit() {
+            return prefabFromUI is Unit;
         }
 
         private void HandleBuyingEntityOnNeutralOrEnemyCell(HexCell hexCell) {
@@ -131,7 +131,7 @@ namespace Code.Control.Game {
         private bool CanSelectedObjectMoveInThisTurn() {
             return selectedCellWithUnit.prefabInstance.CanMoveInThisTurn();
         }
-    
+
         private bool IsCellInUnitMovementRange(HexCell hexCell) {
             HexCoordinates[] path = _pathfinder.OptionalPathFromTo(selectedCellWithUnit, hexCell);
             CellObject unit = selectedCellWithUnit.prefabInstance;
@@ -140,7 +140,7 @@ namespace Code.Control.Game {
         }
 
         private void HandleMovingUnit(HexCell hexCell) {
-            HandleDestroyingTreeIfFriendlyCell(hexCell);
+            AdjustBalanceIfDestroyedTreeOnFriendlyCell(hexCell);
             selectedCellWithUnit.prefabInstance.SetHasMoveLeftInThisTurn = false;
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
@@ -152,8 +152,12 @@ namespace Code.Control.Game {
             selectedCellWithUnit = null;
         }
 
-        private static void HandleDestroyingTreeIfFriendlyCell(HexCell hexCell) {
+        private static void AdjustBalanceIfDestroyedTreeOnFriendlyCell(HexCell hexCell) {
             if (hexCell.IsFriendlyCell() && hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
+        }
+
+        private bool IsCellWithPlayersUnitClicked(HexCell hexCell) {
+            return hexCell.IsFriendlyCell() && hexCell.HasUnit();
         }
     }
 }
