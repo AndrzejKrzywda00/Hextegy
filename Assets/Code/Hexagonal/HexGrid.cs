@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Code.CellObjects;
-using Code.Control;
 using Code.Control.Game;
 using Code.Generator;
 using Code.Generator.Objects;
@@ -73,7 +72,7 @@ public class HexGrid : MonoBehaviour {
 
     private Vector3 CreateCellPosition(int x, int z) {
         return new Vector3 {
-            x = (x + z * 0.5f - z / 2) * (HexMetrics.InnerRadius * 2f),
+            x = (x + z * 0.5f - Mathf.Floor((float)z / 2)) * (HexMetrics.InnerRadius * 2f),
             y = 0f,
             z = z * (HexMetrics.OuterRadius * 1.5f)
         };
