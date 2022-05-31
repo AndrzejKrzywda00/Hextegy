@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 991146828164436595}
   - component: {fileID: 8500103398770331706}
-  - component: {fileID: 7113291970758235859}
+  - component: {fileID: 2063091593956846391}
   m_Layer: 0
   m_Name: SmallTree
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7113291970758235859
+--- !u!114 &2063091593956846391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,6 +92,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2581789118784197785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 185d162246f53d5409068da4c6b3056f, type: 3}
+  m_Script: {fileID: 11500000, guid: f2d16ec645dd41b9867ddd9ce8d3a0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

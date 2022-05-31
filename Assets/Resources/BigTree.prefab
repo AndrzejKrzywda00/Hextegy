@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5127043187667400828}
   - component: {fileID: 7449021010828623065}
-  - component: {fileID: 7863685929066150748}
+  - component: {fileID: 7653136679561965773}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: BigTree
   m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7863685929066150748
+--- !u!114 &7653136679561965773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,6 +92,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7925476464109122573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 185d162246f53d5409068da4c6b3056f, type: 3}
+  m_Script: {fileID: 11500000, guid: ccc813de6fea4944865b5964fd8113fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

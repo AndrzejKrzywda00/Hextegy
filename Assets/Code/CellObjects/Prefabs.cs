@@ -1,15 +1,14 @@
-using System;
 using System.Collections.Generic;
 using Code.CellObjects.Structures;
 using Code.CellObjects.Units;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Tree = Code.CellObjects.Structures.Tree;
+using Tree = Code.CellObjects.Structures.Trees;
 
 namespace Code.CellObjects {
     public abstract class Prefabs {
         
-        private static readonly Farm Farm = Resources.Load<Farm>("House");
+        private static readonly Farm Farm = Resources.Load<Farm>("Farm");
         private static readonly NormalTower NormalTower = Resources.Load<NormalTower>("NormalTower");
         private static readonly SuperTower SuperTower = Resources.Load<SuperTower>("SuperTower");
         private static readonly NoElement NoElement = Resources.Load<NoElement>("NoElement");
@@ -21,15 +20,15 @@ namespace Code.CellObjects {
         
         // trees
         // in future different script for small tree
-        private static readonly Tree BasicTree = Resources.Load<Tree>("Tree");
-        private static readonly Tree SmallTree = Resources.Load<Tree>("SmallTree");
-        private static readonly List<Tree> Trees = new List<Tree>{BasicTree, SmallTree};
+        private static readonly Tree.BigTree BasicTree = Resources.Load<Tree.BigTree>("BigTree");
+        private static readonly Tree.SmallTree SmallTree = Resources.Load<Tree.SmallTree>("SmallTree");
+        private static readonly List<Tree.Tree> Trees = new List<Tree.Tree>{BasicTree, SmallTree};
 
         public static Farm GetFarm() {
             return Farm;
         }
         
-        public static Tree GetTree() {
+        public static Tree.Tree GetTree() {
             int randomIndex = Random.Range(0, Trees.Count);
             return Trees[randomIndex];
         }
