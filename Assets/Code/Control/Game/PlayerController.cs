@@ -15,12 +15,14 @@ namespace Code.Control.Game {
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
+        private PlayerManager _playerManager;
 
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
             _pathfinder = FindObjectOfType<Pathfinder>();
             _hexGrid = FindObjectOfType<HexGrid>();
+            _playerManager = new PlayerManager(_hexGrid.Cells);
             InitializeMoneyManager();
         }
 
