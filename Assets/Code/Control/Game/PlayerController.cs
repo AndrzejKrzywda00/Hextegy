@@ -4,7 +4,6 @@ using Code.CellObjects.Units;
 using Code.Hexagonal;
 using Code.Hexagonal.Algo;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
@@ -38,7 +37,7 @@ namespace Code.Control.Game {
                             return;
                         }
                     } else {
-                        if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                        if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell)) {
                             HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
                             return;
                         }
