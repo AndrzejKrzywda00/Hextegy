@@ -37,7 +37,7 @@ namespace Code.Control.Game {
                             return;
                         }
                     } else {
-                        if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell)) {
+                        if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell, prefabFromUI)) {
                             HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
                             return;
                         }
@@ -53,7 +53,7 @@ namespace Code.Control.Game {
                                 return;
                             }
                         } else {
-                            if (IsCellProtectionLevelLowerThanUnit(hexCell) && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                            if (IsCellProtectionLevelLowerThanUnit(hexCell, selectedCellWithUnit.prefabInstance) && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
                                 HandleMovingUnit(hexCell);
                                 return;
                             }
@@ -110,12 +110,12 @@ namespace Code.Control.Game {
             return false;
         }
 
-        private bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell) {
+        private bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
             HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
             foreach (HexCell neighbor in neighboringCells) {
-                if(neighbor == null) continue;
+                if (neighbor == null) continue;
                 if (neighbor.IsEnemyCell() && neighbor.HasTower()) {
-                    if (!neighbor.prefabInstance.IsWeakerThan(selectedCellWithUnit.prefabInstance)) {
+                    if (!neighbor.prefabInstance.IsWeakerThan(unit)) {
                         return false;
                     }
                 }
