@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Hexagonal;
 
 namespace Code.Control.Game {
     
-    public class PlayerManager {
+    public class PlayerInformation {
 
         private static HexCell[] _gridCells;
         private static List<HexCell> _playerCells = new List<HexCell>();
 
-        public PlayerManager(HexCell[] gridCells) {
+        public PlayerInformation(HexCell[] gridCells) {
             _gridCells = gridCells;
             _playerCells = new List<HexCell>();
         }

@@ -5,72 +5,73 @@ using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
-using Code.Hexagonal;
 using UnityEngine;
-using Tree = Code.CellObjects.Structures.Trees;
+using Tree = Code.CellObjects.Structures.Trees.Tree;
 
-public class HexCell : MonoBehaviour {
+namespace Code.Hexagonal {
+    public class HexCell : MonoBehaviour {
     
-    public HexCoordinates coordinates;
-    public CellObject prefabInstance;
-    public int playerId;
+        public HexCoordinates coordinates;
+        public CellObject prefabInstance;
+        public int playerId;
 
-    public void PutOnCell(CellObject prefab) {
-        prefabInstance = Instantiate(prefab);
-        AlignPrefabInstancePositionWithCellPosition();
-    }
+        public void PutOnCell(CellObject prefab) {
+            prefabInstance = Instantiate(prefab);
+            AlignPrefabInstancePositionWithCellPosition();
+        }
 
-    public void AlignPrefabInstancePositionWithCellPosition() {
-        Vector3 position = transform.localPosition;
-        position.y += 2; // Here content is raised above grid level to be visible
-        prefabInstance.transform.position = position;
-    }
+        public void AlignPrefabInstancePositionWithCellPosition() {
+            Vector3 position = transform.localPosition;
+            position.y += 2; // Here content is raised above grid level to be visible
+            prefabInstance.transform.position = position;
+        }
 
-    public Color GetCellColor() {
-        return ColorPalette.GetColorOfPlayer(playerId);
-    }
+        public Color GetCellColor() {
+            return ColorPalette.GetColorOfPlayer(playerId);
+        }
 
-    public HexCoordinates[] NeighborsCoordinates() {
-        return coordinates.Neighbors();
-    }
+        public HexCoordinates[] NeighborsCoordinates() {
+            return coordinates.Neighbors();
+        }
     
-    public bool IsEmpty() {
-        return prefabInstance is NoElement;
-    }
+        public bool IsEmpty() {
+            return prefabInstance is NoElement;
+        }
 
-    public bool IsNeutral() {
-        return playerId.Equals(0);
-    }
+        public bool IsNeutral() {
+            return playerId.Equals(0);
+        }
 
-    public bool HasTree() {
-        return prefabInstance is Tree.Tree;
-    }
+        public bool HasTree() {
+            return prefabInstance is Tree;
+        }
 
-    public bool HasHouse() {
-        return prefabInstance is Farm;
-    }
+        public bool HasFarm() {
+            return prefabInstance is Farm;
+        }
 
-    public bool HasTower() {
-        return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
-    }
+        public bool HasTower() {
+            return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
+        }
     
-    public bool HasUnit() {
-        return prefabInstance is Unit;
-    }
+        public bool HasUnit() {
+            return prefabInstance is Unit;
+        }
 
-    public bool IsEnemyCell() {
-        return playerId != PlayerController.CurrentPlayerId && playerId != 0;
-    }
+        public bool IsEnemyCell() {
+            return playerId != PlayerController.CurrentPlayerId && playerId != 0;
+        }
 
-    public int HexDistanceTo(HexCell hexCell) {
-        return coordinates.HexDistanceTo(hexCell.coordinates);
-    }
+        public int HexDistanceTo(HexCell hexCell) {
+            return coordinates.HexDistanceTo(hexCell.coordinates);
+        }
 
-    public float GaussianDistanceTo(HexCell hexCell) {
-        return coordinates.GaussianDistanceTo(hexCell.coordinates);
-    }
+        public float GaussianDistanceTo(HexCell hexCell) {
+            return coordinates.GaussianDistanceTo(hexCell.coordinates);
+        }
 
-    public bool IsFriendlyCell() {
-        return playerId.Equals(PlayerController.CurrentPlayerId);
+        public bool IsFriendlyCell() {
+            return playerId.Equals(PlayerController.CurrentPlayerId);
+        }
     }
 }

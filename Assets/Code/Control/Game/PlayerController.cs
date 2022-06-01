@@ -4,6 +4,7 @@ using Code.CellObjects.Units;
 using Code.Hexagonal;
 using Code.Hexagonal.Algo;
 using UnityEngine;
+using Tree = Code.CellObjects.Structures.Trees.Tree;
 
 namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
@@ -15,14 +16,14 @@ namespace Code.Control.Game {
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
-        private PlayerManager _playerManager;
+        private PlayerInformation _playerInformation;
 
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
             _pathfinder = FindObjectOfType<Pathfinder>();
             _hexGrid = FindObjectOfType<HexGrid>();
-            _playerManager = new PlayerManager(_hexGrid.Cells);
+            _playerInformation = new PlayerInformation(_hexGrid.Cells);
             InitializeMoneyManager();
         }
 
@@ -84,10 +85,12 @@ namespace Code.Control.Game {
         }
 
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
+            CellObject prefabInstance = hexCell.prefabInstance;
             MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
             AdjustBalanceIfDestroyedTreeOnFriendlyCell(hexCell);
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.PutOnCell(prefabFromUI);
+            if (prefabInstance is Tree) MakeUnitNotAbleToMoveInThisTurn(hexCell);
             prefabFromUI = null;
         }
 
