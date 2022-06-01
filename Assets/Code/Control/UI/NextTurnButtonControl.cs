@@ -12,10 +12,11 @@ namespace Code.Control.UI {
             _playerController = FindObjectOfType<PlayerController>();
         }
 
-        public void OnClick() {
+        public void EndTurn() {
             MoneyManager.CalculateWalletOnTurnEnd();
             PlayerController.AddTreesOnEndOfTurnAfterAllPlayersMoved();
-
+            _playerController.ClearNecessaryFieldsAfterEndOfTurn();
+            
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
 
             if (PlayerController.CurrentPlayerId >= HexGrid.NumberOfPlayers)

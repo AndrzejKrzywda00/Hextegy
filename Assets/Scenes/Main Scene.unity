@@ -283,7 +283,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 129710605}
         m_TargetAssemblyTypeName: NextTurnButtonControl, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

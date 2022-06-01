@@ -27,6 +27,11 @@ namespace Code.Control.Game {
             InitializeMoneyManager();
         }
 
+        public void ClearNecessaryFieldsAfterEndOfTurn() {
+            prefabFromUI = null;
+            selectedCellWithUnit = null;
+        }
+        
         private void InitializeMoneyManager() {
             MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
         }
