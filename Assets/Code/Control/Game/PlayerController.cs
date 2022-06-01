@@ -4,6 +4,7 @@ using Code.CellObjects.Units;
 using Code.Hexagonal;
 using Code.Hexagonal.Algo;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
@@ -53,7 +54,7 @@ namespace Code.Control.Game {
                                 return;
                             }
                         } else {
-                            if (IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
+                            if (IsCellProtectionLevelLowerThanUnit(hexCell) && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
                                 HandleMovingUnit(hexCell);
                                 return;
                             }
@@ -108,6 +109,20 @@ namespace Code.Control.Game {
                 }
             }
             return false;
+        }
+
+        private bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell) {
+            HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
+            foreach (HexCell neighbor in neighboringCells) {
+                if(neighbor == null) continue;
+                if (neighbor.IsEnemyCell() && neighbor.HasTower()) {
+                    if (!neighbor.prefabInstance.IsWeakerThan(selectedCellWithUnit.prefabInstance)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private bool IsObjectFromUIUnit() {

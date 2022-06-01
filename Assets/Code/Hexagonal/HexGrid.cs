@@ -22,6 +22,17 @@ public class HexGrid : MonoBehaviour {
 
     public HexCell[] Cells => _cells;
 
+    public HexCell[] GetNeighborsOfCell(HexCell hexCell) {
+        List<HexCell> neighbors = new List<HexCell>();
+        HexCoordinates[] neighborsCoordinates = hexCell.NeighborsCoordinates();
+        
+        foreach (HexCoordinates coordinates in neighborsCoordinates) {
+            neighbors.Add(CellAtCoordinates(coordinates));
+        }
+
+        return neighbors.ToArray();
+    }
+
     private void Awake() {
         _playerController = FindObjectOfType<PlayerController>();
         _cam = Camera.main;
