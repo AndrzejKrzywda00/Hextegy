@@ -9,13 +9,13 @@ using UnityEngine;
  */
 namespace Code.Hexagonal.Algo {
     public class Pathfinder : MonoBehaviour {
-    
+        private const float MaximumMetric = 100000f;
+        
         private Node _destination;
         private Node _source;
         private List<Node> _openList;
         private List<Node> _closedList;
         private HexGrid _grid;
-        private float _maximumMetric = 100000f;
         private bool _searchEnded;
     
         private void Awake() {
@@ -28,15 +28,6 @@ namespace Code.Hexagonal.Algo {
             return null;
         }
 
-        private bool PathConsistsOfNonFriendlyCells(HexCoordinates[] coordinatesArray) {
-            int index = 0;
-            foreach (HexCoordinates coordinates in coordinatesArray) {
-                if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
-                index++;
-            }
-            return true;
-        }
-
         private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
             InitializePathfindingProcessParameters(from, to);
             return CalculatePathFromTo();
@@ -45,7 +36,7 @@ namespace Code.Hexagonal.Algo {
         private void InitializePathfindingProcessParameters(HexCell from, HexCell to) {
             _searchEnded = false;
             _destination = new Node(to, 0f, null);
-            _source = new Node(from, _maximumMetric, null);
+            _source = new Node(from, MaximumMetric, null);
             _openList = new List<Node>{_source};
             _closedList = new List<Node>();
         }
@@ -58,22 +49,6 @@ namespace Code.Hexagonal.Algo {
                 SortOpenListByMetric();
             }
             return GeneratePathBasedOnLists();
-        }
-
-        private HexCoordinates[] GeneratePathBasedOnLists() {
-            Node node = _destination;
-            List<HexCoordinates> path = new List<HexCoordinates>();
-        
-            while (node != null) {
-                path.Add(node.GetCell.coordinates);
-                node = node.Parent;
-            }
-
-            return path.ToArray();
-        }
-
-        private void SortOpenListByMetric() {
-            _openList.Sort((n1, n2) => Math.Sign(n1.Metric - n2.Metric));
         }
 
         private void ExpandNode(Node node) {
@@ -99,20 +74,6 @@ namespace Code.Hexagonal.Algo {
             }
         }
 
-        private bool ClosedListContainsNode(Node node) {
-            Node nodeFromList = _closedList.Find(nodeInList => nodeInList.Equals(node));
-            return nodeFromList != null;
-        }
-
-        private bool OpenListContainsNodeWithLowerMetric(Node node) {
-            Node nodeFromList = _openList.Find(nodeInList => nodeInList.Equals(node));
-            return nodeFromList != null && nodeFromList.Metric < node.Metric;
-        }
-
-        private Node CreateNode(Node parentNode, HexCell neighbor) {
-            return new Node(neighbor, CalculateMetricOfCell(neighbor), parentNode);
-        }
-
         private List<HexCell> GenerateNeighbors(HexCoordinates[] coordinates) {
             List<HexCell> neighborCells = new List<HexCell>();
         
@@ -125,21 +86,60 @@ namespace Code.Hexagonal.Algo {
             return neighborCells;
         }
 
-        private bool IsDestination(HexCell hexCell) {
-            return hexCell.Equals(_destination.GetCell);
+        private bool CellNotFeasible(HexCell hexCell) {
+            // implement any additional filters here
+            return CellDoesntExist(hexCell);
         }
 
         private bool CellDoesntExist(HexCell hexCell) {
             return hexCell == null;
         }
+        
+        private bool IsDestination(HexCell hexCell) {
+            return hexCell.Equals(_destination.GetCell);
+        }
+
+        private Node CreateNode(Node parentNode, HexCell neighbor) {
+            return new Node(neighbor, CalculateMetricOfCell(neighbor), parentNode);
+        }
 
         private float CalculateMetricOfCell(HexCell cell) {
             return cell.GaussianDistanceTo(_destination.GetCell);
         }
+        
+        private bool OpenListContainsNodeWithLowerMetric(Node node) {
+            Node nodeFromList = _openList.Find(nodeInList => nodeInList.Equals(node));
+            return nodeFromList != null && nodeFromList.Metric < node.Metric;
+        }
+        
+        private bool ClosedListContainsNode(Node node) {
+            Node nodeFromList = _closedList.Find(nodeInList => nodeInList.Equals(node));
+            return nodeFromList != null;
+        }
+        
+        private void SortOpenListByMetric() {
+            _openList.Sort((n1, n2) => Math.Sign(n1.Metric - n2.Metric));
+        }
 
-        private bool CellNotFeasible(HexCell hexCell) {
-            // implement any additional filters here
-            return CellDoesntExist(hexCell);
+        private HexCoordinates[] GeneratePathBasedOnLists() {
+            Node node = _destination;
+            List<HexCoordinates> path = new List<HexCoordinates>();
+        
+            while (node != null) {
+                path.Add(node.GetCell.coordinates);
+                node = node.Parent;
+            }
+
+            return path.ToArray();
+        }
+
+        private bool PathConsistsOfNonFriendlyCells(HexCoordinates[] coordinatesArray) {
+            int index = 0;
+            foreach (HexCoordinates coordinates in coordinatesArray) {
+                if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
+                index++;
+            }
+            return true;
         }
     }
 }
