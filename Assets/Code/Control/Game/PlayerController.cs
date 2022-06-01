@@ -32,7 +32,7 @@ namespace Code.Control.Game {
             if (IsItemFromUISelected()) {
                 if (HasEnoughMoneyToBuyObject()) {
                     if (hexCell.IsFriendlyCell()) {
-                        if (IsFriendlyCellSuitableToPlateObjectThere(hexCell)) {
+                        if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, prefabFromUI)) {
                             HandleBuyingObjectOnFriendlyCell(hexCell);
                             return;
                         }
@@ -48,7 +48,7 @@ namespace Code.Control.Game {
                 if (IsSomeCellAlreadySelected()) {
                     if (CanSelectedObjectMoveInThisTurn() && IsCellInUnitMovementRange(hexCell)) {
                         if (hexCell.IsFriendlyCell()) {
-                            if (IsFriendlyCellSuitableToPlateObjectThere(hexCell)) {
+                            if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) {
                                 HandleMovingUnit(hexCell);
                                 return;
                             }
@@ -77,8 +77,8 @@ namespace Code.Control.Game {
             return MoneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
         }
 
-        private static bool IsFriendlyCellSuitableToPlateObjectThere(HexCell hexCell) {
-            return hexCell.IsEmpty() || hexCell.HasTree();
+        private static bool IsFriendlyCellSuitableToPlateObjectThere(HexCell hexCell, CellObject unit) {
+            return (hexCell.IsEmpty() || hexCell.HasTree()) && IsCellProtectionLevelLowerThanUnit(hexCell, unit);
         }
 
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
@@ -110,7 +110,7 @@ namespace Code.Control.Game {
             return false;
         }
 
-        private bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
+        private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
             HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
             foreach (HexCell neighbor in neighboringCells) {
                 if (neighbor == null) continue;

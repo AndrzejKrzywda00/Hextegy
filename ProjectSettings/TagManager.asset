@@ -16,6 +16,7 @@ TagManager:
   - HexCell
   - CurrentMoneyText
   - BalanceText
+  - PlayerIdentifierImage
   layers:
   - Default
   - TransparentFX
