@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 263465037}
   m_Layer: 5
   m_Name: CurrentMoneyText
-  m_TagString: Untagged
+  m_TagString: CurrentMoneyText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1154,8 +1154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7461001d9a15cee4487c1f88f43bcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMoneyText: {fileID: 263465037}
-  balanceText: {fileID: 709498065}
+  currentMoneyText: {fileID: 0}
+  balanceText: {fileID: 0}
 --- !u!222 &615694632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1273,7 +1273,7 @@ GameObject:
   - component: {fileID: 709498065}
   m_Layer: 5
   m_Name: BalanceText
-  m_TagString: Untagged
+  m_TagString: BalanceText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

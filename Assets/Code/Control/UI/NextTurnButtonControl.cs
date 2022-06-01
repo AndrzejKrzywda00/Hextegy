@@ -23,6 +23,8 @@ namespace Code.Control.UI {
             PlayerController.CurrentPlayerId++;
 
             ChangeCurrentPlayerUnitsMovementPossibilityTo(true);
+            
+            System.GC.Collect();
         }
 
         private void ChangeCurrentPlayerUnitsMovementPossibilityTo(bool boolean) {
