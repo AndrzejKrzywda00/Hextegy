@@ -17,6 +17,7 @@ namespace Code.CellObjects {
         private static readonly UnitTier1 UnitTier1 = Resources.Load<UnitTier1>("UnitTier1");
         private static readonly UnitTier2 UnitTier2 = Resources.Load<UnitTier2>("UnitTier2");
         private static readonly UnitTier3 UnitTier3 = Resources.Load<UnitTier3>("UnitTier3");
+        private static readonly UnitTier4 UnitTier4 = Resources.Load<UnitTier4>("UnitTier4");
         private static readonly Capital Capital = Resources.Load<Capital>("Capital");
         private static readonly Grave Grave = Resources.Load<Grave>("Grave");
         
@@ -57,6 +58,10 @@ namespace Code.CellObjects {
 
         public static UnitTier3 GetUnitTier3() {
             return UnitTier3;
+        }
+        
+        public static UnitTier4 GetUnitTier4() {
+            return UnitTier4;
         }
 
         public static Grave GetGrave() {

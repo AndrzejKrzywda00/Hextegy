@@ -17,6 +17,7 @@ TagManager:
   - CurrentMoneyText
   - BalanceText
   - PlayerIdentifierImage
+  - UnitTier4
   layers:
   - Default
   - TransparentFX

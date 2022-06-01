@@ -25,6 +25,11 @@ namespace Code.Control.UI {
             _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetUnitTier3() : null;
             _playerController.selectedCellWithUnit = null;
         }
+        
+        public void OnUnitTier4ButtonClick() {
+            _playerController.prefabFromUI = _playerController.prefabFromUI == null ? Prefabs.GetUnitTier4() : null;
+            _playerController.selectedCellWithUnit = null;
+        }
     
     
         public void OnBuildingButtonClick() {
