@@ -124,7 +124,7 @@ namespace Code.Control.Game {
             HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
             foreach (HexCell neighbor in neighboringCells) {
                 if (neighbor == null) continue;
-                if (neighbor.IsEnemyCell() && neighbor.HasTower()) {
+                if (neighbor.IsEnemyCell() && neighbor.HasProtectiveInstance()) {
                     if (!neighbor.prefabInstance.IsWeakerThan(unit)) {
                         return false;
                     }

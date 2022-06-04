@@ -53,6 +53,10 @@ namespace Code.Hexagonal {
         public bool HasTower() {
             return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
         }
+
+        public bool HasProtectiveInstance() {
+            return prefabInstance is ActiveObject;
+        }
     
         public bool HasUnit() {
             return prefabInstance is Unit;
