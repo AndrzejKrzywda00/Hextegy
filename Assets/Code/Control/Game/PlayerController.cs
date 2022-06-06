@@ -38,43 +38,62 @@ namespace Code.Control.Game {
 
         public void Handle(HexCell hexCell) {
             if (IsItemFromUISelected()) {
-                if (HasEnoughMoneyToBuyObject()) {
-                    if (hexCell.IsFriendlyCell()) {
-                        if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, prefabFromUI)) {
-                            HandleBuyingObjectOnFriendlyCell(hexCell);
-                            return;
-                        }
-                    } else {
-                        if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell, prefabFromUI)) {
-                            HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
-                            return;
-                        }
-                    }
-                }
-                prefabFromUI = null;
+                HandleSomethingIsSelectedFromUI(hexCell);
             } else {
-                if (IsSomeCellAlreadySelected()) {
-                    if (CanSelectedObjectMoveInThisTurn() && IsCellInUnitMovementRange(hexCell)) {
-                        if (hexCell.IsFriendlyCell()) {
-                            if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) {
-                                HandleMovingUnit(hexCell);
-                                return;
-                            }
-                        } else {
-                            if (IsCellProtectionLevelLowerThanUnit(hexCell, selectedCellWithUnit.prefabInstance) && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) && IsCellBorderingFriendlyCell(hexCell)) {
-                                HandleMovingUnit(hexCell);
-                                return;
-                            }
-                        }
+                HandleNothingIsSelectedFromUI(hexCell);
+            }
+        }
+
+        private void HandleSomethingIsSelectedFromUI(HexCell hexCell) {
+            if (HasEnoughMoneyToBuyObject()) {
+                if (hexCell.IsFriendlyCell()) {
+                    if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, prefabFromUI)) {
+                        HandleBuyingObjectOnFriendlyCell(hexCell);
+                        return;
                     }
                 } else {
-                    if (IsCellWithPlayersUnitClicked(hexCell)) {
-                        selectedCellWithUnit = hexCell;
+                    if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) &&
+                        IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell, prefabFromUI)) {
+                        HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
                         return;
                     }
                 }
-                selectedCellWithUnit = null;
             }
+            
+            prefabFromUI = null;
+        }
+
+        private void HandleNothingIsSelectedFromUI(HexCell hexCell) {
+            if (IsSomeCellAlreadySelected()) {
+                if (HandleWhenCellWithUnitIsSelectedAndNothingFromUI(hexCell))
+                    return;
+            } else {
+                if (IsCellWithPlayersUnitClicked(hexCell)) {
+                    selectedCellWithUnit = hexCell;
+                    return;
+                }
+            }
+
+            selectedCellWithUnit = null;
+        }
+
+        private bool HandleWhenCellWithUnitIsSelectedAndNothingFromUI(HexCell hexCell) {
+            if (!CanSelectedObjectMoveInThisTurn() || !IsCellInUnitMovementRange(hexCell)) 
+                return false;
+            
+            if (hexCell.IsFriendlyCell()) {
+                if (!IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) 
+                    return false;
+                HandleMovingUnit(hexCell);
+                return true;
+            }
+
+            if (!IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) ||
+                !IsCellProtectionLevelLowerThanUnit(hexCell, selectedCellWithUnit.prefabInstance) ||
+                !IsCellBorderingFriendlyCell(hexCell)) 
+                return false;
+            HandleMovingUnit(hexCell);
+            return true;
         }
 
         private bool IsItemFromUISelected() {
