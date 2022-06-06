@@ -3,12 +3,12 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     
     private Vector3 _camPosition;
-    private const float MovementSpeed = 30f;
+    private const float MovementSpeed = 140f;
     private const float ReactionSpaceThickness = 10f;
     private readonly Vector2 _movementLimit = new Vector2(1000, 1000);
 
     private Camera _cam;
-    private const float ScrollSpeed = 80f;
+    private const float ScrollSpeed = 220f;
     private const float NormalizationValueForScrollSpeed = 100f;
     private float _orthographicSize;
     private const float MaxOrthographicSize = 200f;
