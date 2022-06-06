@@ -182,8 +182,10 @@ namespace Code.Control.Game {
         }
 
         private bool IsCellInUnitMovementRange(HexCell hexCell) {
-            HexCoordinates[] path = _pathfinder.OptionalPathFromTo(selectedCellWithUnit, hexCell);
             Unit unit = (Unit) selectedCellWithUnit.prefabInstance;
+            if (selectedCellWithUnit.HexDistanceTo(hexCell) > unit.MovementRange()) return false;
+            
+            HexCoordinates[] path = _pathfinder.OptionalPathFromTo(selectedCellWithUnit, hexCell);
             if (path == null) return false;
             return path.Length - 1 <= unit.MovementRange();
         }

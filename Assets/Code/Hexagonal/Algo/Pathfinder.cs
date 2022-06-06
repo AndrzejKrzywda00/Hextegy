@@ -87,14 +87,12 @@ namespace Code.Hexagonal.Algo {
         }
 
         private bool CellNotFeasible(HexCell hexCell) {
-            // implement any additional filters here
             return CellDoesntExist(hexCell);
         }
 
         private bool CellDoesntExist(HexCell hexCell) {
             return hexCell == null;
         }
-        
         private bool IsDestination(HexCell hexCell) {
             return hexCell.Equals(_destination.GetCell);
         }
