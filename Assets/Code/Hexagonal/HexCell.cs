@@ -53,6 +53,10 @@ namespace Code.Hexagonal {
             return prefabInstance is Farm;
         }
 
+        public bool HasCapital() {
+            return prefabInstance is Capital;
+        }
+
         public bool HasTower() {
             return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
         }

@@ -22,7 +22,7 @@ namespace Code.Control.Game {
         }
 
         private static void CalculatePlayerCells() {
-            var playerIdQuery = from cell in _gridCells where cell.playerId.Equals(_playerId) select cell;
+            IEnumerable<HexCell> playerIdQuery = from cell in _gridCells where cell.playerId.Equals(_playerId) select cell;
             _playerCells.AddRange(playerIdQuery);
         }
 
@@ -31,7 +31,7 @@ namespace Code.Control.Game {
         }
 
         private int GetMaintenanceCostsOfActiveObjects() {
-            var sumSequence = from activeObject in GetCellsWithActiveObjects() select activeObject.MaintenanceCost();
+            IEnumerable<int> sumSequence = from activeObject in GetCellsWithActiveObjects() select activeObject.MaintenanceCost();
             return sumSequence.ToList().Sum();
         }
 
@@ -48,6 +48,11 @@ namespace Code.Control.Game {
         public int GetNumberOfFarms() {
             IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasFarm() select cell;
             return farmsQuery.Count();
+        }
+
+        public bool HasCapital() {
+            IEnumerable<HexCell> hasCapital = from cell in _playerCells where cell.HasCapital() select cell;
+            return hasCapital.Any();
         }
     }
     

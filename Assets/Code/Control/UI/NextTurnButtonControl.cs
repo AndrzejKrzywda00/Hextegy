@@ -27,6 +27,7 @@ namespace Code.Control.UI {
             ChangeCurrentPlayerUnitsMovementPossibilityTo(true);
             
             System.GC.Collect();
+            CheckWinConditions();
         }
 
         private void ChangeCurrentPlayerUnitsMovementPossibilityTo(bool boolean) {
@@ -35,6 +36,10 @@ namespace Code.Control.UI {
                 unit.SetHasMoveLeftInThisTurn = boolean;
                 hexCell.AlignPrefabInstancePositionWithCellPosition();
             }
+        }
+
+        private void CheckWinConditions() {
+            // TODO implement
         }
     }
 }
