@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.CellObjects;
-using Code.CellObjects.Units;
-using Code.Generator.Objects;
 using Code.Hexagonal;
-using UnityEditor.Build.Reporting;
 
 namespace Code.Control.Game {
     
@@ -44,7 +41,7 @@ namespace Code.Control.Game {
         }
 
         private int GetNumberOfEmptyCells() {
-            IEnumerable<HexCell> emptyCellsQuery = from cell in _playerCells where cell.IsEmpty() select cell;
+            IEnumerable<HexCell> emptyCellsQuery = from cell in _playerCells where cell.IsProfitable() select cell;
             return emptyCellsQuery.Count();
         }
 

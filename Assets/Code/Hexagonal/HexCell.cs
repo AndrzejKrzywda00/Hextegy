@@ -7,6 +7,7 @@ using Code.CellObjects.Structures.Trees;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
+using TreeEditor;
 using UnityEngine;
 using Tree = Code.CellObjects.Structures.Trees.Tree;
 
@@ -58,6 +59,10 @@ namespace Code.Hexagonal {
 
         public bool HasActiveInstance() {
             return prefabInstance is ActiveObject;
+        }
+
+        public bool IsProfitable() {
+            return !(prefabInstance is Tree);
         }
 
         public bool HasProtectiveInstance() {
