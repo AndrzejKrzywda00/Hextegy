@@ -40,10 +40,6 @@ namespace Code.Hexagonal {
             return prefabInstance is NoElement;
         }
 
-        public bool IsNeutral() {
-            return playerId.Equals(0);
-        }
-
         public bool HasTree() {
             return prefabInstance is Tree;
         }
@@ -58,6 +54,10 @@ namespace Code.Hexagonal {
 
         public bool HasTower() {
             return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
+        }
+
+        public bool HasActiveInstance() {
+            return prefabInstance is ActiveObject;
         }
 
         public bool HasProtectiveInstance() {
