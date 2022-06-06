@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour {
     private Vector3 _camPosition;
     private const float MovementSpeed = 140f;
     private const float ReactionSpaceThickness = 10f;
-    private readonly Vector2 _movementLimit = new Vector2(1000, 1000);
+    private readonly Vector2 _movementLimit = new Vector2(500, 500);
 
     private Camera _cam;
     private const float ScrollSpeed = 220f;
@@ -19,9 +19,10 @@ public class CameraController : MonoBehaviour {
     public void Start() {
         _cam = Camera.main;
         _cam.transform.SetPositionAndRotation(
-            new Vector3(0, 10, 0),
+            new Vector3(250, 10, 250),
             Quaternion.Euler(90, 0, 0)
             );
+        _cam.orthographicSize = 80f;
     }
 
     public void SetCameraPosition(int x, int z) {
@@ -84,9 +85,9 @@ public class CameraController : MonoBehaviour {
     }
 
     private void RestrictMovement() {
-        _camPosition.x = Mathf.Clamp(_camPosition.x, -_movementLimit.x, _movementLimit.x);
+        _camPosition.x = Mathf.Clamp(_camPosition.x, 0, _movementLimit.x);
         _camPosition.y = 10; //arbitrary value greater than 0 but not too big
-        _camPosition.z = Mathf.Clamp(_camPosition.z, -_movementLimit.y, _movementLimit.y);
+        _camPosition.z = Mathf.Clamp(_camPosition.z, 0, _movementLimit.y);
     }
 
     private void Scroll() {
