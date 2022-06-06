@@ -2097,8 +2097,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1803792478}
-        m_TargetAssemblyTypeName: MenuEventSystem, Assembly-CSharp
-        m_MethodName: BackToMenuClick
+        m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
+        m_MethodName: EndgameClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -14,5 +14,9 @@ namespace Code.Control.UI {
         public void BackToMenuClick() {
             SceneManager.LoadScene("Scenes/Menu");
         }
+
+        public void EndgameClick() {
+            SceneManager.LoadScene("Scenes/Endgame");
+        }
     }
 }
