@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.CellObjects;
+using Code.CellObjects.Units;
+using Code.Generator.Objects;
 using Code.Hexagonal;
+using UnityEditor.Build.Reporting;
 
 namespace Code.Control.Game {
     
@@ -8,6 +12,7 @@ namespace Code.Control.Game {
 
         private static HexCell[] _gridCells;
         private static List<HexCell> _playerCells = new List<HexCell>();
+        private static int _playerId;
 
         public PlayerInformation(HexCell[] gridCells) {
             _gridCells = gridCells;
@@ -15,22 +20,36 @@ namespace Code.Control.Game {
         }
         
         public void LoadPlayer(int playerId) {
-            IEnumerable<HexCell> playerIdQuery = from cell in _gridCells where cell.playerId.Equals(playerId) select cell;
-            _playerCells.AddRange(playerIdQuery);
-        }
-        
-        public int GetNumberOfUnits() {
-            IEnumerable<HexCell> unitsQuery = from cell in _playerCells where cell.HasUnit() select cell;
-            return unitsQuery.Count();
+            _playerId = playerId;
+            CalculatePlayerCells();
         }
 
-        public int GetNumberOfEmptyCells() {
+        private static void CalculatePlayerCells() {
+            var playerIdQuery = from cell in _gridCells where cell.playerId.Equals(_playerId) select cell;
+            _playerCells.AddRange(playerIdQuery);
+        }
+
+        private IEnumerable<ActiveObject> GetCellsWithActiveObjects() {
+            return from cell in _playerCells where cell.HasActiveInstance() select (ActiveObject) cell.prefabInstance;
+        }
+
+        private int GetMaintenanceCostsOfActiveObjects() {
+            var sumSequence = from activeObject in GetCellsWithActiveObjects() select activeObject.MaintenanceCost();
+            return sumSequence.ToList().Sum();
+        }
+
+        public int GetBalance() {
+            CalculatePlayerCells();
+            return GetNumberOfEmptyCells() - GetMaintenanceCostsOfActiveObjects();
+        }
+
+        private int GetNumberOfEmptyCells() {
             IEnumerable<HexCell> emptyCellsQuery = from cell in _playerCells where cell.IsEmpty() select cell;
             return emptyCellsQuery.Count();
         }
 
         public int GetNumberOfFarms() {
-            IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasTower() select cell;
+            IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasFarm() select cell;
             return farmsQuery.Count();
         }
     }
