@@ -30,7 +30,7 @@ namespace Code.Control.Game {
         }
 
         public int GetNumberOfFarms() {
-            IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasTower() select cell;
+            IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasFarm() select cell;
             return farmsQuery.Count();
         }
     }
