@@ -1,3 +1,4 @@
+using System;
 using Code.CellObjects;
 using Code.CellObjects.Structures.Passive;
 using Code.CellObjects.Structures.StateBuildings;
@@ -55,7 +56,13 @@ namespace Code.Hexagonal {
         }
 
         public bool HasProtectiveInstance() {
-            return prefabInstance is ActiveObject;
+            try {
+                ActiveObject activeObject = (ActiveObject) prefabInstance;
+                return activeObject.IsProtectingNearbyFriendlyCells();
+            }
+            catch (InvalidCastException) {
+                return false;
+            }
         }
     
         public bool HasUnit() {
