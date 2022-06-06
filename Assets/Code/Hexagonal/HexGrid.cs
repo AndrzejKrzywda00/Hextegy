@@ -157,7 +157,7 @@ public class HexGrid : MonoBehaviour {
     }
 
     public void GenerateTreesNextToExistingTrees() {
-        foreach (HexCell cell in _cells) if(cell != null && cell.HasTree()) GenerateTreeInRandomAdjacentCell(cell);
+        foreach (HexCell cell in _cells) if(cell != null && cell.HasBigTree()) GenerateTreeInRandomAdjacentCell(cell);
     }
 
     private void GenerateTreeInRandomAdjacentCell(HexCell hexCell) {

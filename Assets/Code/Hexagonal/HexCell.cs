@@ -3,6 +3,7 @@ using Code.CellObjects;
 using Code.CellObjects.Structures.Passive;
 using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Towers;
+using Code.CellObjects.Structures.Trees;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
@@ -45,6 +46,10 @@ namespace Code.Hexagonal {
 
         public bool HasTree() {
             return prefabInstance is Tree;
+        }
+
+        public bool HasBigTree() {
+            return prefabInstance is BigTree;
         }
 
         public bool HasFarm() {
