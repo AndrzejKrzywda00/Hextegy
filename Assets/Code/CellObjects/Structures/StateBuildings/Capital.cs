@@ -7,8 +7,8 @@ namespace Code.CellObjects.Structures.StateBuildings {
         public void SetPlayerId(int id) {
             _playerId = id;
         }
-        
-        public override int Level() {
+
+        protected override int Level() {
             return 1;
         }
 

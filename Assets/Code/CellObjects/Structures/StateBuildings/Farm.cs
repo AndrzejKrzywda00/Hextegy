@@ -2,8 +2,8 @@ namespace Code.CellObjects.Structures.StateBuildings {
     public class Farm : ActiveObject {
 
         private int _currentPrice = 12;
-        
-        public override int Level() {
+
+        protected override int Level() {
             return 1;
         }
 

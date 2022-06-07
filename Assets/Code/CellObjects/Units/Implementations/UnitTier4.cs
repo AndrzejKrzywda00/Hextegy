@@ -14,7 +14,7 @@ namespace Code.CellObjects.Units.Implementations {
             return 26;
         }
 
-        public override int Level() {
+        protected override int Level() {
             return 4;
         }
 

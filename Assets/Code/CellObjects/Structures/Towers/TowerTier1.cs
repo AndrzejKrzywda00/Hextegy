@@ -1,7 +1,6 @@
 namespace Code.CellObjects.Structures.Towers {
     public class TowerTier1 : ActiveObject {
-        
-        public override int Level() {
+        protected override int Level() {
             return 2;
         }
 

@@ -13,7 +13,7 @@ namespace Code.CellObjects.Units.Implementations {
             return 6;
         }
 
-        public override int Level() {
+        protected override int Level() {
             return 2;
         }
     
