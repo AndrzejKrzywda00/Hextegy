@@ -10,18 +10,18 @@ namespace Code.Control.Game {
         private static HexCell[] _gridCells;
         private static List<HexCell> _playerCells = new List<HexCell>();
         private static int _playerId;
-        
-        public static void LoadGrid(HexCell[] cells) {
-            _gridCells = cells; 
-            InstantiatePlayerCells();
+
+        public static void SetGridCells(HexCell[] cells) {
+            _gridCells = cells;
         }
-        
+
         private static void InstantiatePlayerCells() {
             _playerCells = new List<HexCell>();
         }
 
         public static void LoadPlayer(int playerId) {
             _playerId = playerId;
+            InstantiatePlayerCells();
             CalculatePlayerCells();
         }
 

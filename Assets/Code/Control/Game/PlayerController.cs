@@ -11,18 +11,19 @@ namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
     
         public static int CurrentPlayerId = 1;
-
+        private static HexGrid _hexGrid;
+        
         public HexCell selectedCellWithUnit;
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
 
-        public static HexGrid HexGrid { get; private set; }
+        public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
             _pathfinder = FindObjectOfType<Pathfinder>();
-            HexGrid = FindObjectOfType<HexGrid>();
-            PlayerInformation.LoadGrid(HexGrid.Cells);
+            _hexGrid = FindObjectOfType<HexGrid>();
+            PlayerInformation.SetGridCells(_hexGrid.Cells);
             InitializeMoneyManager();
         }
 
@@ -32,7 +33,7 @@ namespace Code.Control.Game {
         }
         
         private static void InitializeMoneyManager() {
-            MoneyManager.SetInitialBalanceOfPlayers(HexGrid.MapCellsToInitialBalanceOfPlayers());
+            MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
         }
 
         public void Handle(HexCell hexCell) {
@@ -130,12 +131,12 @@ namespace Code.Control.Game {
         private static bool IsCellBorderingFriendlyCell(HexCell hexCell) {
             HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
             return neighbors
-                .Select(coordinates => HexGrid.CellAtCoordinates(coordinates))
+                .Select(coordinates => _hexGrid.CellAtCoordinates(coordinates))
                 .Any(neighborCell => neighborCell != null && neighborCell.IsFriendlyCell());
         }
 
         private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
-            HexCell[] neighboringCells = HexGrid.GetNeighborsOfCell(hexCell);
+            HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
             return neighboringCells
                 .Where(neighbor => neighbor != null)
                 .Where(neighbor => neighbor.IsEnemyCell() && neighbor.HasProtectiveInstance())
@@ -203,7 +204,7 @@ namespace Code.Control.Game {
 
         public static void AddTreesOnEndOfTurnAfterAllPlayersMoved() {
             if (CurrentPlayerId.Equals(HexGrid.NumberOfPlayers))
-                HexGrid.GenerateTreesNextToExistingTrees();
+                _hexGrid.GenerateTreesNextToExistingTrees();
         }
     }
 }
