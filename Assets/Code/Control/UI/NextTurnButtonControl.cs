@@ -19,8 +19,7 @@ namespace Code.Control.UI {
             
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
 
-            if (PlayerController.CurrentPlayerId >= HexGrid.NumberOfPlayers)
-                PlayerController.CurrentPlayerId = 0;
+            if (PlayerController.CurrentPlayerId >= HexGrid.NumberOfPlayers) PlayerController.CurrentPlayerId = 0;
 
             PlayerController.CurrentPlayerId++;
 
