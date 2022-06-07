@@ -18,5 +18,9 @@ namespace Code.Control.UI {
         public void EndgameClick() {
             SceneManager.LoadScene("Scenes/Endgame");
         }
+
+        public void SettingsClick() {
+            SceneManager.LoadScene("Scenes/Settings");
+        }
     }
 }
