@@ -1,6 +1,5 @@
 using System;
 using Code.Audio;
-using System.Linq;
 using Code.CellObjects;
 using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Towers;
@@ -20,7 +19,6 @@ namespace Code.Control.Game {
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
-        private PlayerInformation _playerInformation;
         private AudioManager _audioManager;
 
         public HexGrid HexGrid => _hexGrid;
@@ -145,9 +143,13 @@ namespace Code.Control.Game {
 
         private static bool IsCellBorderingFriendlyCell(HexCell hexCell) {
             HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
-            return neighbors
-                .Select(coordinates => _hexGrid.CellAtCoordinates(coordinates))
-                .Any(neighborCell => neighborCell != null && neighborCell.IsFriendlyCell());
+            foreach (HexCoordinates coordinates in neighbors) {
+                HexCell neighborCell = _hexGrid.CellAtCoordinates(coordinates);
+                if (neighborCell != null && neighborCell.IsFriendlyCell()) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
