@@ -1,6 +1,9 @@
 using System;
+using Code.Audio;
 using System.Linq;
 using Code.CellObjects;
+using Code.CellObjects.Structures.StateBuildings;
+using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
 using Code.Hexagonal;
 using Code.Hexagonal.Algo;
@@ -17,10 +20,13 @@ namespace Code.Control.Game {
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
+        private PlayerInformation _playerInformation;
+        private AudioManager _audioManager;
 
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
+            _audioManager = FindObjectOfType<AudioManager>();
             _pathfinder = FindObjectOfType<Pathfinder>();
             _hexGrid = FindObjectOfType<HexGrid>();
             PlayerInformation.SetGridCells(_hexGrid.Cells);
@@ -48,12 +54,14 @@ namespace Code.Control.Game {
             if (HasEnoughMoneyToBuyObject()) {
                 if (hexCell.IsFriendlyCell()) {
                     if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, prefabFromUI)) {
+                        PlaySoundWhenBuyingOnFriendlyCell(hexCell);
                         HandleBuyingObjectOnFriendlyCell(hexCell);
                         return;
                     }
                 } else {
                     if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) &&
                         IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell, prefabFromUI)) {
+                        PlaySoundWhenBuyingOrMovingOnEnemyOrNeutralCell(hexCell);
                         HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
                         return;
                     }
@@ -84,6 +92,7 @@ namespace Code.Control.Game {
             if (hexCell.IsFriendlyCell()) {
                 if (!IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) 
                     return false;
+                _audioManager.Play(hexCell.prefabInstance is Tree ? SoundNames.DestroyTree.ToString() : SoundNames.Move.ToString());
                 HandleMovingUnit(hexCell);
                 return true;
             }
@@ -92,6 +101,7 @@ namespace Code.Control.Game {
                 !IsCellProtectionLevelLowerThanUnit(hexCell, selectedCellWithUnit.prefabInstance) ||
                 !IsCellBorderingFriendlyCell(hexCell)) 
                 return false;
+            PlaySoundWhenBuyingOrMovingOnEnemyOrNeutralCell(hexCell);
             HandleMovingUnit(hexCell);
             return true;
         }
@@ -108,6 +118,11 @@ namespace Code.Control.Game {
             return (hexCell.IsEmpty() || hexCell.HasTree()) && IsCellProtectionLevelLowerThanUnit(hexCell, unit);
         }
 
+        private void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell) {
+            if (hexCell.prefabInstance is Tree) _audioManager.Play(SoundNames.DestroyTree.ToString());
+            _audioManager.Play(prefabFromUI is Unit ? SoundNames.ReadyToFight.ToString() : SoundNames.Building.ToString());
+        }
+        
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
             CellObject prefabInstance = hexCell.prefabInstance;
             MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
@@ -137,14 +152,41 @@ namespace Code.Control.Game {
 
         private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
             HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
-            return neighboringCells
-                .Where(neighbor => neighbor != null)
-                .Where(neighbor => neighbor.IsEnemyCell() && neighbor.HasProtectiveInstance())
-                .All(neighbor => neighbor.prefabInstance.IsWeakerThan(unit));
+            foreach (HexCell neighbor in neighboringCells) {
+                if (neighbor == null) continue;
+                if (!neighbor.IsEnemyCell() || !neighbor.HasProtectiveInstance()) continue;
+                if (!neighbor.prefabInstance.IsWeakerThan(unit)) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private bool IsObjectFromUIUnit() {
             return prefabFromUI is Unit;
+        }
+
+        private void PlaySoundWhenBuyingOrMovingOnEnemyOrNeutralCell(HexCell hexCell) {
+            switch (hexCell.prefabInstance) {
+                case Farm _:
+                case TowerTier1 _:
+                case TowerTier2 _:
+                    _audioManager.Play(SoundNames.DestroyBuilding.ToString());
+                    break;
+                case Tree _:
+                    _audioManager.Play(SoundNames.DestroyTree.ToString());
+                    break;
+                case Unit _:
+                    _audioManager.Play(SoundNames.Death.ToString());
+                    break;
+                case Capital _:
+                    _audioManager.Play(SoundNames.CapitalLost.ToString());
+                    break;
+                default:
+                    _audioManager.Play(SoundNames.Conquest.ToString());
+                    break;
+            }
         }
 
         private void HandleBuyingObjectOnNeutralOrEnemyCell(HexCell hexCell) {
