@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Code.CellObjects;
 using Code.CellObjects.Units;
 using Code.Hexagonal;
@@ -10,20 +11,18 @@ namespace Code.Control.Game {
     public class PlayerController : MonoBehaviour {
     
         public static int CurrentPlayerId = 1;
-        private static HexGrid _hexGrid;
-        
+
         public HexCell selectedCellWithUnit;
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
-        private PlayerInformation _playerInformation;
 
-        public HexGrid HexGrid => _hexGrid;
+        public static HexGrid HexGrid { get; private set; }
 
         private void Start() {
             _pathfinder = FindObjectOfType<Pathfinder>();
-            _hexGrid = FindObjectOfType<HexGrid>();
-            _playerInformation = new PlayerInformation(_hexGrid.Cells);
+            HexGrid = FindObjectOfType<HexGrid>();
+            PlayerInformation.LoadGrid(HexGrid.Cells);
             InitializeMoneyManager();
         }
 
@@ -32,8 +31,8 @@ namespace Code.Control.Game {
             selectedCellWithUnit = null;
         }
         
-        private void InitializeMoneyManager() {
-            MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
+        private static void InitializeMoneyManager() {
+            MoneyManager.SetInitialBalanceOfPlayers(HexGrid.MapCellsToInitialBalanceOfPlayers());
         }
 
         public void Handle(HexCell hexCell) {
@@ -128,28 +127,19 @@ namespace Code.Control.Game {
             }
         }
 
-        private bool IsCellBorderingFriendlyCell(HexCell hexCell) {
+        private static bool IsCellBorderingFriendlyCell(HexCell hexCell) {
             HexCoordinates[] neighbors = hexCell.NeighborsCoordinates();
-            foreach (HexCoordinates coordinates in neighbors) {
-                HexCell neighborCell = _hexGrid.CellAtCoordinates(coordinates);
-                if (neighborCell != null && neighborCell.IsFriendlyCell()) {
-                    return true;
-                }
-            }
-            return false;
+            return neighbors
+                .Select(coordinates => HexGrid.CellAtCoordinates(coordinates))
+                .Any(neighborCell => neighborCell != null && neighborCell.IsFriendlyCell());
         }
 
         private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
-            HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
-            foreach (HexCell neighbor in neighboringCells) {
-                if (neighbor == null) continue;
-                if (!neighbor.IsEnemyCell() || !neighbor.HasProtectiveInstance()) continue;
-                if (!neighbor.prefabInstance.IsWeakerThan(unit)) {
-                    return false;
-                }
-            }
-
-            return true;
+            HexCell[] neighboringCells = HexGrid.GetNeighborsOfCell(hexCell);
+            return neighboringCells
+                .Where(neighbor => neighbor != null)
+                .Where(neighbor => neighbor.IsEnemyCell() && neighbor.HasProtectiveInstance())
+                .All(neighbor => neighbor.prefabInstance.IsWeakerThan(unit));
         }
 
         private bool IsObjectFromUIUnit() {
@@ -163,13 +153,13 @@ namespace Code.Control.Game {
             AdjustCellColor(hexCell);
         }
 
-        private void MakeUnitNotAbleToMoveInThisTurn(HexCell hexCell) {
+        private static void MakeUnitNotAbleToMoveInThisTurn(HexCell hexCell) {
             if (hexCell.prefabInstance is Unit unit) {
                 unit.SetHasMoveLeftInThisTurn = false;
             }
         }
 
-        private void AdjustCellColor(HexCell hexCell) {
+        private static void AdjustCellColor(HexCell hexCell) {
             hexCell.playerId = CurrentPlayerId;
         }
 
@@ -207,13 +197,13 @@ namespace Code.Control.Game {
             if (hexCell.IsFriendlyCell() && hexCell.HasTree()) MoneyManager.IncrementBalance(CurrentPlayerId);
         }
 
-        private bool IsCellWithPlayersUnitClicked(HexCell hexCell) {
+        private static bool IsCellWithPlayersUnitClicked(HexCell hexCell) {
             return hexCell.IsFriendlyCell() && hexCell.HasUnit();
         }
 
         public static void AddTreesOnEndOfTurnAfterAllPlayersMoved() {
             if (CurrentPlayerId.Equals(HexGrid.NumberOfPlayers))
-                _hexGrid.GenerateTreesNextToExistingTrees();
+                HexGrid.GenerateTreesNextToExistingTrees();
         }
     }
 }

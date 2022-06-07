@@ -5,18 +5,22 @@ using Code.Hexagonal;
 
 namespace Code.Control.Game {
     
-    public class PlayerInformation {
+    public static class PlayerInformation {
 
         private static HexCell[] _gridCells;
         private static List<HexCell> _playerCells = new List<HexCell>();
         private static int _playerId;
-
-        public PlayerInformation(HexCell[] gridCells) {
-            _gridCells = gridCells;
-            _playerCells = new List<HexCell>();
+        
+        public static void LoadGrid(HexCell[] cells) {
+            _gridCells = cells; 
+            InstantiatePlayerCells();
         }
         
-        public void LoadPlayer(int playerId) {
+        private static void InstantiatePlayerCells() {
+            _playerCells = new List<HexCell>();
+        }
+
+        public static void LoadPlayer(int playerId) {
             _playerId = playerId;
             CalculatePlayerCells();
         }
@@ -26,31 +30,31 @@ namespace Code.Control.Game {
             _playerCells.AddRange(playerIdQuery);
         }
 
-        private IEnumerable<ActiveObject> GetCellsWithActiveObjects() {
+        private static IEnumerable<ActiveObject> GetCellsWithActiveObjects() {
             return from cell in _playerCells where cell.HasActiveInstance() select (ActiveObject) cell.prefabInstance;
         }
 
-        private int GetMaintenanceCostsOfActiveObjects() {
+        private static int GetMaintenanceCostsOfActiveObjects() {
             IEnumerable<int> sumSequence = from activeObject in GetCellsWithActiveObjects() select activeObject.MaintenanceCost();
             return sumSequence.ToList().Sum();
         }
 
-        public int GetBalance() {
+        public static int GetBalance() {
             CalculatePlayerCells();
             return GetNumberOfEmptyCells() - GetMaintenanceCostsOfActiveObjects();
         }
 
-        private int GetNumberOfEmptyCells() {
+        private static int GetNumberOfEmptyCells() {
             IEnumerable<HexCell> emptyCellsQuery = from cell in _playerCells where cell.IsProfitable() select cell;
             return emptyCellsQuery.Count();
         }
 
-        public int GetNumberOfFarms() {
+        public static int GetNumberOfFarms() {
             IEnumerable<HexCell> farmsQuery = from cell in _playerCells where cell.HasFarm() select cell;
             return farmsQuery.Count();
         }
 
-        public bool HasCapital() {
+        public static bool HasCapital() {
             IEnumerable<HexCell> hasCapital = from cell in _playerCells where cell.HasCapital() select cell;
             return hasCapital.Any();
         }
