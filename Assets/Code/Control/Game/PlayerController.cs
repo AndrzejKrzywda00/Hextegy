@@ -35,7 +35,7 @@ namespace Code.Control.Game {
             prefabFromUI = null;
             selectedCellWithUnit = null;
         }
-        
+
         private static void InitializeMoneyManager() {
             MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
         }
@@ -227,12 +227,27 @@ namespace Code.Control.Game {
 
         private void HandleMovingUnit(HexCell hexCell) {
             AdjustBalanceIfDestroyedTreeOnFriendlyCell(hexCell);
+            HandleChangingBalanceWhenActiveObjectDestroyed(hexCell);
             MakeUnitNotAbleToMoveInThisTurn(selectedCellWithUnit);
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
             hexCell.AlignPrefabInstancePositionWithCellPosition();
-            MoneyManager.TransferBalanceOfFieldFromPlayerToPlayer(hexCell.playerId, CurrentPlayerId);
+            HandleBalanceChanges(hexCell);
             AdjustCellColor(hexCell);
+            PutEmptyElementOnGrid();
+        }
+
+        private static void HandleBalanceChanges(HexCell hexCell) {
+            MoneyManager.TransferBalanceOfFieldFromPlayerToPlayer(hexCell.playerId, CurrentPlayerId);
+        }
+
+        private static void HandleChangingBalanceWhenActiveObjectDestroyed(HexCell hexCell) {
+            if (!hexCell.IsEnemyCell() || !hexCell.HasUnit()) return;
+            ActiveObject unit = (ActiveObject) hexCell.prefabInstance;
+            MoneyManager.IncrementBalanceOfPlayerByAmount(hexCell.playerId, unit.MaintenanceCost());
+        }
+
+        private void PutEmptyElementOnGrid() {
             selectedCellWithUnit.PutOnCell(Prefabs.GetNoElement());
             selectedCellWithUnit.AlignPrefabInstancePositionWithCellPosition();
             selectedCellWithUnit = null;
