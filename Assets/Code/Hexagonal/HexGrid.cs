@@ -9,8 +9,8 @@ namespace Code.Hexagonal {
     public class HexGrid : MonoBehaviour {
     
         public static int NumberOfPlayers = 4;
-        private const int GridWidth = 30;
-        private const int GridHeight = 30;
+        public const int GridWidth = 45;
+        public const int GridHeight = 45;
 
         public HexCell hexCellPrefab;
 

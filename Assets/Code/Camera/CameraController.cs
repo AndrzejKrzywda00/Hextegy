@@ -1,3 +1,4 @@
+using Code.Hexagonal;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
@@ -5,7 +6,9 @@ public class CameraController : MonoBehaviour {
     private Vector3 _camPosition;
     private const float MovementSpeed = 140f;
     private const float ReactionSpaceThickness = 10f;
-    private readonly Vector2 _movementLimit = new Vector2(500, 500);
+    private float _maxWidth;
+    private float _maxHeight;
+    private Vector2 _movementLimit;
 
     private Camera _cam;
     private const float ScrollSpeed = 220f;
@@ -17,12 +20,23 @@ public class CameraController : MonoBehaviour {
     private Vector3 _dragOrigin;
 
     public void Start() {
+        CalculateCameraMoveConstraints();
         _cam = Camera.main;
         _cam.transform.SetPositionAndRotation(
-            new Vector3(250, 10, 250),
+            new Vector3(_maxWidth/2f, 10, _maxHeight/2f),
             Quaternion.Euler(90, 0, 0)
             );
         _cam.orthographicSize = 80f;
+    }
+
+    private void CalculateCameraMoveConstraints() {
+        float width = HexGrid.GridWidth;
+        float height = HexGrid.GridHeight;
+        const float h = HexMetrics.h;
+        const float x = HexMetrics.x;
+        _maxWidth =  width * h + h/2f - h/2f;
+        _maxHeight = height * 2f * x - height / 2 * x - x;
+        _movementLimit = new Vector2(_maxWidth, _maxHeight);
     }
 
     public void SetCameraPosition(int x, int z) {
