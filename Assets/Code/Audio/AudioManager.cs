@@ -3,19 +3,9 @@ using UnityEngine;
 
 namespace Code.Audio {
     public class AudioManager : MonoBehaviour {
-        public static AudioManager instance;
-    
         public Sound[] sounds;
 
         private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else {
-                Destroy(gameObject);
-                return;
-            }
-            DontDestroyOnLoad(gameObject);
-        
             foreach (Sound sound in sounds) {
                 sound.source = gameObject.AddComponent<AudioSource>();
                 sound.source.clip = sound.clip;
