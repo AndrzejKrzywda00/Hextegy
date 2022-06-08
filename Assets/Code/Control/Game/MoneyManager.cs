@@ -24,6 +24,10 @@ namespace Code.Control.Game {
             if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] -= 1;
         }
 
+        public static void IncrementBalanceOfPlayerByAmount(int playerId, int amount) {
+            if (_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] += amount;
+        }
+
         public static void TransferBalanceOfFieldFromPlayerToPlayer(int playerId1, int playerId2) {
             DecrementBalanceOfPlayer(playerId1);
             IncrementBalanceOfPlayer(playerId2);
