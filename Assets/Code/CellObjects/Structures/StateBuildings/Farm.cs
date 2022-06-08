@@ -1,18 +1,14 @@
 namespace Code.CellObjects.Structures.StateBuildings {
     public class Farm : ActiveObject {
 
-        private int _currentPrice = 12;
+        private int _startingPrice = 12;
 
         protected override int Level() {
             return 1;
         }
 
         public override int Price() {
-            return _currentPrice;
-        }
-
-        public void IncrementPrice() {
-            _currentPrice += 4;
+            return _startingPrice;
         }
 
         public override bool IsProtectingNearbyFriendlyCells() {

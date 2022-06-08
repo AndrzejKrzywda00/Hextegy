@@ -7,6 +7,7 @@ namespace Code.Control.Game {
         private const int InitialMoney = 100;
         private static Dictionary<int, int> _playersBalances;
         private static Dictionary<int, int> _playersWallets;
+        private static Dictionary<int, int> _playersFarmsAmounts;
 
         public static int GetCurrentCoins(int playerId) {
             return _playersWallets[playerId];
@@ -35,14 +36,24 @@ namespace Code.Control.Game {
 
         public static void SetInitialBalanceOfPlayers(Dictionary<int, int> initialBalanceOfPlayers) {
             _playersBalances = initialBalanceOfPlayers;
-            InitializeWallets();
+            InitializeWalletsAndFarms();
         }
 
-        private static void InitializeWallets() {
+        private static void InitializeWalletsAndFarms() {
             _playersWallets = new Dictionary<int, int>();
+            _playersFarmsAmounts = new Dictionary<int, int>();
             foreach (KeyValuePair<int, int> item in _playersBalances) {
                 _playersWallets.Add(item.Key, InitialMoney);
+                _playersFarmsAmounts.Add(item.Key, 0);
             }
+        }
+
+        public static void IncrementPlayerFarms(int playerId) {
+            if (_playersFarmsAmounts.ContainsKey(playerId)) _playersFarmsAmounts[playerId]++;
+        }
+
+        public static void DecrementPlayerFarms(int playerId) {
+            if (_playersFarmsAmounts.ContainsKey(playerId)) _playersFarmsAmounts[playerId]--;
         }
 
         public static void CalculateWalletOnTurnEnd() {
