@@ -41,11 +41,11 @@ namespace Code.Hexagonal {
         private static Cell[] GenerateMap() {
             GridGenerator generator = new GridGenerator();
 
-            generator.GeneratePlayerFields(Settings.NumberOfPlayers, 4);
-            // you can change parameters here!!!
+            generator.GeneratePlayerFields(Settings.NumberOfPlayers, 2);
+            
+            // you can change parameters here
             generator.Scale = Settings.Scale;
             generator.Fulfil = Settings.Fulfill;
-            generator.PlayerFields.Add(new GridGenerator.PlayerField(1,2));
             generator.TreeRatio = Settings.TreeRatio;
         
             return generator.GenerateMap(Settings.MapSize, Settings.MapSize);
@@ -197,7 +197,7 @@ namespace Code.Hexagonal {
             return cellsWithUnits.ToArray();
         }
 
-        public void DestroyUnitAndPlaceGrave(HexCell cell) {
+        public static void DestroyUnitAndPlaceGrave(HexCell cell) {
             Unit unit = (Unit) cell.prefabInstance;
             MoneyManager.IncrementBalanceOfPlayerByAmount(PlayerController.CurrentPlayerId, unit.MaintenanceCost());
             Destroy(unit.gameObject);
