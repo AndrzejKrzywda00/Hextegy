@@ -9,7 +9,7 @@ namespace Code.DataAccess {
         public static float Fulfill = 0.5f;
         public static float TreeRatio = 0.2f;
 
-        public static List<int> AlivePlayersId = new List<int>();
+        public static List<int> AlivePlayersId = new List<int>() {1, 2};
         public static int Winner = 2;
     }
 }
