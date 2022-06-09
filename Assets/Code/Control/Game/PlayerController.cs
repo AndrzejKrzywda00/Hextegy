@@ -42,6 +42,10 @@ namespace Code.Control.Game {
             prefabFromUI = null;
             selectedCellWithUnit = null;
         }
+
+        public static void DestroyAllUnitsOfPlayer() {
+            _hexGrid.DestroyUnitsOfActivePlayer();
+        }
         
         public void Handle(HexCell hexCell) {
             if (IsItemFromUISelected()) {

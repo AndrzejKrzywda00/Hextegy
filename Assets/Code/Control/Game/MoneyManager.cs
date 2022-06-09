@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Code.CellObjects;
 using Code.CellObjects.Structures.StateBuildings;
 
@@ -61,6 +60,10 @@ namespace Code.Control.Game {
         public static void CalculateWalletOnTurnEnd() {
             int currentPlayerBalance = _playersBalances[PlayerController.CurrentPlayerId];
             _playersWallets[PlayerController.CurrentPlayerId] += currentPlayerBalance;
+            if (_playersWallets[PlayerController.CurrentPlayerId] <= 0) {
+                _playersWallets[PlayerController.CurrentPlayerId] = 0;
+                PlayerController.DestroyAllUnitsOfPlayer();
+            }
         }
 
         public static int GetBalance(int playerId) {

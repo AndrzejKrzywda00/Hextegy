@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Code.CellObjects;
+using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
 using Code.Generator;
@@ -178,6 +179,21 @@ namespace Code.Hexagonal {
         private void HandleAddingTreeToCell(HexCell neighbor) {
             neighbor.PutOnCell(Prefabs.GetTree());
             MoneyManager.DecrementBalanceOfPlayer(neighbor.playerId);
+        }
+
+        public void DestroyUnitsOfActivePlayer() {
+            foreach (HexCell cell in _cells) {
+                if (cell == null) continue;
+                if (cell.playerId == PlayerController.CurrentPlayerId && cell.HasUnit()) DestroyUnitAndPlaceGrave(cell);
+            }
+        }
+
+        private void DestroyUnitAndPlaceGrave(HexCell cell) {
+            Unit unit = (Unit) cell.prefabInstance;
+            MoneyManager.IncrementBalanceOfPlayerByAmount(PlayerController.CurrentPlayerId, unit.MaintenanceCost());
+            Destroy(unit.gameObject);
+            cell.PutOnCell(Prefabs.GetGrave());
+            cell.AlignPrefabInstancePositionWithCellPosition();
         }
     }
 }

@@ -2,7 +2,7 @@ namespace Code.CellObjects.Units.Implementations {
     public class UnitTier1 : Unit {
 
         public override bool IsProtectingNearbyFriendlyCells() {
-            return true;
+            return false;
         }
     
         public override int Price() {
