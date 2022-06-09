@@ -20,7 +20,6 @@ namespace Code.Control.Game {
         public ActiveObject prefabFromUI;
     
         private Pathfinder _pathfinder;
-        private AudioManager _audioManager;
 
         public HexGrid HexGrid => _hexGrid;
 
@@ -30,7 +29,6 @@ namespace Code.Control.Game {
         }
 
         private void FindComponentsOnScene() {
-            _audioManager = FindObjectOfType<AudioManager>();
             _pathfinder = FindObjectOfType<Pathfinder>();
             _hexGrid = FindObjectOfType<HexGrid>();
         }
@@ -58,6 +56,7 @@ namespace Code.Control.Game {
         }
         
         public void Handle(HexCell hexCell) {
+
             if (IsItemFromUISelected()) {
                 HandleSomethingIsSelectedFromUI(hexCell);
             } else {
@@ -107,7 +106,7 @@ namespace Code.Control.Game {
             if (hexCell.IsFriendlyCell()) {
                 if (!IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) 
                     return false;
-                _audioManager.Play(hexCell.prefabInstance is Tree ? SoundNames.DestroyTree.ToString() : SoundNames.Move.ToString());
+                AudioManager.Play(hexCell.prefabInstance is Tree ? SoundNames.DestroyTree.ToString() : SoundNames.Move.ToString());
                 HandleMovingUnit(hexCell);
                 return true;
             }
@@ -134,8 +133,8 @@ namespace Code.Control.Game {
         }
 
         private void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell) {
-            if (hexCell.prefabInstance is Tree) _audioManager.Play(SoundNames.DestroyTree.ToString());
-            _audioManager.Play(prefabFromUI is Unit ? SoundNames.ReadyToFight.ToString() : SoundNames.Building.ToString());
+            if (hexCell.prefabInstance is Tree) AudioManager.Play(SoundNames.DestroyTree.ToString());
+            AudioManager.Play(prefabFromUI is Unit ? SoundNames.ReadyToFight.ToString() : SoundNames.Building.ToString());
         }
         
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
@@ -194,19 +193,19 @@ namespace Code.Control.Game {
                 case Farm _:
                 case TowerTier1 _:
                 case TowerTier2 _:
-                    _audioManager.Play(SoundNames.DestroyBuilding.ToString());
+                    AudioManager.Play(SoundNames.DestroyBuilding.ToString());
                     break;
                 case Tree _:
-                    _audioManager.Play(SoundNames.DestroyTree.ToString());
+                    AudioManager.Play(SoundNames.DestroyTree.ToString());
                     break;
                 case Unit _:
-                    _audioManager.Play(SoundNames.Death.ToString());
+                    AudioManager.Play(SoundNames.Death.ToString());
                     break;
                 case Capital _:
-                    _audioManager.Play(SoundNames.CapitalLost.ToString());
+                    AudioManager.Play(SoundNames.CapitalLost.ToString());
                     break;
                 default:
-                    _audioManager.Play(SoundNames.Conquest.ToString());
+                    AudioManager.Play(SoundNames.Conquest.ToString());
                     break;
             }
         }

@@ -43,4 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f4325914474f92a69d0c06e07c71f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTyping: 0
+  currentString: 
   cheatCodeList: []

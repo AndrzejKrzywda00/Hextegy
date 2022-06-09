@@ -19,6 +19,7 @@ TagManager:
   - PlayerIdentifierImage
   - UnitTier4
   - EndgameText
+  - MenuMusic
   layers:
   - Default
   - TransparentFX

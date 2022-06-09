@@ -21,8 +21,8 @@ namespace Code.Generator {
             public readonly int Radius;          // radius of field
 
             public PlayerField(int playerId, int radius) {
-                this.PlayerId = playerId;
-                this.Radius = radius;
+                PlayerId = playerId;
+                Radius = radius;
             }
         }
         
@@ -43,15 +43,15 @@ namespace Code.Generator {
         private void Generate(int height, int width) {
             _map = new MapGrid(width, height);
 
-            Debug.Log("Generating perlin noise...");
+            //Debug.Log("Generating perlin noise...");
             GenerateByPerlinNoise();
-            Debug.Log("Clearing unconnected islands...");
+            //Debug.Log("Clearing unconnected islands...");
             ClearUnconnectedIslands();
-            Debug.Log("Generating players fields...");
+            //Debug.Log("Generating players fields...");
             AddPlayersFields(PlayerFields);
-            Debug.Log("Generating trees...");
+            //Debug.Log("Generating trees...");
             GenerateTrees();
-            Debug.Log("Generation finished!");
+            //Debug.Log("Generation finished!");
 
             // Coordinates[] coordinates = {new Coordinates(5, 5), new Coordinates(15, 14), new Coordinates(4, 15), new Coordinates(15, 4)};
             // foreach (Coordinates coord in coordinates) {
