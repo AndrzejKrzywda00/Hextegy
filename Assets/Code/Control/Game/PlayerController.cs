@@ -289,7 +289,6 @@ namespace Code.Control.Game {
 
         private bool PathExistsFromUnitToItsCapital(HexCell unitCell, HexCell capitalCell) {
             HexCoordinates[] path = _pathfinder.ConsistentPathFromTo(unitCell, capitalCell);
-            Debug.Log(capitalCell.coordinates.ToString());
             return path != null;
         }
     }
