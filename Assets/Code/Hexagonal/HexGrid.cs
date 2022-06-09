@@ -8,10 +8,6 @@ using UnityEngine;
 
 namespace Code.Hexagonal {
     public class HexGrid : MonoBehaviour {
-        public static int NumberOfPlayers;
-        public static int GridWidth;
-        public static int GridHeight;
-
         public HexCell hexCellPrefab;
 
         private PlayerController _playerController;
@@ -34,9 +30,6 @@ namespace Code.Hexagonal {
         }
 
         private void Awake() {
-            NumberOfPlayers = Settings.NumberOfPlayers;
-            GridHeight = Settings.MapSize;
-            GridWidth = Settings.MapSize;
             _playerController = FindObjectOfType<PlayerController>();
             _cam = Camera.main;
             _hexMesh = GetComponentInChildren<HexMesh>();
@@ -47,14 +40,14 @@ namespace Code.Hexagonal {
         private static Cell[] GenerateMap() {
             GridGenerator generator = new GridGenerator();
 
-            generator.GeneratePlayerFields(NumberOfPlayers, 4);
+            generator.GeneratePlayerFields(Settings.NumberOfPlayers, 4);
             // you can change parameters here!!!
             generator.scale = Settings.Scale;
             generator.fulfil = Settings.Fulfill;
             generator.playerFields.Add(new GridGenerator.PlayerField(1,2));
             generator.treeRatio = Settings.TreeRatio;
         
-            return generator.GenerateMap(GridHeight, GridWidth);
+            return generator.GenerateMap(Settings.MapSize, Settings.MapSize);
         }
 
         private void Start() {
@@ -68,13 +61,13 @@ namespace Code.Hexagonal {
         }
 
         private void CreateCells() {
-            _cells = new HexCell[GridHeight * GridWidth];
+            _cells = new HexCell[Settings.MapSize * Settings.MapSize];
             FillCells();
         }
 
         private void FillCells() {
-            for (int z = 0, i = 0; z < GridHeight; z++) {
-                for (int x = 0; x < GridWidth; x++) {
+            for (int z = 0, i = 0; z < Settings.MapSize; z++) {
+                for (int x = 0; x < Settings.MapSize; x++) {
                     CreateCell(x, z, i++);
                 }
             }
@@ -123,11 +116,11 @@ namespace Code.Hexagonal {
         }
 
         private int GetCellIndexByPosition(int x, int z) {
-            return x * GridWidth + z;
+            return x * Settings.MapSize + z;
         }
 
         private int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
-            return coordinates.Z * GridWidth + coordinates.X + coordinates.Z / 2;
+            return coordinates.Z * Settings.MapSize + coordinates.X + coordinates.Z / 2;
         }
 
         public HexCell CellAtCoordinates(HexCoordinates coordinates) {

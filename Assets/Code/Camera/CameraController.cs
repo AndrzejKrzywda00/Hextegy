@@ -1,3 +1,4 @@
+using Code.DataAccess;
 using Code.Hexagonal;
 using UnityEngine;
 
@@ -30,8 +31,8 @@ public class CameraController : MonoBehaviour {
     }
 
     private void CalculateCameraMoveConstraints() {
-        float width = HexGrid.GridWidth;
-        float height = HexGrid.GridHeight;
+        float width = Settings.MapSize;
+        float height = Settings.MapSize;
         const float h = HexMetrics.h;
         const float x = HexMetrics.x;
         _maxWidth =  width * h + h/2f - h/2f;
