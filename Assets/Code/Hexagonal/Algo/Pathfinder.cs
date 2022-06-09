@@ -18,22 +18,26 @@ namespace Code.Hexagonal.Algo {
         private List<Node> _closedList;
         private HexGrid _grid;
         private bool _searchEnded;
+        private bool _searchOnlyThroughFriendlyCells;
 
         private void Awake() {
             _grid = FindObjectOfType<HexGrid>();
         }
     
         public HexCoordinates[] OptionalPathFromTo(HexCell from, HexCell to) {
+            _searchOnlyThroughFriendlyCells = false;
             HexCoordinates[] path = PathFromTo(from, to);
             if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCells(path)) return path;
             return null;
         }
 
         public HexCoordinates[] ConsistentPathFromTo(HexCell from, HexCell to) {
-            HexCoordinates[] path = PathFromTo(from, to);
-            if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCellsWithPlayer(from.playerId, path)) return path;
+           _searchOnlyThroughFriendlyCells = true; 
+           HexCoordinates[] path = PathFromTo(from, to);
+           if (path.Contains(from.coordinates) && path.Contains(to.coordinates)) return path;
             return null;
         }
+        
 
         private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
             InitializePathfindingProcessParameters(from, to);
@@ -66,7 +70,7 @@ namespace Code.Hexagonal.Algo {
         }
 
         private void HandleNeighborCells(HexCoordinates[] coordinates, Node parentNode) {
-            List<HexCell> neighborCells = GenerateNeighbors(coordinates);
+            List<HexCell> neighborCells = GenerateNeighbors(coordinates, parentNode);
 
             foreach (HexCell neighbor in neighborCells) {
                 if (IsDestination(neighbor)) {
@@ -81,20 +85,24 @@ namespace Code.Hexagonal.Algo {
             }
         }
 
-        private List<HexCell> GenerateNeighbors(HexCoordinates[] coordinates) {
+        private List<HexCell> GenerateNeighbors(HexCoordinates[] coordinates, Node parentNode) {
             List<HexCell> neighborCells = new List<HexCell>();
         
             foreach (HexCoordinates coordinate in coordinates) {
                 HexCell hexCell = _grid.CellAtCoordinates(coordinate);
-                if(CellNotFeasible(hexCell)) continue;
+                if (CellNotFeasible(hexCell, parentNode)) continue;
                 neighborCells.Add(hexCell);
             }
 
             return neighborCells;
         }
 
-        private static bool CellNotFeasible(HexCell hexCell) {
-            return CellDoesntExist(hexCell);
+        private bool CellNotFeasible(HexCell hexCell, Node parentNode) {
+            if (CellDoesntExist(hexCell)) return true;
+            if (_searchOnlyThroughFriendlyCells) {
+                return !hexCell.IsFriendlyCellWith(parentNode.GetCell.playerId);
+            }
+            return false;
         }
 
         private static bool CellDoesntExist(HexCell hexCell) {
@@ -144,15 +152,6 @@ namespace Code.Hexagonal.Algo {
                 if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
                 index++;
             }
-            return true;
-        }
-
-
-        private bool PathConsistsOfFriendlyCellsWithPlayer(int playerId, HexCoordinates[] coordinatesArray) {
-            foreach (HexCoordinates coordinates in coordinatesArray) {
-                if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCellWith(playerId)) return false;
-            }
-
             return true;
         }
     }
