@@ -1,8 +1,6 @@
 using System;
 using Code.CellObjects;
 using Code.CellObjects.Structures.Passive;
-using Code.CellObjects.Structures.StateBuildings;
-using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Structures.Trees;
 using Code.CellObjects.Units;
 using Code.Control.Game;
@@ -46,26 +44,6 @@ namespace Code.Hexagonal {
 
         public bool HasBigTree() {
             return prefabInstance is BigTree;
-        }
-
-        public bool HasFarm() {
-            return prefabInstance is Farm;
-        }
-
-        public bool HasCapital() {
-            return prefabInstance is Capital;
-        }
-
-        public bool HasTower() {
-            return prefabInstance is TowerTier1 || prefabInstance is TowerTier2;
-        }
-
-        public bool HasActiveInstance() {
-            return prefabInstance is ActiveObject;
-        }
-
-        public bool IsProfitable() {
-            return !(prefabInstance is Tree);
         }
 
         public bool HasProtectiveInstance() {

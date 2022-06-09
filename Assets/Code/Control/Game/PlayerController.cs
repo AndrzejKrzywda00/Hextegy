@@ -173,6 +173,9 @@ namespace Code.Control.Game {
         }
 
         private void PlaySoundWhenBuyingOrMovingOnEnemyOrNeutralCell(HexCell hexCell) {
+            
+            // TODO -- move this to some Sound Manager
+            
             switch (hexCell.prefabInstance) {
                 case Farm _:
                 case TowerTier1 _:
@@ -230,18 +233,18 @@ namespace Code.Control.Game {
 
         private void HandleMovingUnit(HexCell hexCell) {
             AdjustBalanceIfDestroyedTreeOnFriendlyCell(hexCell);
-            HandleChangingBalanceWhenActiveObjectDestroyed(hexCell);
+            HandleBalanceChanges(hexCell);
             MakeUnitNotAbleToMoveInThisTurn(selectedCellWithUnit);
             Destroy(hexCell.prefabInstance.gameObject);
             hexCell.prefabInstance = selectedCellWithUnit.prefabInstance;
             hexCell.AlignPrefabInstancePositionWithCellPosition();
-            HandleBalanceChanges(hexCell);
             AdjustCellColor(hexCell);
             PutEmptyElementOnGrid();
         }
 
         private static void HandleBalanceChanges(HexCell hexCell) {
             MoneyManager.TransferBalanceOfFieldFromPlayerToPlayer(hexCell.playerId, CurrentPlayerId);
+            HandleChangingBalanceWhenActiveObjectDestroyed(hexCell);
         }
 
         private static void HandleChangingBalanceWhenActiveObjectDestroyed(HexCell hexCell) {
