@@ -18,14 +18,14 @@ namespace Code.Hexagonal.Algo {
         private List<Node> _closedList;
         private HexGrid _grid;
         private bool _searchEnded;
-    
+
         private void Awake() {
             _grid = FindObjectOfType<HexGrid>();
         }
     
         public HexCoordinates[] OptionalPathFromTo(HexCell from, HexCell to) {
             HexCoordinates[] path = PathFromTo(from, to);
-            if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfNonFriendlyCells(path)) return path;
+            if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCells(path)) return path;
             return null;
         }
 
@@ -132,7 +132,7 @@ namespace Code.Hexagonal.Algo {
             return path.ToArray();
         }
 
-        private bool PathConsistsOfNonFriendlyCells(HexCoordinates[] coordinatesArray) {
+        private bool PathConsistsOfFriendlyCells(HexCoordinates[] coordinatesArray) {
             int index = 0;
             foreach (HexCoordinates coordinates in coordinatesArray) {
                 if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;

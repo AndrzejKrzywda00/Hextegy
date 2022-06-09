@@ -277,5 +277,11 @@ namespace Code.Control.Game {
             if (CurrentPlayerId.Equals(Settings.NumberOfPlayers))
                 _hexGrid.GenerateTreesNextToExistingTrees();
         }
+
+        private bool PathExistsFromUnitToItsCapital(HexCell unitCell, HexCell capitalCell) {
+            HexCoordinates[] path = _pathfinder.OptionalPathFromTo(unitCell, capitalCell);
+            if (path == null) return false;
+            return true;
+        }
     }
 }
