@@ -4,7 +4,6 @@ using Code.Generator.Util;
 
 namespace Code.Generator.Objects {
     public class Coordinates {
-        
         public readonly int X;
         public readonly int Y;
 
@@ -16,7 +15,7 @@ namespace Code.Generator.Objects {
         public override String ToString() {
             return "x: " + X + " " + "y: " + Y;
         }
-        
+
         public static int Distance(Coordinates c1, Coordinates c2) {
             return new[] {
                 Math.Abs(c2.Y - c1.Y),
@@ -31,17 +30,27 @@ namespace Code.Generator.Objects {
             int y = RandomNumber.GetInt(0, height);
             return new Coordinates(x, y);
         }
-        
+
         public static Coordinates[] GetTouchingCoordinates(Coordinates coordinates) {
-            Coordinates[] touchingCoordinates = {
-                new Coordinates(coordinates.X + 1, coordinates.Y),
-                new Coordinates(coordinates.X + 1, coordinates.Y - 1),
-                new Coordinates(coordinates.X, coordinates.Y - 1),
-                new Coordinates(coordinates.X - 1, coordinates.Y),
-                new Coordinates(coordinates.X, coordinates.Y + 1),
-                new Coordinates(coordinates.X + 1, coordinates.Y + 1)
-            };
-            return touchingCoordinates;
+            if (coordinates.Y % 2 == 0)
+                return new[] {
+                    new Coordinates(coordinates.X -1, coordinates.Y -1),
+                    new Coordinates(coordinates.X - 1, coordinates.Y),
+                    new Coordinates(coordinates.X -1, coordinates.Y + 1),
+                    new Coordinates(coordinates.X, coordinates.Y +1),
+                    new Coordinates(coordinates.X +1, coordinates.Y ),
+                    new Coordinates(coordinates.X , coordinates.Y - 1)
+                };
+            else
+                return
+                    new[] {
+                        new Coordinates(coordinates.X , coordinates.Y-1),
+                        new Coordinates(coordinates.X - 1, coordinates.Y),
+                        new Coordinates(coordinates.X, coordinates.Y + 1),
+                        new Coordinates(coordinates.X +1, coordinates.Y +1),
+                        new Coordinates(coordinates.X+1, coordinates.Y ),
+                        new Coordinates(coordinates.X + 1, coordinates.Y - 1)
+                    };
         }
     }
 }
