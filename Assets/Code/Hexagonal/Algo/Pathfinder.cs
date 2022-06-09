@@ -9,6 +9,7 @@ using UnityEngine;
  */
 namespace Code.Hexagonal.Algo {
     public class Pathfinder : MonoBehaviour {
+        
         private const float MaximumMetric = 100000f;
         
         private Node _destination;
@@ -86,11 +87,11 @@ namespace Code.Hexagonal.Algo {
             return neighborCells;
         }
 
-        private bool CellNotFeasible(HexCell hexCell) {
+        private static bool CellNotFeasible(HexCell hexCell) {
             return CellDoesntExist(hexCell);
         }
 
-        private bool CellDoesntExist(HexCell hexCell) {
+        private static bool CellDoesntExist(HexCell hexCell) {
             return hexCell == null;
         }
         private bool IsDestination(HexCell hexCell) {

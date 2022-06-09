@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Code.CellObjects.Units.Implementations {
     public class UnitTier4 : Unit {
         
