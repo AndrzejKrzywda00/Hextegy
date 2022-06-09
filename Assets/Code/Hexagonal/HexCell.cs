@@ -7,7 +7,6 @@ using Code.CellObjects.Structures.Trees;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
-using TreeEditor;
 using UnityEngine;
 using Tree = Code.CellObjects.Structures.Trees.Tree;
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.CellObjects;
+using Code.CellObjects.Structures.StateBuildings;
 
 namespace Code.Control.Game {
     public static class MoneyManager {
@@ -19,11 +20,11 @@ namespace Code.Control.Game {
         }
 
         private static void IncrementBalanceOfPlayer(int playerId) {
-            if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] += 1;
+            if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId]++;
         }
 
         public static void DecrementBalanceOfPlayer(int playerId) {
-            if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId] -= 1;
+            if(_playersBalances.ContainsKey(playerId)) _playersBalances[playerId]--;
         }
 
         public static void IncrementBalanceOfPlayerByAmount(int playerId, int amount) {
@@ -68,7 +69,12 @@ namespace Code.Control.Game {
 
         public static void Buy(ActiveObject cellObject, int playerId) {
             _playersBalances[playerId] -= cellObject.MaintenanceCost();
-            _playersWallets[playerId] -= cellObject.Price();
+            _playersWallets[playerId] -= GetCalculatedPrice(cellObject, playerId);
+        }
+
+        private static int GetCalculatedPrice(ActiveObject activeObject, int playerId) {
+            if (activeObject is Farm) return activeObject.Price() + 2 * _playersFarmsAmounts[playerId];
+            return activeObject.Price();
         }
 
         public static bool HasEnoughMoneyToBuy(ActiveObject activeObject, int playerId) {
