@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Code.Control.UI {
     public class EndgameSceneControl: MonoBehaviour {
     
-        public TextMeshProUGUI _text;
+        private TextMeshProUGUI _text;
 
         private void Start() {
             _text = GameObject.FindGameObjectWithTag("EndgameText").GetComponent<TextMeshProUGUI>();

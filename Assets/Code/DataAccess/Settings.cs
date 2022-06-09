@@ -10,6 +10,6 @@ namespace Code.DataAccess {
         public static float TreeRatio = 0.2f;
 
         public static List<int> AlivePlayersId = new List<int>() {1, 2};
-        public static int Winner = 2;
+        public static int Winner = 0;
     }
 }
