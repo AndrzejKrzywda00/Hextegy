@@ -25,6 +25,7 @@ namespace Code.Hexagonal.Algo {
         }
     
         public HexCoordinates[] OptionalPathFromTo(HexCell from, HexCell to) {
+            _searchOnlyThroughFriendlyCells = false;
             HexCoordinates[] path = PathFromTo(from, to);
             if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCells(path)) return path;
             return null;
@@ -33,12 +34,12 @@ namespace Code.Hexagonal.Algo {
         public HexCoordinates[] ConsistentPathFromTo(HexCell from, HexCell to) {
            _searchOnlyThroughFriendlyCells = true; 
            HexCoordinates[] path = PathFromTo(from, to);
-           if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCellsWithPlayer(from.playerId, path)) return path;
+           if (path.Contains(from.coordinates) && path.Contains(to.coordinates)) return path;
             return null;
         }
+        
 
         private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
-            _searchOnlyThroughFriendlyCells = false;
             InitializePathfindingProcessParameters(from, to);
             return CalculatePathFromTo();
         }
@@ -151,15 +152,6 @@ namespace Code.Hexagonal.Algo {
                 if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
                 index++;
             }
-            return true;
-        }
-
-
-        private bool PathConsistsOfFriendlyCellsWithPlayer(int playerId, HexCoordinates[] coordinatesArray) {
-            foreach (HexCoordinates coordinates in coordinatesArray) {
-                if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCellWith(playerId)) return false;
-            }
-
             return true;
         }
     }
