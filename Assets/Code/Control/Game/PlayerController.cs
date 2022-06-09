@@ -248,9 +248,10 @@ namespace Code.Control.Game {
         }
 
         private static void HandleChangingBalanceWhenActiveObjectDestroyed(HexCell hexCell) {
-            if (!hexCell.IsEnemyCell() || !hexCell.HasUnit()) return;
+            if (!hexCell.IsEnemyCell() || !hexCell.HasActiveInstance()) return;
             ActiveObject unit = (ActiveObject) hexCell.prefabInstance;
             MoneyManager.IncrementBalanceOfPlayerByAmount(hexCell.playerId, unit.MaintenanceCost());
+            if (hexCell.HasFarm()) MoneyManager.DecrementPlayerFarms(hexCell.playerId);
         }
 
         private void PutEmptyElementOnGrid() {

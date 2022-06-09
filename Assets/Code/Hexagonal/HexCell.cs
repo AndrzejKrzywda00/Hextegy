@@ -1,6 +1,7 @@
 using System;
 using Code.CellObjects;
 using Code.CellObjects.Structures.Passive;
+using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Trees;
 using Code.CellObjects.Units;
 using Code.Control.Game;
@@ -55,7 +56,15 @@ namespace Code.Hexagonal {
                 return false;
             }
         }
-    
+
+        public bool HasActiveInstance() {
+            return prefabInstance is ActiveObject;
+        }
+
+        public bool HasFarm() {
+            return prefabInstance is Farm;
+        }
+
         public bool HasUnit() {
             return prefabInstance is Unit;
         }

@@ -73,8 +73,10 @@ namespace Code.Control.Game {
         }
 
         private static int GetCalculatedPrice(ActiveObject activeObject, int playerId) {
-            if (activeObject is Farm) return activeObject.Price() + 2 * _playersFarmsAmounts[playerId];
-            return activeObject.Price();
+            if (!(activeObject is Farm)) return activeObject.Price();
+            int price = activeObject.Price() + 2 * _playersFarmsAmounts[playerId];
+            IncrementPlayerFarms(playerId);
+            return price;
         }
 
         public static bool HasEnoughMoneyToBuy(ActiveObject activeObject, int playerId) {
