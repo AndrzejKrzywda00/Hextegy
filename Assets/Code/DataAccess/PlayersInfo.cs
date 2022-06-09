@@ -9,7 +9,7 @@ namespace Code.DataAccess {
         private static Dictionary<int, HexCell> PlayersCapitals = new Dictionary<int, HexCell>();
 
         public static void SetPlayerCapital(int playerId, HexCell capital) {
-            PlayersCapitals.Add(playerId, capital);
+            if (!PlayersCapitals.ContainsKey(playerId)) PlayersCapitals.Add(playerId, capital);
         }
 
         public static HexCell GetPlayerCapital(int playerId) {
