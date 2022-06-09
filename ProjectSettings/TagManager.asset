@@ -18,6 +18,7 @@ TagManager:
   - BalanceText
   - PlayerIdentifierImage
   - UnitTier4
+  - EndgameText
   layers:
   - Default
   - TransparentFX

@@ -282,9 +282,8 @@ namespace Code.Control.Game {
             return hexCell.IsFriendlyCell() && hexCell.HasUnit();
         }
 
-        public static void AddTreesOnEndOfTurnAfterAllPlayersMoved() {
-            if (CurrentPlayerId.Equals(Settings.NumberOfPlayers))
-                _hexGrid.GenerateTreesNextToExistingTrees();
+        public static void AddTrees() {
+            _hexGrid.GenerateTreesNextToExistingTrees();
         }
 
         private bool PathExistsFromUnitToItsCapital(HexCell unitCell, HexCell capitalCell) {

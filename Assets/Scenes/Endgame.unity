@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 291121868}
   m_Layer: 5
   m_Name: EndgameText
-  m_TagString: Untagged
+  m_TagString: EndgameText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 874958879}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
         m_MethodName: QuitClick
         m_Mode: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 874958879}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
         m_MethodName: BackToMenuClick
         m_Mode: 1
@@ -977,9 +977,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 874958875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd30c173f9b58c54f9ee854e0c7b797b, type: 3}
+  m_Script: {fileID: 11500000, guid: d785620948424db5a4fc188cd51a533f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _text: {fileID: 0}
 --- !u!1 &1604351418
 GameObject:
   m_ObjectHideFlags: 0

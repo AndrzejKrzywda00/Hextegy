@@ -1,8 +1,10 @@
+using System.Linq;
 using Code.CellObjects.Units;
 using Code.Control.Game;
 using Code.DataAccess;
 using Code.Hexagonal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Control.UI {
     public class NextTurnButtonControl : MonoBehaviour {
@@ -14,21 +16,36 @@ namespace Code.Control.UI {
         }
 
         public void EndTurnClick() {
+            EndTurn();
+            CheckWinConditions();
+            SetNextPlayer();
+            StartTurn();
+            System.GC.Collect();
+        }
+
+        private void EndTurn() {
             MoneyManager.CalculateWalletOnTurnEnd();
-            PlayerController.AddTreesOnEndOfTurnAfterAllPlayersMoved();
+            if (PlayerController.CurrentPlayerId == Settings.AlivePlayersId.Last()) {
+                PlayerController.AddTrees();
+            }
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
             _playerController.CheckAllUnitsForCutoff();
-            
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
+        }
 
-            if (PlayerController.CurrentPlayerId >= Settings.NumberOfPlayers) PlayerController.CurrentPlayerId = 0;
+        private void SetNextPlayer() {
+            if (PlayerController.CurrentPlayerId >= Settings.AlivePlayersId.Last()) PlayerController.CurrentPlayerId = 0; 
+            int nextPlayerId = 0;
+            int i = 0;
+            while (nextPlayerId <= PlayerController.CurrentPlayerId) {
+                nextPlayerId = Settings.AlivePlayersId[i];
+                i++;
+            }
+            PlayerController.CurrentPlayerId = nextPlayerId;
+        }
 
-            PlayerController.CurrentPlayerId++;
-
+        private void StartTurn() {
             ChangeCurrentPlayerUnitsMovementPossibilityTo(true);
-            
-            System.GC.Collect();
-            CheckWinConditions();
         }
 
         private void ChangeCurrentPlayerUnitsMovementPossibilityTo(bool boolean) {
@@ -40,7 +57,10 @@ namespace Code.Control.UI {
         }
 
         private void CheckWinConditions() {
-            // TODO implement
+            if (Settings.AlivePlayersId.Count == 1) {
+                Settings.Winner = Settings.AlivePlayersId[0];
+                SceneManager.LoadScene("Scenes/Endgame");
+            }
         }
     }
 }

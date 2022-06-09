@@ -65,6 +65,11 @@ namespace Code.Control.UI {
               Settings.Scale = scaleSlider.value;
               Settings.Fulfill = fulfillSlider.value;
               Settings.TreeRatio = treeRatioSlider.value;
+
+              Settings.AlivePlayersId.Clear();
+              for (int i = 1; i <= Settings.NumberOfPlayers; i++) {
+                  Settings.AlivePlayersId.Add(i);
+              }
               SceneManager.LoadScene("Scenes/Menu");
         }
     }
