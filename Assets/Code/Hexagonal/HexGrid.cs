@@ -204,5 +204,16 @@ namespace Code.Hexagonal {
             cell.PutOnCell(Prefabs.GetGrave());
             cell.AlignPrefabInstancePositionWithCellPosition();
         }
+
+        public bool IsPlayerHaveCapital(int playerId) {
+            bool r = false;
+            foreach (var hexCell in _cells) {
+                if (hexCell == null || hexCell.prefabInstance == null || hexCell.playerId != playerId ||
+                    !hexCell.prefabInstance.CompareTag(Prefabs.GetCapital(playerId).tag)) continue;
+                Debug.Log("player " + playerId + " have capital.");
+                r = true;
+            }
+            return r;
+        }
     }
 }

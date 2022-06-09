@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Code.CellObjects.Units;
 using Code.Control.Game;
@@ -17,6 +18,7 @@ namespace Code.Control.UI {
 
         public void EndTurnClick() {
             EndTurn();
+            CheckForDeadPlayers();
             CheckWinConditions();
             SetNextPlayer();
             StartTurn();
@@ -25,12 +27,22 @@ namespace Code.Control.UI {
 
         private void EndTurn() {
             MoneyManager.CalculateWalletOnTurnEnd();
-            if (PlayerController.CurrentPlayerId == Settings.AlivePlayersId.Last()) {
+            if (PlayerController.CurrentPlayerId == Settings.AlivePlayersId[Settings.AlivePlayersId.Count-1]) {
                 PlayerController.AddTrees();
             }
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
             _playerController.CheckAllUnitsForCutoff();
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
+        }
+
+        private void CheckForDeadPlayers() {
+            var alivePlayersIdTmp = new List<int>(Settings.AlivePlayersId);
+            foreach (int i in alivePlayersIdTmp) {
+                if (!_playerController.HexGrid.IsPlayerHaveCapital(i)) { 
+                    Debug.Log(i);
+                    Settings.AlivePlayersId.Remove(i);
+                }
+            }
         }
 
         private void SetNextPlayer() {
