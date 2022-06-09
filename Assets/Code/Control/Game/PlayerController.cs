@@ -24,22 +24,25 @@ namespace Code.Control.Game {
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
+            FindComponentsOnScene();
+            InitializeMoneyManager();
+        }
+
+        private void FindComponentsOnScene() {
             _audioManager = FindObjectOfType<AudioManager>();
             _pathfinder = FindObjectOfType<Pathfinder>();
             _hexGrid = FindObjectOfType<HexGrid>();
-            PlayerInformation.SetGridCells(_hexGrid.Cells);
-            InitializeMoneyManager();
+        }
+        
+        private static void InitializeMoneyManager() {
+            MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers()); 
         }
 
         public void ClearNecessaryFieldsAfterEndOfTurn() {
             prefabFromUI = null;
             selectedCellWithUnit = null;
         }
-
-        private static void InitializeMoneyManager() {
-            MoneyManager.SetInitialBalanceOfPlayers(_hexGrid.MapCellsToInitialBalanceOfPlayers());
-        }
-
+        
         public void Handle(HexCell hexCell) {
             if (IsItemFromUISelected()) {
                 HandleSomethingIsSelectedFromUI(hexCell);
