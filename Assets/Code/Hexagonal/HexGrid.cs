@@ -116,11 +116,11 @@ namespace Code.Hexagonal {
             return playersInitialBalances;
         }
 
-        private int GetCellIndexByPosition(int x, int z) {
+        private static int GetCellIndexByPosition(int x, int z) {
             return x * Settings.MapSize + z;
         }
 
-        private int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
+        private static int GetCellIndexByHexCoordinates(HexCoordinates coordinates) {
             return coordinates.Z * Settings.MapSize + coordinates.X + coordinates.Z / 2;
         }
 
@@ -169,7 +169,7 @@ namespace Code.Hexagonal {
             }
         }
 
-        private void HandleAddingTreeToCell(HexCell neighbor) {
+        private static void HandleAddingTreeToCell(HexCell neighbor) {
             neighbor.PutOnCell(Prefabs.GetTree());
             MoneyManager.DecrementBalanceOfPlayer(neighbor.playerId);
         }
@@ -181,7 +181,18 @@ namespace Code.Hexagonal {
             }
         }
 
-        private void DestroyUnitAndPlaceGrave(HexCell cell) {
+        public HexCell[] GetAllUnits() {
+            List<HexCell> cellsWithUnits = new List<HexCell>();
+            
+            foreach (HexCell cell in _cells) {
+                if (cell == null) continue;
+                if (cell.HasUnit()) cellsWithUnits.Add(cell);
+            }
+
+            return cellsWithUnits.ToArray();
+        }
+
+        public void DestroyUnitAndPlaceGrave(HexCell cell) {
             Unit unit = (Unit) cell.prefabInstance;
             MoneyManager.IncrementBalanceOfPlayerByAmount(PlayerController.CurrentPlayerId, unit.MaintenanceCost());
             Destroy(unit.gameObject);
