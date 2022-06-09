@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using Code.CellObjects;
 using Code.Control.Game;
+using Code.DataAccess;
 using Code.Generator;
 using Code.Generator.Objects;
 using UnityEngine;
 
 namespace Code.Hexagonal {
     public class HexGrid : MonoBehaviour {
-    
-        public static int NumberOfPlayers = 4;
-        public const int GridWidth = 45;
-        public const int GridHeight = 45;
+        public static int NumberOfPlayers;
+        public static int GridWidth;
+        public static int GridHeight;
 
         public HexCell hexCellPrefab;
 
@@ -34,6 +34,9 @@ namespace Code.Hexagonal {
         }
 
         private void Awake() {
+            NumberOfPlayers = Settings.NumberOfPlayers;
+            GridHeight = Settings.MapSize;
+            GridWidth = Settings.MapSize;
             _playerController = FindObjectOfType<PlayerController>();
             _cam = Camera.main;
             _hexMesh = GetComponentInChildren<HexMesh>();
@@ -46,10 +49,10 @@ namespace Code.Hexagonal {
 
             generator.GeneratePlayerFields(NumberOfPlayers, 4);
             // you can change parameters here!!!
-            //generator.scale = 1f;
-            //generator.fulfil = 0.3f;
-            //generator.playerFields.Add(new GridGenerator.PlayerField(1,2));
-            //generator.treeRatio = 0.7f;
+            generator.scale = Settings.Scale;
+            generator.fulfil = Settings.Fulfill;
+            generator.playerFields.Add(new GridGenerator.PlayerField(1,2));
+            generator.treeRatio = Settings.TreeRatio;
         
             return generator.GenerateMap(GridHeight, GridWidth);
         }
