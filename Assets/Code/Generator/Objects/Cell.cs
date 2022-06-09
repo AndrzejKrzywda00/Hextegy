@@ -1,4 +1,5 @@
 using Code.CellObjects;
+using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Trees;
 
 namespace Code.Generator.Objects {

@@ -102,6 +102,16 @@ namespace Code.Hexagonal {
             cellTransform.localPosition = position;
             hexCell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         }
+        
+        private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
+            hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab);
+            hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;
+            if(hexCell.HasCapital()) SaveCapitalOfPlayer(hexCell);
+        }
+
+        private static void SaveCapitalOfPlayer(HexCell cell) {
+            PlayersInfo.SetPlayerCapital(cell.playerId, cell);            
+        }
 
         public Dictionary<int, int> MapCellsToInitialBalanceOfPlayers() {
 
@@ -128,11 +138,6 @@ namespace Code.Hexagonal {
             int index = GetCellIndexByHexCoordinates(coordinates);
             if (index < _cells.Length && index >= 0) return _cells[index];
             return null;
-        }
-
-        private void MapPrototypeToHexCell(int prototypeIndex, HexCell hexCell) {
-            hexCell.PutOnCell(_cellPrototypes[prototypeIndex].Prefab);
-            hexCell.playerId = _cellPrototypes[prototypeIndex].PlayerId;
         }
 
         private void HandleInput() {

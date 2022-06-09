@@ -43,6 +43,10 @@ namespace Code.Hexagonal {
             return prefabInstance is Tree;
         }
 
+        public bool HasCapital() {
+            return prefabInstance is Capital;
+        }
+
         public bool HasBigTree() {
             return prefabInstance is BigTree;
         }
