@@ -5,7 +5,7 @@ using Code.CellObjects.Structures.StateBuildings;
 namespace Code.Control.Game {
     public static class MoneyManager {
     
-        private const int InitialMoney = 100;
+        private const int InitialMoney = 10;
         private static Dictionary<int, int> _playersBalances;
         private static Dictionary<int, int> _playersWallets;
         private static Dictionary<int, int> _playersFarmsAmounts;
