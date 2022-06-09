@@ -29,6 +29,12 @@ namespace Code.Hexagonal.Algo {
             return null;
         }
 
+        public HexCoordinates[] ConsistentPathFromTo(HexCell from, HexCell to) {
+            HexCoordinates[] path = PathFromTo(from, to);
+            if (path.Contains(from.coordinates) && path.Contains(to.coordinates) && PathConsistsOfFriendlyCellsWithPlayer(from.playerId, path)) return path;
+            return null;
+        }
+
         private HexCoordinates[] PathFromTo(HexCell from, HexCell to) {
             InitializePathfindingProcessParameters(from, to);
             return CalculatePathFromTo();
@@ -138,6 +144,15 @@ namespace Code.Hexagonal.Algo {
                 if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCell() && index != 0) return false;
                 index++;
             }
+            return true;
+        }
+
+
+        private bool PathConsistsOfFriendlyCellsWithPlayer(int playerId, HexCoordinates[] coordinatesArray) {
+            foreach (HexCoordinates coordinates in coordinatesArray) {
+                if (!_grid.CellAtCoordinates(coordinates).IsFriendlyCellWith(playerId)) return false;
+            }
+
             return true;
         }
     }

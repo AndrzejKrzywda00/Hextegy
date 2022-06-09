@@ -88,5 +88,9 @@ namespace Code.Hexagonal {
         public bool IsFriendlyCell() {
             return playerId.Equals(PlayerController.CurrentPlayerId);
         }
+
+        public bool IsFriendlyCellWith(int pid) {
+            return playerId.Equals(pid);
+        }
     }
 }

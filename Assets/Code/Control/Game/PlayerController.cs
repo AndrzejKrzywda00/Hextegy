@@ -47,7 +47,7 @@ namespace Code.Control.Game {
         public void CheckAllUnitsForCutoff() {
             HexCell[] allUnitsOnGrid = _hexGrid.GetAllUnits();
             foreach (HexCell cellWithUnit in allUnitsOnGrid) {
-                if (!PathExistsFromUnitToItsCapital(cellWithUnit, PlayersInfo.GetPlayerCapital(CurrentPlayerId))) {
+                if (!PathExistsFromUnitToItsCapital(cellWithUnit, PlayersInfo.GetPlayerCapital(cellWithUnit.playerId))) {
                     HexGrid.DestroyUnitAndPlaceGrave(cellWithUnit);
                 }
             }
@@ -288,11 +288,9 @@ namespace Code.Control.Game {
         }
 
         private bool PathExistsFromUnitToItsCapital(HexCell unitCell, HexCell capitalCell) {
-            HexCoordinates[] path = _pathfinder.OptionalPathFromTo(unitCell, capitalCell);
+            HexCoordinates[] path = _pathfinder.ConsistentPathFromTo(unitCell, capitalCell);
             Debug.Log(capitalCell.coordinates.ToString());
-            if (path != null) return true;
-            Debug.Log("Unit " + unitCell.prefabInstance.name + " is cut off, player id is " + unitCell.playerId);
-            return false;
+            return path != null;
         }
     }
 }
