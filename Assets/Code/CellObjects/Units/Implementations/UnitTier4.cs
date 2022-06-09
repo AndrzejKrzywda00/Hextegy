@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace Code.CellObjects.Units.Implementations {
     public class UnitTier4 : Unit {
+        
         public override int Price() {
-            return 60;
+            return 40;
         }
 
         public override bool IsProtectingNearbyFriendlyCells() {
