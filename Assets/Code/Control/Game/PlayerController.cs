@@ -4,6 +4,7 @@ using Code.CellObjects;
 using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
+using Code.DataAccess;
 using Code.Hexagonal;
 using Code.Hexagonal.Algo;
 using UnityEngine;
@@ -273,7 +274,7 @@ namespace Code.Control.Game {
         }
 
         public static void AddTreesOnEndOfTurnAfterAllPlayersMoved() {
-            if (CurrentPlayerId.Equals(HexGrid.NumberOfPlayers))
+            if (CurrentPlayerId.Equals(Settings.NumberOfPlayers))
                 _hexGrid.GenerateTreesNextToExistingTrees();
         }
     }

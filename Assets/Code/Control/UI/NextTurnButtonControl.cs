@@ -1,5 +1,6 @@
 using Code.CellObjects.Units;
 using Code.Control.Game;
+using Code.DataAccess;
 using Code.Hexagonal;
 using UnityEngine;
 
@@ -12,14 +13,14 @@ namespace Code.Control.UI {
             _playerController = FindObjectOfType<PlayerController>();
         }
 
-        public void EndTurn() {
+        public void EndTurnClick() {
             MoneyManager.CalculateWalletOnTurnEnd();
             PlayerController.AddTreesOnEndOfTurnAfterAllPlayersMoved();
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
             
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
 
-            if (PlayerController.CurrentPlayerId >= HexGrid.NumberOfPlayers) PlayerController.CurrentPlayerId = 0;
+            if (PlayerController.CurrentPlayerId >= Settings.NumberOfPlayers) PlayerController.CurrentPlayerId = 0;
 
             PlayerController.CurrentPlayerId++;
 
