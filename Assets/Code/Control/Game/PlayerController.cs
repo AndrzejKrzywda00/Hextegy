@@ -44,11 +44,10 @@ namespace Code.Control.Game {
             selectedCellWithUnit = null;
         }
 
-        private void CheckAllUnitsForCutoff() {
+        public void CheckAllUnitsForCutoff() {
             HexCell[] allUnitsOnGrid = _hexGrid.GetAllUnits();
             foreach (HexCell cellWithUnit in allUnitsOnGrid) {
-                // TODO -- replace cell with capital of player
-                if (!PathExistsFromUnitToItsCapital(cellWithUnit, cellWithUnit)) {
+                if (!PathExistsFromUnitToItsCapital(cellWithUnit, PlayersInfo.GetPlayerCapital(CurrentPlayerId))) {
                     _hexGrid.DestroyUnitAndPlaceGrave(cellWithUnit);
                 }
             }

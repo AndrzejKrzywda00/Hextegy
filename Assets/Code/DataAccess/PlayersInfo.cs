@@ -4,9 +4,9 @@ using Code.Hexagonal;
 namespace Code.DataAccess {
     public static class PlayersInfo {
         
-        public static int[] DeadPlayersId = {};
+        public static int[] DeadPlayersIds = {};
         public static int Winner = 0;
-        private static Dictionary<int, HexCell> PlayersCapitals = new Dictionary<int, HexCell>();
+        private static readonly Dictionary<int, HexCell> PlayersCapitals = new Dictionary<int, HexCell>();
 
         public static void SetPlayerCapital(int playerId, HexCell capital) {
             if (!PlayersCapitals.ContainsKey(playerId)) PlayersCapitals.Add(playerId, capital);

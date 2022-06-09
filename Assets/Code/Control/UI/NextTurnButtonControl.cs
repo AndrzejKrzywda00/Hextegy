@@ -17,6 +17,7 @@ namespace Code.Control.UI {
             MoneyManager.CalculateWalletOnTurnEnd();
             PlayerController.AddTreesOnEndOfTurnAfterAllPlayersMoved();
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
+            _playerController.CheckAllUnitsForCutoff();
             
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
 
