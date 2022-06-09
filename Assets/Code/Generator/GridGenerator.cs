@@ -9,19 +9,19 @@ namespace Code.Generator {
         
         private MapGrid _map;
 
-        public float scale = 3f;                                            // good result in range [0.5, 10]
-        public float fulfil = 0.5f;                                         // [0, 1]: 0 - empty map, 1 - full map
-        public float treeRatio = 0.2f;                                      // [0, 1]: 0 - no trees, 1 - trees everywhere
-        public List<PlayerField> playerFields = new List<PlayerField>();    // list of fields, one player id can occur many times
+        public float Scale = 3f;                                            // good result in range [0.5, 10]
+        public float Fulfil = 0.5f;                                         // [0, 1]: 0 - empty map, 1 - full map
+        public float TreeRatio = 0.2f;                                      // [0, 1]: 0 - no trees, 1 - trees everywhere
+        public List<PlayerField> PlayerFields = new List<PlayerField>();    // list of fields, one player id can occur many times
 
         
         public class PlayerField {
-            public int playerId;        // player id
-            public int radius;          // radius of field
+            public readonly int PlayerId;        // player id
+            public readonly int Radius;          // radius of field
 
             public PlayerField(int playerId, int radius) {
-                this.playerId = playerId;
-                this.radius = radius;
+                this.PlayerId = playerId;
+                this.Radius = radius;
             }
         }
         
@@ -35,7 +35,7 @@ namespace Code.Generator {
             ClearUnconnectedIslands();
             
             //Debug.Log("Generating players fields...");
-            AddPlayersFields(playerFields);
+            AddPlayersFields(PlayerFields);
             
             //Debug.Log("Generating trees...");
             GenerateTrees();
@@ -45,15 +45,15 @@ namespace Code.Generator {
         }
 
         public void GeneratePlayerFields(int numberOfPlayers, int radius) {
-            playerFields = new List<PlayerField>();
+            PlayerFields = new List<PlayerField>();
             for (int playerId = 1; playerId <= numberOfPlayers; playerId++) {
-                playerFields.Add(new PlayerField(playerId, radius));
+                PlayerFields.Add(new PlayerField(playerId, radius));
             }
         }
         
 
         private void GenerateByPerlinNoise() {
-            bool[,] perlinNoise = PerlinNoise.Generate(_map.Height, _map.Width, scale, fulfil);
+            bool[,] perlinNoise = PerlinNoise.Generate(_map.Height, _map.Width, Scale, Fulfil);
 
             for (int x = 0; x < _map.Width; x++) {
                 for (int y = 0; y < _map.Height; y++) {
@@ -62,7 +62,7 @@ namespace Code.Generator {
                 }
             }
 
-            if (_map.NumberOfNoEmptyCells() < _map.Width * _map.Height * 0.5 * fulfil + 1)
+            if (_map.NumberOfNoEmptyCells() < _map.Width * _map.Height * 0.5 * Fulfil + 1)
                 throw new Exception(
                     "Map generator error: for this parameters generated map is mostly empty. Try one more time");
         }
@@ -109,17 +109,17 @@ namespace Code.Generator {
             
             while(IsAnotherPlayerFieldInRange(startingCell.Coordinates, playerField)) startingCell = _map.GetRandomCell();
             
-            foreach (Cell cell in _map.GetCircle(startingCell.Coordinates, playerField.radius)) {
-                cell.PlayerId = playerField.playerId;
+            foreach (Cell cell in _map.GetCircle(startingCell.Coordinates, playerField.Radius)) {
+                cell.PlayerId = playerField.PlayerId;
             }
 
-            startingCell.Prefab = Prefabs.GetCapital(playerField.playerId);
+            startingCell.Prefab = Prefabs.GetCapital(playerField.PlayerId);
         }
 
         private bool IsAnotherPlayerFieldInRange(Coordinates startingPoint, PlayerField playerField) {
-            List<Cell> cellsInRange = _map.GetCircle(startingPoint, playerField.radius);
+            List<Cell> cellsInRange = _map.GetCircle(startingPoint, playerField.Radius);
             foreach (Cell cell in cellsInRange) {
-                if(cell == null) continue;
+                if (cell == null) continue;
                 if (cell.PlayerId != 0) return true;
             }
             return false;
@@ -127,7 +127,7 @@ namespace Code.Generator {
 
         private void GenerateTrees() {
             foreach (Cell cell in _map.Cells) {
-                if (cell != null && RandomNumber.GetBoolByRatio(treeRatio)) {
+                if (cell != null && RandomNumber.GetBoolByRatio(TreeRatio)) {
                     if (cell.Prefab == Prefabs.GetNoElement()) {
                         cell.Prefab = Prefabs.GetTree();
                     }

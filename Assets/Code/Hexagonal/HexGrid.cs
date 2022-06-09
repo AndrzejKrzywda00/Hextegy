@@ -43,10 +43,10 @@ namespace Code.Hexagonal {
 
             generator.GeneratePlayerFields(Settings.NumberOfPlayers, 4);
             // you can change parameters here!!!
-            generator.scale = Settings.Scale;
-            generator.fulfil = Settings.Fulfill;
-            generator.playerFields.Add(new GridGenerator.PlayerField(1,2));
-            generator.treeRatio = Settings.TreeRatio;
+            generator.Scale = Settings.Scale;
+            generator.Fulfil = Settings.Fulfill;
+            generator.PlayerFields.Add(new GridGenerator.PlayerField(1,2));
+            generator.TreeRatio = Settings.TreeRatio;
         
             return generator.GenerateMap(Settings.MapSize, Settings.MapSize);
         }
