@@ -50,7 +50,7 @@ namespace Code.Control.Game {
             }
         }
 
-        public static void IncrementPlayerFarms(int playerId) {
+        private static void IncrementPlayerFarms(int playerId) {
             if (_playersFarmsAmounts.ContainsKey(playerId)) _playersFarmsAmounts[playerId]++;
         }
 
