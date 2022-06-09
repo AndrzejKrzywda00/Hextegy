@@ -15,7 +15,7 @@ namespace Code.DataAccess {
         private static readonly Color32 Tomato = new Color32(166, 78, 64, 255);
         private static readonly Color32 DarkYellow = new Color32(180, 189, 100, 255);
         private static readonly Color32 Violet = new Color32(114, 91, 179, 255);
-        
+
         // Alternative, darker palette
         private static readonly Color32 DarkOlive = new Color32(95 - 40, 181 - 40, 94 - 40, 255);
         private static readonly Color32 DarkPink = new Color32(182 - 40, 92 - 40, 120 - 40, 255);

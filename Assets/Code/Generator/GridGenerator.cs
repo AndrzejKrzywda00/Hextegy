@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Code.CellObjects;
 using Code.Generator.Objects;
 using Code.Generator.Util;
+using UnityEngine;
 
 namespace Code.Generator {
     public class GridGenerator {
@@ -26,24 +27,42 @@ namespace Code.Generator {
         }
         
         public Cell[] GenerateMap(int height, int width) {
-            _map = new MapGrid(width, height);
-            
-            //Debug.Log("Generating perlin noise...");
-            GenerateByPerlinNoise();
-            
-            //Debug.Log("Clearing unconnected islands...");
-            ClearUnconnectedIslands();
-            
-            //Debug.Log("Generating players fields...");
-            AddPlayersFields(PlayerFields);
-            
-            //Debug.Log("Generating trees...");
-            GenerateTrees();
+            for (int i = 0; i < 10; i++) {
+                try {
+                    Generate(height, width);
+                    return _map.Cells;
+                }
+                catch (Exception e) {
+                    Debug.Log("Exception occured: " + e.Message + " Trying one more time...");
+                }
+            }
 
-            //Debug.Log("Generation finished!");
-            return _map.Cells;
+            throw new Exception("Cannot generate map with this settings");
         }
 
+        private void Generate(int height, int width) {
+            _map = new MapGrid(width, height);
+
+            Debug.Log("Generating perlin noise...");
+            GenerateByPerlinNoise();
+            Debug.Log("Clearing unconnected islands...");
+            ClearUnconnectedIslands();
+            Debug.Log("Generating players fields...");
+            AddPlayersFields(PlayerFields);
+            Debug.Log("Generating trees...");
+            GenerateTrees();
+            Debug.Log("Generation finished!");
+
+            // Coordinates[] coordinates = {new Coordinates(5, 5), new Coordinates(15, 14), new Coordinates(4, 15), new Coordinates(15, 4)};
+            // foreach (Coordinates coord in coordinates) {
+            //     int i = 1;
+            //     foreach (Coordinates touchingCoordinate in Coordinates.GetTouchingCoordinates(coord)) {
+            //         _map.GetCell(touchingCoordinate).PlayerId = i;
+            //         Debug.Log(i + " " + touchingCoordinate.ToString());
+            //         i++;
+            //     }
+            // }
+        }
         public void GeneratePlayerFields(int numberOfPlayers, int radius) {
             PlayerFields = new List<PlayerField>();
             for (int playerId = 1; playerId <= numberOfPlayers; playerId++) {
