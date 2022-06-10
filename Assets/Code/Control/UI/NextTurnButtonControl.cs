@@ -38,7 +38,7 @@ namespace Code.Control.UI {
         private void CheckForDeadPlayers() {
             var alivePlayersIdTmp = new List<int>(Settings.AlivePlayersId);
             foreach (int i in alivePlayersIdTmp) {
-                if (!_playerController.HexGrid.IsPlayerHaveCapital(i)) { 
+                if (!_playerController.HexGrid.DoesPlayerHaveCapital(i)) { 
                     Debug.Log(i);
                     Settings.AlivePlayersId.Remove(i);
                 }
