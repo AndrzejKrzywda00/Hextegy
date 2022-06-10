@@ -1,8 +1,6 @@
 using System;
 using Code.Audio;
 using Code.CellObjects;
-using Code.CellObjects.Structures.StateBuildings;
-using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
 using Code.DataAccess;
 using Code.Hexagonal;
@@ -134,11 +132,6 @@ namespace Code.Control.Game {
             return (hexCell.IsEmpty() || hexCell.HasTree()) && IsCellProtectionLevelLowerThanUnit(hexCell, unit);
         }
 
-        private void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell) {
-            if (hexCell.prefabInstance is Tree) AudioManager.Play(SoundNames.ScinanieDrzewa.ToString());
-            AudioManager.Play(prefabFromUI is Unit ? SoundNames.ReadyToFight.ToString() : SoundNames.Building.ToString());
-        }
-        
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
             CellObject prefabInstance = hexCell.prefabInstance;
             MoneyManager.Buy(prefabFromUI, CurrentPlayerId);
@@ -185,31 +178,6 @@ namespace Code.Control.Game {
 
         private bool IsObjectFromUIUnit() {
             return prefabFromUI is Unit;
-        }
-
-        private void PlaySoundWhenBuyingOrMovingOnEnemyOrNeutralCell(HexCell hexCell) {
-            
-            // TODO -- move this to some Sound Manager
-            
-            switch (hexCell.prefabInstance) {
-                case Farm _:
-                case TowerTier1 _:
-                case TowerTier2 _:
-                    AudioManager.Play(SoundNames.DestroyBuilding.ToString());
-                    break;
-                case Tree _:
-                    AudioManager.Play(SoundNames.ScinanieDrzewa.ToString());
-                    break;
-                case Unit _:
-                    AudioManager.Play(SoundNames.Death.ToString());
-                    break;
-                case Capital _:
-                    AudioManager.Play(SoundNames.CapitalLost.ToString());
-                    break;
-                default:
-                    AudioManager.Play(SoundNames.Conquest.ToString());
-                    break;
-            }
         }
 
         private void HandleBuyingObjectOnNeutralOrEnemyCell(HexCell hexCell) {

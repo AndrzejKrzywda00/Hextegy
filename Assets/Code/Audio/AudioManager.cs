@@ -111,12 +111,7 @@ namespace Code.Audio {
             if (!(prefabFromUI is Unit)) {
                 Play(SoundNames.Budowanie.ToString());
             } else {
-                switch (prefabFromUI) {
-                    case UnitTier1 _: Play(SoundNames.CosTrzebaZrobic.ToString()); break;
-                    case UnitTier2 _: Play(SoundNames.PracaPraca.ToString()); break;
-                    case UnitTier3 _: Play(SoundNames.TyJestesKrolem.ToString()); break;
-                    case UnitTier4 _: Play(SoundNames.NaRozkaz.ToString()); break;
-                }
+                PlaySoundWhenBuyingUnit(prefabFromUI);
             }
         }
 
@@ -132,13 +127,17 @@ namespace Code.Audio {
                 case UnitTier4 _: Play(SoundNames.dzwiekSmierciSssmierc.ToString()); break;
                 case Capital _: Play(SoundNames.CapitalLost.ToString()); break;
                 default: {
-                    switch (prefabFromUI) {
-                        case UnitTier1 _: Play(SoundNames.CosTrzebaZrobic.ToString()); break;
-                        case UnitTier2 _: Play(SoundNames.PracaPraca.ToString()); break;
-                        case UnitTier3 _: Play(SoundNames.TyJestesKrolem.ToString()); break;
-                        case UnitTier4 _: Play(SoundNames.NaRozkaz.ToString()); break;
-                    }
+                    PlaySoundWhenBuyingUnit(prefabFromUI);
                 } break;
+            }
+        }
+
+        private static void PlaySoundWhenBuyingUnit(ActiveObject prefabFromUI) {
+            switch (prefabFromUI) {
+                case UnitTier1 _: Play(SoundNames.CosTrzebaZrobic.ToString()); break;
+                case UnitTier2 _: Play(SoundNames.PracaPraca.ToString()); break;
+                case UnitTier3 _: Play(SoundNames.TyJestesKrolem.ToString()); break;
+                case UnitTier4 _: Play(SoundNames.NaRozkaz.ToString()); break;
             }
         }
 
@@ -146,8 +145,8 @@ namespace Code.Audio {
             switch (selectedCellWithUnit.prefabInstance) {
                 case UnitTier1 _: Play(SoundNames.dzwiekDrzwi.ToString()); break;
                 case UnitTier2 _: Play(SoundNames.Czego.ToString()); break;
-                case UnitTier3 _: Play(SoundNames.JuzIde.ToString()); break;
-                case UnitTier4 _: Play(SoundNames.Slucham.ToString()); break;
+                case UnitTier3 _: Play(SoundNames.Slucham.ToString()); break;
+                case UnitTier4 _: Play(SoundNames.JuzIde.ToString()); break;
             }
         }
         
@@ -168,13 +167,6 @@ namespace Code.Audio {
         public static void PlaySoundWhenMovingOnFriendlyCells(HexCell hexCell, HexCell selectedCellWithUnit) {
             if (hexCell.prefabInstance is Tree) {
                 Play(SoundNames.ScinanieDrzewa.ToString());
-            }
-            
-            switch (selectedCellWithUnit.prefabInstance) {
-                case UnitTier1 _: Play(SoundNames.dzwiekDrzwi.ToString()); break;
-                case UnitTier2 _: Play(SoundNames.Czego.ToString()); break;
-                case UnitTier3 _: Play(SoundNames.JuzIde.ToString()); break;
-                case UnitTier4 _: Play(SoundNames.Slucham.ToString()); break;
             }
         }
         
