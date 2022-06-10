@@ -7,6 +7,27 @@
         DestroyBuilding,
         DestroyTree,
         Move,
-        ReadyToFight
+        ReadyToFight,
+        Budowanie,
+        CosTrzebaZrobic,
+        Czego,
+        dzwiekDrzwi,
+        dzwiekPrzegranej,
+        dzwiekSmierciEeehg,
+        dzwiekSmierciSssmierc,
+        dzwiekSmierciUuu,
+        dzwiekUmieraniaNoWKoncu,
+        dzwiekWygranej,
+        dzwiekZdychaniaAla,
+        Hdrz,
+        JuzIde,
+        NaRozkaz,
+        PracaPraca,
+        ScinanieDrzewa,
+        Slucham,
+        TyJestesKrolem,
+        WitamyWKoloni,
+        Zarombie,
+        ZnowuBlysnal
     }
 }
