@@ -15,7 +15,7 @@ namespace Code.Audio {
         private static AudioManager _instance;
         private static Random _random;
         
-        public Sound[] sounds;
+        private Sound[] _sounds;
         
         private static bool _specialSounds = true;
         private string _sceneName;
@@ -42,7 +42,7 @@ namespace Code.Audio {
         }
 
         private void InitializeSounds() {
-            sounds = new[] {
+            _sounds = new[] {
                 new Sound("Building", Resources.Load<AudioClip>("Sounds/Building"), 0.5f, 1f, false),
                 new Sound("CapitalLost", Resources.Load<AudioClip>("Sounds/CapitalLost"), 0.5f, 1f, false),
                 new Sound("Conquest", Resources.Load<AudioClip>("Sounds/Conquest"), 0.5f, 1f, false),
@@ -78,7 +78,7 @@ namespace Code.Audio {
         }
         
         private void AddAudioSourceForEachSound() {
-            foreach (Sound sound in sounds) {
+            foreach (Sound sound in _sounds) {
                 if (sound.Source != null) return;
                 sound.Source = gameObject.AddComponent<AudioSource>();
                 
@@ -92,7 +92,7 @@ namespace Code.Audio {
         public static void Play(string name) {
             if (!name.Equals("Greensleeves") && _specialSounds == false) return;
             
-            Sound sound = Array.Find(_instance.sounds, sound => sound.Name == name);
+            Sound sound = Array.Find(_instance._sounds, sound => sound.Name == name);
             if (sound == null) {
                 Debug.LogWarning($"Sound: {name} not found!");
                 return;
