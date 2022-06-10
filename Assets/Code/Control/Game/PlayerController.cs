@@ -24,6 +24,7 @@ namespace Code.Control.Game {
         public HexGrid HexGrid => _hexGrid;
 
         private void Start() {
+            CurrentPlayerId = 1;
             FindComponentsOnScene();
             InitializeMoneyManager();
         }
