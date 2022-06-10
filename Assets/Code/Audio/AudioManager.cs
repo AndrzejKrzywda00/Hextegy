@@ -60,7 +60,7 @@ namespace Code.Audio {
                 new Sound("dzwiekSmierciSssmierc", Resources.Load<AudioClip>("Sounds/other/dzwiekSmierciSssmierc"), 0.6f, 1f, false),
                 new Sound("dzwiekSmierciUuu", Resources.Load<AudioClip>("Sounds/other/dzwiekSmierciUuu"), 0.4f, 1f, false),
                 new Sound("dzwiekUmieraniaNoWKoncu", Resources.Load<AudioClip>("Sounds/other/dzwiekUmieraniaNoWKoncu"), 0.6f, 1f, false),
-                new Sound("dzwiekWygranej", Resources.Load<AudioClip>("Sounds/other/dzwiekWygranej"), 0.4f, 1f, false),
+                new Sound("dzwiekWygranej", Resources.Load<AudioClip>("Sounds/other/dzwiekWygranej"), 0.35f, 1f, false),
                 new Sound("dzwiekZdychaniaAla", Resources.Load<AudioClip>("Sounds/other/dzwiekZdychaniaAla"), 0.1f, 1f, false),
                 new Sound("Hdrz", Resources.Load<AudioClip>("Sounds/other/Hdrz"), 0.4f, 1f, false),
                 new Sound("JuzIde", Resources.Load<AudioClip>("Sounds/other/JuzIde"), 0.5f, 1f, false),

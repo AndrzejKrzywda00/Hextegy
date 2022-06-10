@@ -3216,7 +3216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].code
-      value: cash
+      value: c
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.size
