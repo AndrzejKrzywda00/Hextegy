@@ -1190,7 +1190,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Andrzej Krzywda | Micha\u0142 Forystek | Krzysztof Pa\u0142ka | Szymon
-    Szymiczek | Wojtek Krzywda"
+    Szymiczek | Wojciech Krzywda"
 --- !u!222 &1397123113
 CanvasRenderer:
   m_ObjectHideFlags: 0

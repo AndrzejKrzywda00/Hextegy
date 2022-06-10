@@ -17,7 +17,7 @@ namespace Code.Audio {
         
         public Sound[] sounds;
         
-        private static bool _specialSounds;
+        private static bool _specialSounds = true;
         private string _sceneName;
         private bool IsPreGameScene => _sceneName.Equals("Menu") || _sceneName.Equals("Settings");
         
