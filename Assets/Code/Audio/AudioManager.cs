@@ -79,25 +79,25 @@ namespace Code.Audio {
         
         private void AddAudioSourceForEachSound() {
             foreach (Sound sound in sounds) {
-                if (sound.source != null) return;
-                sound.source = gameObject.AddComponent<AudioSource>();
+                if (sound.Source != null) return;
+                sound.Source = gameObject.AddComponent<AudioSource>();
                 
-                sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume;
-                sound.source.pitch = sound.pitch;
-                sound.source.loop = sound.loop;
+                sound.Source.clip = sound.Clip;
+                sound.Source.volume = sound.Volume;
+                sound.Source.pitch = sound.Pitch;
+                sound.Source.loop = sound.Loop;
             }
         }
 
         public static void Play(string name) {
             if (!name.Equals("Greensleeves") && _specialSounds == false) return;
             
-            Sound sound = Array.Find(_instance.sounds, sound => sound.name == name);
+            Sound sound = Array.Find(_instance.sounds, sound => sound.Name == name);
             if (sound == null) {
                 Debug.LogWarning($"Sound: {name} not found!");
                 return;
             }
-            sound.source.Play();
+            sound.Source.Play();
         }
 
         public static void ChangeSoundsActivationStatus() {
@@ -169,7 +169,6 @@ namespace Code.Audio {
                 Play(SoundNames.ScinanieDrzewa.ToString());
             }
         }
-        
-        
+
     }
 }
