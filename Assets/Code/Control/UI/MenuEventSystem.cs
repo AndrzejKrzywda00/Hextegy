@@ -6,6 +6,7 @@ namespace Code.Control.UI {
     public class MenuEventSystem : MonoBehaviour {
         public void StartClick() {
             Settings.AlivePlayersId.Clear();
+            Settings.Winner = 0;
             for (int i = 1; i <= Settings.NumberOfPlayers; i++) {
                 Settings.AlivePlayersId.Add(i);
             }
