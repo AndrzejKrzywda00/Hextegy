@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.DataAccess;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,10 @@ namespace Code.Control.UI {
 
         public void SettingsClick() {
             SceneManager.LoadScene("Scenes/Settings");
+        }
+
+        public void ToggleSoundsClick() {
+            AudioManager.ChangeSoundsActivationStatus();
         }
     }
 }
