@@ -106,7 +106,7 @@ namespace Code.Control.Game {
             if (hexCell.IsFriendlyCell()) {
                 if (!IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) 
                     return false;
-                AudioManager.PlaySoundWhenMovingOnFriendlyCells(hexCell, selectedCellWithUnit);
+                AudioManager.PlaySoundWhenMovingOnFriendlyCells(hexCell);
                 HandleMovingUnit(hexCell);
                 return true;
             }

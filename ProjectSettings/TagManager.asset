@@ -20,6 +20,7 @@ TagManager:
   - UnitTier4
   - EndgameText
   - MenuMusic
+  - ToggleSoundsButton
   layers:
   - Default
   - TransparentFX

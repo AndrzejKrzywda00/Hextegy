@@ -230,7 +230,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1954122204}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1150,6 +1150,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405584070}
   m_CullTransparentMesh: 1
+--- !u!114 &463463272 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
+  m_PrefabInstance: {fileID: 2090531779659484638}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f4325914474f92a69d0c06e07c71f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &615694628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2033,7 @@ GameObject:
   - component: {fileID: 1051143666}
   m_Layer: 5
   m_Name: ToggleSoundsButton
-  m_TagString: Untagged
+  m_TagString: ToggleSoundsButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2039,7 +2050,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1954122204}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2092,7 +2103,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1803792478}
         m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
-        m_MethodName: ToogleSoundsClick
+        m_MethodName: ToggleSoundsClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2748,17 +2759,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 988575213fb277648a3992d38c31259a, type: 3}
---- !u!114 &1873377178 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4886238951539807677, guid: 988575213fb277648a3992d38c31259a, type: 3}
-  m_PrefabInstance: {fileID: 1873377177}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9124873f3f4416459673a33c3bd61e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1928164808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2935,8 +2935,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 64303996}
-  - {fileID: 1051143665}
   - {fileID: 129710601}
+  - {fileID: 1051143665}
   - {fileID: 1609753894}
   m_Father: {fileID: 1256343124}
   m_RootOrder: 1
@@ -3216,7 +3216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].code
-      value: sounds
+      value: cash
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.size
@@ -3229,18 +3229,18 @@ PrefabInstance:
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1873377178}
+      objectReference: {fileID: 463463272}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeSoundsActivationStatus
+      value: AddCash
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Code.Audio.AudioManager, Assembly-CSharp
+      value: Code.Cheats.CheatCodeManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2693710415526057609, guid: e789f03bed6abba439e2ebc284937b17, type: 3}
       propertyPath: cheatCodeList.Array.data[0].cheatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

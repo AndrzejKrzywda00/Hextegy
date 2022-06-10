@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Code.Control.Game;
 using UnityEngine;
 
 namespace Code.Cheats {
@@ -35,13 +35,16 @@ namespace Code.Cheats {
             }
         }
 
-        private bool CheckCheat(string input) {
+        private void CheckCheat(string input) {
             foreach (CheatCodeInstance cheatCode in cheatCodeList) {
                 if (input != cheatCode.code) continue;
                 cheatCode.cheatEvent?.Invoke();
-                return true;
+                return;
             }
-            return false;
+        }
+
+        public void AddCash() {
+            MoneyManager.Add100ToWallet(PlayerController.CurrentPlayerId);
         }
     }
 }

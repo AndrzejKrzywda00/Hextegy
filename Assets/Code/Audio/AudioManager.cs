@@ -4,6 +4,7 @@ using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
 using Code.CellObjects.Units.Implementations;
+using Code.DataAccess;
 using Code.Hexagonal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,8 +17,6 @@ namespace Code.Audio {
         private static Random _random;
         
         private Sound[] _sounds;
-        
-        private static bool _specialSounds = true;
         private string _sceneName;
         private bool IsPreGameScene => _sceneName.Equals("Menu") || _sceneName.Equals("Settings");
         
@@ -25,7 +24,8 @@ namespace Code.Audio {
             _random.InitState();
             _instance = this;
             _sceneName = SceneManager.GetActiveScene().name;
-            
+
+            Settings.IsSoundEnabled = true;
             InitializeSounds();
 
             GameObject gObject = GameObject.FindGameObjectWithTag("MenuMusic");
@@ -89,8 +89,8 @@ namespace Code.Audio {
             }
         }
 
-        public static void Play(string name) {
-            if (!name.Equals("Greensleeves") && _specialSounds == false) return;
+        private static void Play(string name) {
+            if (!name.Equals("Greensleeves") && Settings.IsSoundEnabled == false) return;
             
             Sound sound = Array.Find(_instance._sounds, sound => sound.Name == name);
             if (sound == null) {
@@ -100,8 +100,8 @@ namespace Code.Audio {
             sound.Source.Play();
         }
 
-        public static void ChangeSoundsActivationStatus() {
-            _specialSounds = !_specialSounds;
+        public static void ToggleSoundActivationStatus() {
+            Settings.IsSoundEnabled = !Settings.IsSoundEnabled;
         }
 
         public static void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell, ActiveObject prefabFromUI) {
@@ -164,7 +164,7 @@ namespace Code.Audio {
             }
         }
         
-        public static void PlaySoundWhenMovingOnFriendlyCells(HexCell hexCell, HexCell selectedCellWithUnit) {
+        public static void PlaySoundWhenMovingOnFriendlyCells(HexCell hexCell) {
             if (hexCell.prefabInstance is Tree) {
                 Play(SoundNames.ScinanieDrzewa.ToString());
             }

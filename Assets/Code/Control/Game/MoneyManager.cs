@@ -85,5 +85,9 @@ namespace Code.Control.Game {
         public static bool HasEnoughMoneyToBuy(ActiveObject activeObject, int playerId) {
             return activeObject.Price() <= _playersWallets[playerId];
         }
+
+        public static void Add100ToWallet(int playerId) {
+            _playersWallets[playerId] += 100;
+        }
     }
 }

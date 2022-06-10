@@ -2,6 +2,7 @@ using Code.Audio;
 using Code.DataAccess;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Image = UnityEngine.UI.Image;
 
 namespace Code.Control.UI {
     public class MenuEventSystem : MonoBehaviour {
@@ -31,7 +32,12 @@ namespace Code.Control.UI {
         }
 
         public void ToggleSoundsClick() {
-            AudioManager.ChangeSoundsActivationStatus();
+            Sprite soundsOnSprite = Resources.Load<Sprite>("MenuButtons/Textures/icons/256x256/speaker");
+            Sprite soundsOffSprite = Resources.Load<Sprite>("MenuButtons/Textures/icons/256x256/speakerCrossed");
+            Image toggleSoundsImage = GameObject.FindGameObjectWithTag("ToggleSoundsButton").GetComponent<Image>();
+
+            toggleSoundsImage.sprite = Settings.IsSoundEnabled ? soundsOffSprite : soundsOnSprite;
+            AudioManager.ToggleSoundActivationStatus();
         }
     }
 }
