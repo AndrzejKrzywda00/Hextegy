@@ -31,7 +31,7 @@ namespace Code.Control.UI {
                 PlayerController.AddTrees();
             }
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
-            //_playerController.CheckAllUnitsForCutoff();
+            _playerController.CheckAllUnitsForCutoff();
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
         }
 
