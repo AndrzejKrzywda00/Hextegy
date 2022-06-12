@@ -1083,8 +1083,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Towers are an essential tool for a successful campaign.  Their defensive
-    capacity can stop lower-rated units.
+  m_Text: Towers are essential tools for a successful campaign. Their defensive capacity
+    can stop lower-rated units.
 --- !u!222 &1001298659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1473,9 +1473,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: To outsmart your opponent you can use cutting-off technique. When unit
-    loses direct path to its capital it dies and other units of that player cannot
-    stand on grave of their soldiers.
+  m_Text: 'IN THE FUTURE UPDATES!
+
+    To outsmart your opponent you can use cutting-off
+    technique. When unit loses direct path to its capital it dies and other units
+    of that player cannot stand on grave of their soldiers.'
 --- !u!222 &1844524581
 CanvasRenderer:
   m_ObjectHideFlags: 0

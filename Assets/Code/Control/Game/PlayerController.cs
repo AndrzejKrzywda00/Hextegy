@@ -55,7 +55,6 @@ namespace Code.Control.Game {
         }
         
         public void Handle(HexCell hexCell) {
-
             if (IsItemFromUISelected()) {
                 HandleSomethingIsSelectedFromUI(hexCell);
             } else {
@@ -66,13 +65,13 @@ namespace Code.Control.Game {
         private void HandleSomethingIsSelectedFromUI(HexCell hexCell) {
             if (HasEnoughMoneyToBuyObject()) {
                 if (hexCell.IsFriendlyCell()) {
-                    if (IsFriendlyCellSuitableToPlateObjectThere(hexCell, prefabFromUI)) {
+                    if (IsFriendlyCellSuitableToPlaceObjectThere(hexCell)) {
                         AudioManager.PlaySoundWhenBuyingOnFriendlyCell(hexCell, prefabFromUI);
                         HandleBuyingObjectOnFriendlyCell(hexCell);
                         return;
                     }
                 } else {
-                    if (IsObjectFromUIUnit() && IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) &&
+                    if (IsObjectFromUIUnit() && IsObjectOnEnemyOrNeutralCellWeakEnoughToPlaceUnitThere(hexCell) &&
                         IsCellBorderingFriendlyCell(hexCell) && IsCellProtectionLevelLowerThanUnit(hexCell, prefabFromUI)) {
                         AudioManager.PlaySoundWhenBuyingOnEnemyOrNeutralCell(hexCell, prefabFromUI);
                         HandleBuyingObjectOnNeutralOrEnemyCell(hexCell);
@@ -104,14 +103,14 @@ namespace Code.Control.Game {
                 return false;
             
             if (hexCell.IsFriendlyCell()) {
-                if (!IsFriendlyCellSuitableToPlateObjectThere(hexCell, selectedCellWithUnit.prefabInstance)) 
+                if (!IsFriendlyCellSuitableToPlaceObjectThere(hexCell)) 
                     return false;
                 AudioManager.PlaySoundWhenMovingOnFriendlyCells(hexCell);
                 HandleMovingUnit(hexCell);
                 return true;
             }
 
-            if (!IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(hexCell) ||
+            if (!IsObjectOnEnemyOrNeutralCellWeakEnoughToPlaceUnitThere(hexCell) ||
                 !IsCellProtectionLevelLowerThanUnit(hexCell, selectedCellWithUnit.prefabInstance) ||
                 !IsCellBorderingFriendlyCell(hexCell)) 
                 return false;
@@ -128,8 +127,8 @@ namespace Code.Control.Game {
             return MoneyManager.HasEnoughMoneyToBuy(prefabFromUI, CurrentPlayerId);
         }
 
-        private static bool IsFriendlyCellSuitableToPlateObjectThere(HexCell hexCell, CellObject unit) {
-            return (hexCell.IsEmpty() || hexCell.HasTree()) && IsCellProtectionLevelLowerThanUnit(hexCell, unit);
+        private static bool IsFriendlyCellSuitableToPlaceObjectThere(HexCell hexCell) {
+            return hexCell.IsEmpty() || hexCell.HasTree();
         }
 
         private void HandleBuyingObjectOnFriendlyCell(HexCell hexCell) {
@@ -142,8 +141,9 @@ namespace Code.Control.Game {
             prefabFromUI = null;
         }
 
-        private bool IsObjectOnEnemyCellWeakEnoughToPlaceUnitThere(HexCell hexCell) {
+        private bool IsObjectOnEnemyOrNeutralCellWeakEnoughToPlaceUnitThere(HexCell hexCell) {
             try {
+                if (hexCell.IsNeutral()) return true;
                 CellObject enemyObject = hexCell.prefabInstance;
                 CellObject selectedUnit = selectedCellWithUnit != null ? selectedCellWithUnit.prefabInstance : prefabFromUI;
                 return enemyObject.IsWeakerThan(selectedUnit);
@@ -164,6 +164,7 @@ namespace Code.Control.Game {
         }
 
         private static bool IsCellProtectionLevelLowerThanUnit(HexCell hexCell, CellObject unit) {
+            if (hexCell.IsNeutral()) return true;
             HexCell[] neighboringCells = _hexGrid.GetNeighborsOfCell(hexCell);
             foreach (HexCell neighbor in neighboringCells) {
                 if (neighbor == null) continue;

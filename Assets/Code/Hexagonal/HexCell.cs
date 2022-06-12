@@ -73,8 +73,12 @@ namespace Code.Hexagonal {
             return prefabInstance is Unit;
         }
 
+        public bool IsNeutral() {
+            return playerId == 0;
+        }
+        
         public bool IsEnemyCell() {
-            return playerId != PlayerController.CurrentPlayerId && playerId != 0;
+            return playerId != PlayerController.CurrentPlayerId && !IsNeutral();
         }
 
         public int HexDistanceTo(HexCell hexCell) {

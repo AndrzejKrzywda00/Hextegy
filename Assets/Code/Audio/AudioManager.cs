@@ -51,9 +51,9 @@ namespace Code.Audio {
                 new Sound("DestroyBuilding", Resources.Load<AudioClip>("Sounds/Structures/DestroyBuilding"), 0.5f, 1f, false),
 
                 // UnitTier1
-                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-CosTrzebaZrobic"), 0.15f, 1f, false),
-                new Sound("WedleRozkazu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-WedleRozkazu"), 0.15f, 1f, false),
-                new Sound("DzwiekSmierciOuu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-DzwiekSmierciOuu"), 0.2f, 1f, false),
+                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-CosTrzebaZrobic"), 0.1f, 1f, false),
+                new Sound("WedleRozkazu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-WedleRozkazu"), 0.1f, 1f, false),
+                new Sound("DzwiekSmierciOuu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-DzwiekSmierciOuu"), 0.15f, 1f, false),
                 
                 // UnitTier2
                 new Sound("PracaPraca", Resources.Load<AudioClip>("Sounds/Units/UnitTier2/Szymon-PracaPraca"), 0.4f, 1f, false),
@@ -71,7 +71,7 @@ namespace Code.Audio {
                 new Sound("DzwiekSmierciOoo", Resources.Load<AudioClip>("Sounds/Units/UnitTier4/Krzysiek-DzwiekSmierciOoo"), 0.3f, 1f, false),
 
                 // Endgame sound
-                new Sound("Winning", Resources.Load<AudioClip>("Sounds/Winning"), 0.35f, 1f, false)
+                new Sound("Winning", Resources.Load<AudioClip>("Sounds/Winning"), 0.25f, 1f, false)
             };
             
             AddAudioSourceForEachSound();
@@ -135,6 +135,7 @@ namespace Code.Audio {
 
         private static void PlayDeathSound(CellObject prefabInstance) {
             switch (prefabInstance) {
+                case Grave _:
                 case Farm _:
                 case TowerTier1 _:
                 case TowerTier2 _: Play(SoundNames.DestroyBuilding.ToString()); break;

@@ -6,7 +6,7 @@ namespace Code.CellObjects.Units.Implementations {
         }
 
         public override bool IsProtectingNearbyFriendlyCells() {
-            return false;
+            return true;
         }
 
         public override int MaintenanceCost() {

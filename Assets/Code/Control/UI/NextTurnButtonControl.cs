@@ -31,17 +31,16 @@ namespace Code.Control.UI {
                 PlayerController.AddTrees();
             }
             _playerController.ClearNecessaryFieldsAfterEndOfTurn();
-            _playerController.CheckAllUnitsForCutoff();
+            //_playerController.CheckAllUnitsForCutoff();
             ChangeCurrentPlayerUnitsMovementPossibilityTo(false);
         }
 
         private void CheckForDeadPlayers() {
             var alivePlayersIdTmp = new List<int>(Settings.AlivePlayersId);
             foreach (int i in alivePlayersIdTmp) {
-                if (!_playerController.HexGrid.DoesPlayerHaveCapital(i)) { 
-                    Debug.Log(i);
-                    Settings.AlivePlayersId.Remove(i);
-                }
+                if (_playerController.HexGrid.DoesPlayerHaveCapital(i)) continue;
+                Debug.Log(i);
+                Settings.AlivePlayersId.Remove(i);
             }
         }
 
@@ -69,10 +68,9 @@ namespace Code.Control.UI {
         }
 
         private void CheckWinConditions() {
-            if (Settings.AlivePlayersId.Count == 1) {
-                Settings.Winner = Settings.AlivePlayersId[0];
-                SceneManager.LoadScene("Scenes/Endgame");
-            }
+            if (Settings.AlivePlayersId.Count != 1) return;
+            Settings.Winner = Settings.AlivePlayersId[0];
+            SceneManager.LoadScene("Scenes/Endgame");
         }
     }
 }
