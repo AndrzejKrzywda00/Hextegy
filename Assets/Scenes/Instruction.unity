@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 300, y: 46.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &64777215
 MonoBehaviour:
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: -100
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
@@ -221,7 +221,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 528, y: 100}
+  m_SizeDelta: {x: 421.41, y: 79.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188855565
 MonoBehaviour:
@@ -310,12 +310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -331,7 +331,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 385832794}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Spacing: 80
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -698,7 +698,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 1160, y: 108.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &680818281
 MonoBehaviour:
@@ -717,7 +717,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 5
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -841,7 +841,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 1160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &757353468
 MonoBehaviour:
@@ -860,7 +860,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 5
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -905,7 +905,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 1160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &821202898
 MonoBehaviour:
@@ -924,7 +924,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 5
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -968,7 +968,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 632, y: 68}
+  m_SizeDelta: {x: 650, y: 107.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001298658
 MonoBehaviour:
@@ -1003,9 +1003,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: To spawn units, you have to buy them from panel on the bottom of the screen.
-    If can only buy them when you have enough money. You can place unit in any of
-    your hexes or in neutral or enemy-controlled hexes neighbouring your hex.
+  m_Text: 'To spawn units, you have to buy them from panel on the bottom of the screen.
+    You can only buy them if you have enough money. Units can be placed in any of
+    your hexes or in neutral or enemy-controlled hexes neighbouring your hex. '
 --- !u!222 &1001298659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1049,7 +1049,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 528, y: 100}
+  m_SizeDelta: {x: 421.41, y: 79.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428895906
 MonoBehaviour:
@@ -1124,7 +1124,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 421.35, y: 68.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492783553
 MonoBehaviour:
@@ -1203,7 +1203,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 632, y: 68}
+  m_SizeDelta: {x: 650, y: 102.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534147484
 MonoBehaviour:
@@ -1284,7 +1284,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 528, y: 100}
+  m_SizeDelta: {x: 421.41, y: 79.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1588772724
 MonoBehaviour:
@@ -1359,7 +1359,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 632, y: 68}
+  m_SizeDelta: {x: 650, y: 91.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844524580
 MonoBehaviour:
@@ -1394,9 +1394,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Money is an important thing. You ear 1 coin per controlled field and 4
-    coins for each farm placed. Units besides their price have maintenance cost \u2013
-    remember about that!"
+  m_Text: "Money is an important thing. You earn 1 coin per controlled field and
+    4 coins for each farm placed. Units besides their price have maintenance cost
+    \u2013 remember about that! If your money drops below 0 all of your units will
+    die."
 --- !u!222 &1844524581
 CanvasRenderer:
   m_ObjectHideFlags: 0
