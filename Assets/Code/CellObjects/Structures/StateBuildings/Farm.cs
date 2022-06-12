@@ -4,7 +4,7 @@ namespace Code.CellObjects.Structures.StateBuildings {
         private int _startingPrice = 12;
 
         protected override int Level() {
-            return 1;
+            return 0;
         }
 
         public override int Price() {
