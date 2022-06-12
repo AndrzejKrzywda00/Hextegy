@@ -7,12 +7,16 @@ using Image = UnityEngine.UI.Image;
 namespace Code.Control.UI {
     public class MenuEventSystem : MonoBehaviour {
         public void StartClick() {
+            SaveDataToSettings();
+            SceneManager.LoadScene("Scenes/Main Scene");
+        }
+
+        private static void SaveDataToSettings() {
             Settings.AlivePlayersId.Clear();
             Settings.Winner = 0;
             for (int i = 1; i <= Settings.NumberOfPlayers; i++) {
                 Settings.AlivePlayersId.Add(i);
             }
-            SceneManager.LoadScene("Scenes/Main Scene");
         }
 
         public void InstructionClick() {
