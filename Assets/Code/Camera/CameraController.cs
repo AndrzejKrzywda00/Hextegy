@@ -5,14 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     
     private Vector3 _camPosition;
-    private const float MovementSpeed = 140f;
+    private const float MovementSpeed = 130f;
     private const float ReactionSpaceThickness = 10f;
     private float _maxWidth;
     private float _maxHeight;
     private Vector2 _movementLimit;
 
     private Camera _cam;
-    private const float ScrollSpeed = 220f;
+    private const float ScrollSpeed = 180f;
     private const float NormalizationValueForScrollSpeed = 100f;
     private float _orthographicSize;
     private const float MaxOrthographicSize = 200f;
