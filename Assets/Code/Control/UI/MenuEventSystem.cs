@@ -23,16 +23,16 @@ namespace Code.Control.UI {
             SceneManager.LoadScene("Scenes/Instruction");
         }
 
+        public void InstructionV2Click() {
+            SceneManager.LoadScene("Scenes/Instructionv2");
+        }
+
         public void QuitClick() {
             Application.Quit();
         }
 
         public void BackToMenuClick() {
             SceneManager.LoadScene("Scenes/Menu");
-        }
-
-        public void NextPageClick() {
-            SceneManager.LoadScene("Scenes/Instructionv2");
         }
 
         public void EndgameClick() {

@@ -477,7 +477,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 323419988}
         m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
-        m_MethodName: NextPageClick
+        m_MethodName: InstructionV2Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

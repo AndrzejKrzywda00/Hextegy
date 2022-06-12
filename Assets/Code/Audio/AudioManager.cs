@@ -1,5 +1,6 @@
 using System;
 using Code.CellObjects;
+using Code.CellObjects.Structures.Passive;
 using Code.CellObjects.Structures.StateBuildings;
 using Code.CellObjects.Structures.Towers;
 using Code.CellObjects.Units;
@@ -18,7 +19,7 @@ namespace Code.Audio {
         
         private Sound[] _sounds;
         private string _sceneName;
-        private bool IsPreGameScene => _sceneName.Equals("Menu") || _sceneName.Equals("Settings");
+        private bool IsPreGameScene => _sceneName.Equals("Menu") || _sceneName.Equals("Settings") || _sceneName.Equals("Instruction");
         
         private void Awake() {
             _random.InitState();
@@ -37,42 +38,40 @@ namespace Code.Audio {
 
         private void Start() {
             if (_sceneName.Equals("Endgame")) {
-                Play(SoundNames.dzwiekWygranej.ToString());
+                Play(SoundNames.Winning.ToString());
             }
         }
 
         private void InitializeSounds() {
             _sounds = new[] {
-                new Sound("Building", Resources.Load<AudioClip>("Sounds/Building"), 0.5f, 1f, false),
-                new Sound("CapitalLost", Resources.Load<AudioClip>("Sounds/CapitalLost"), 0.5f, 1f, false),
-                new Sound("Conquest", Resources.Load<AudioClip>("Sounds/Conquest"), 0.5f, 1f, false),
-                new Sound("Death", Resources.Load<AudioClip>("Sounds/Death"), 0.5f, 1f, false),
-                new Sound("DestroyBuilding", Resources.Load<AudioClip>("Sounds/DestroyBuilding"), 0.5f, 1f, false),
-                new Sound("DestroyTree", Resources.Load<AudioClip>("Sounds/DestroyTree"), 0.3f, 1f, false),
-                new Sound("Move", Resources.Load<AudioClip>("Sounds/Move"), 0.5f, 1f, false),
-                new Sound("ReadyToFight", Resources.Load<AudioClip>("Sounds/ReadyToFight"), 0.5f, 1f, false),
-                new Sound("Budowanie", Resources.Load<AudioClip>("Sounds/other/Budowanie"), 0.5f, 1f, false),
-                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/other/cos_trzeba_zrobic"), 0.2f, 1f, false),
-                new Sound("Czego", Resources.Load<AudioClip>("Sounds/other/Czego"), 0.4f, 1f, false),
-                new Sound("dzwiekDrzwi", Resources.Load<AudioClip>("Sounds/other/dzwiekDrzwi"), 0.6f, 1f, false),
-                new Sound("dzwiekPrzegranej", Resources.Load<AudioClip>("Sounds/other/dzwiekPrzegranej"), 0.2f, 1f, false),
-                new Sound("dzwiekSmierciEeehg", Resources.Load<AudioClip>("Sounds/other/dzwiekSmierciEeehg"), 0.1f, 1f, false),
-                new Sound("dzwiekSmierciSssmierc", Resources.Load<AudioClip>("Sounds/other/dzwiekSmierciSssmierc"), 0.6f, 1f, false),
-                new Sound("dzwiekSmierciUuu", Resources.Load<AudioClip>("Sounds/other/dzwiekSmierciUuu"), 0.4f, 1f, false),
-                new Sound("dzwiekUmieraniaNoWKoncu", Resources.Load<AudioClip>("Sounds/other/dzwiekUmieraniaNoWKoncu"), 0.6f, 1f, false),
-                new Sound("dzwiekWygranej", Resources.Load<AudioClip>("Sounds/other/dzwiekWygranej"), 0.35f, 1f, false),
-                new Sound("dzwiekZdychaniaAla", Resources.Load<AudioClip>("Sounds/other/dzwiekZdychaniaAla"), 0.1f, 1f, false),
-                new Sound("Hdrz", Resources.Load<AudioClip>("Sounds/other/Hdrz"), 0.4f, 1f, false),
-                new Sound("JuzIde", Resources.Load<AudioClip>("Sounds/other/JuzIde"), 0.5f, 1f, false),
-                new Sound("NaRozkaz", Resources.Load<AudioClip>("Sounds/other/NaRozkaz"), 0.5f, 1f, false),
-                new Sound("PracaPraca", Resources.Load<AudioClip>("Sounds/other/PracaPraca"), 0.4f, 1f, false),
-                new Sound("ScinanieDrzewa", Resources.Load<AudioClip>("Sounds/other/ScinanieDrzewa"), 0.5f, 1f, false),
-                new Sound("Slucham", Resources.Load<AudioClip>("Sounds/other/Slucham"), 0.4f, 1f, false),
-                new Sound("TyJestesKrolem", Resources.Load<AudioClip>("Sounds/other/TyJestesKrolem"), 0.55f, 1f, false),
-                new Sound("WitamyWKoloni", Resources.Load<AudioClip>("Sounds/other/WitamyWKoloni"), 0.6f, 1f, false),
-                new Sound("Zarombie", Resources.Load<AudioClip>("Sounds/other/Zarombie"), 0.4f, 1f, false),
-                new Sound("ZnowuBlysnal", Resources.Load<AudioClip>("Sounds/other/ZnowuBlysnal"), 0.5f, 1f, false),
-                new Sound("WedleRozkazu", Resources.Load<AudioClip>("Sounds/other/wedle_rozkazu"), 0.5f, 1f, false)
+                // Structures
+                new Sound("Building", Resources.Load<AudioClip>("Sounds/Structures/Building"), 0.5f, 1f, false),
+                new Sound("CapitalLost", Resources.Load<AudioClip>("Sounds/Structures/CapitalLost"), 0.5f, 1f, false),
+                new Sound("CuttingDownTree", Resources.Load<AudioClip>("Sounds/Structures/CuttingDownTree"), 0.5f, 1f, false),
+                new Sound("DestroyBuilding", Resources.Load<AudioClip>("Sounds/Structures/DestroyBuilding"), 0.5f, 1f, false),
+
+                // UnitTier1
+                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-CosTrzebaZrobic"), 0.15f, 1f, false),
+                new Sound("WedleRozkazu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-WedleRozkazu"), 0.15f, 1f, false),
+                new Sound("DzwiekSmierciOuu", Resources.Load<AudioClip>("Sounds/Units/UnitTier1/Andrzej-DzwiekSmierciOuu"), 0.2f, 1f, false),
+                
+                // UnitTier2
+                new Sound("PracaPraca", Resources.Load<AudioClip>("Sounds/Units/UnitTier2/Szymon-PracaPraca"), 0.4f, 1f, false),
+                new Sound("Czego", Resources.Load<AudioClip>("Sounds/Units/UnitTier2/Szymon-Czego"), 0.4f, 1f, false),
+                new Sound("DzwiekSmierciNoWKoncu", Resources.Load<AudioClip>("Sounds/Units/UnitTier2/Szymon-DzwiekSmierciNoWKoncu"), 0.6f, 1f, false),
+
+                // UnitTier3
+                new Sound("TyJestesKrolem", Resources.Load<AudioClip>("Sounds/Units/UnitTier3/Michal-TyJestesKrolem"), 0.55f, 1f, false),
+                new Sound("Slucham", Resources.Load<AudioClip>("Sounds/Units/UnitTier3/Michal-Slucham"), 0.4f, 1f, false),
+                new Sound("DzwiekSmierciSssmierc", Resources.Load<AudioClip>("Sounds/Units/UnitTier3/Michal-DzwiekSmierciSssmierc"), 0.7f, 1f, false),
+
+                // UnitTier4
+                new Sound("NaRozkaz", Resources.Load<AudioClip>("Sounds/Units/UnitTier4/Krzysiek-NaRozkaz"), 0.5f, 1f, false),
+                new Sound("JuzIde", Resources.Load<AudioClip>("Sounds/Units/UnitTier4/Krzysiek-JuzIde"), 0.5f, 1f, false),
+                new Sound("DzwiekSmierciOoo", Resources.Load<AudioClip>("Sounds/Units/UnitTier4/Krzysiek-DzwiekSmierciOoo"), 0.3f, 1f, false),
+
+                // Endgame sound
+                new Sound("Winning", Resources.Load<AudioClip>("Sounds/Winning"), 0.35f, 1f, false)
             };
             
             AddAudioSourceForEachSound();
@@ -107,39 +106,44 @@ namespace Code.Audio {
 
         public static void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell, ActiveObject prefabFromUI) {
             if (hexCell.prefabInstance is Tree) {
-                Play(SoundNames.ScinanieDrzewa.ToString());
-                return;
-            }
-            if (!(prefabFromUI is Unit)) {
-                Play(SoundNames.Budowanie.ToString());
+                Play(SoundNames.CuttingDownTree.ToString());
             } else {
-                PlaySoundWhenBuyingUnit(prefabFromUI);
+                PlaySoundWhenBuying(prefabFromUI);
             }
         }
 
-        public static void PlaySoundWhenBuyingOnEnemyOrNeutralCell(HexCell hexCell, ActiveObject prefabFromUI) {
-            switch (hexCell.prefabInstance) {
-                case Farm _:
-                case TowerTier1 _:
-                case TowerTier2 _: Play(SoundNames.DestroyBuilding.ToString()); break;
-                case Tree _: Play(SoundNames.ScinanieDrzewa.ToString()); break;
-                case UnitTier1 _: Play(SoundNames.dzwiekZdychaniaAla.ToString()); break;
-                case UnitTier2 _: Play(SoundNames.dzwiekUmieraniaNoWKoncu.ToString()); break;
-                case UnitTier3 _: Play(SoundNames.dzwiekSmierciUuu.ToString()); break;
-                case UnitTier4 _: Play(SoundNames.dzwiekSmierciSssmierc.ToString()); break;
-                case Capital _: Play(SoundNames.CapitalLost.ToString()); break;
-                default: {
-                    PlaySoundWhenBuyingUnit(prefabFromUI);
-                } break;
-            }
-        }
-
-        private static void PlaySoundWhenBuyingUnit(ActiveObject prefabFromUI) {
+        private static void PlaySoundWhenBuying(ActiveObject prefabFromUI) {
             switch (prefabFromUI) {
+                case Farm _:
+                case TowerTier1 _: 
+                case TowerTier2 _: Play(SoundNames.Building.ToString()); break;
                 case UnitTier1 _: Play(SoundNames.CosTrzebaZrobic.ToString()); break;
                 case UnitTier2 _: Play(SoundNames.PracaPraca.ToString()); break;
                 case UnitTier3 _: Play(SoundNames.TyJestesKrolem.ToString()); break;
                 case UnitTier4 _: Play(SoundNames.NaRozkaz.ToString()); break;
+            }
+        }
+
+        public static void PlaySoundWhenBuyingOnEnemyOrNeutralCell(HexCell hexCell, ActiveObject prefabFromUI) {
+            if (hexCell.prefabInstance is NoElement) {
+                PlaySoundWhenBuying(prefabFromUI);
+                return;
+            }
+            
+            PlayDeathSound(hexCell.prefabInstance);
+        }
+
+        private static void PlayDeathSound(CellObject prefabInstance) {
+            switch (prefabInstance) {
+                case Farm _:
+                case TowerTier1 _:
+                case TowerTier2 _: Play(SoundNames.DestroyBuilding.ToString()); break;
+                case Tree _: Play(SoundNames.CuttingDownTree.ToString()); break;
+                case UnitTier1 _: Play(SoundNames.DzwiekSmierciOuu.ToString()); break;
+                case UnitTier2 _: Play(SoundNames.DzwiekSmierciNoWKoncu.ToString()); break;
+                case UnitTier3 _: Play(SoundNames.DzwiekSmierciSssmierc.ToString()); break;
+                case UnitTier4 _: Play(SoundNames.DzwiekSmierciOoo.ToString()); break;
+                case Capital _: Play(SoundNames.CapitalLost.ToString()); break;
             }
         }
 
@@ -153,22 +157,12 @@ namespace Code.Audio {
         }
         
         public static void PlaySoundWhenMovingOnEnemyOrNeutralCell(HexCell hexCell) {
-            switch (hexCell.prefabInstance) {
-                case Farm _:
-                case TowerTier1 _:
-                case TowerTier2 _: Play(SoundNames.DestroyBuilding.ToString()); break;
-                case Tree _: Play(SoundNames.ScinanieDrzewa.ToString()); break;
-                case UnitTier1 _: Play(SoundNames.dzwiekZdychaniaAla.ToString()); break;
-                case UnitTier2 _: Play(SoundNames.dzwiekUmieraniaNoWKoncu.ToString()); break;
-                case UnitTier3 _: Play(SoundNames.dzwiekSmierciUuu.ToString()); break;
-                case UnitTier4 _: Play(SoundNames.dzwiekSmierciSssmierc.ToString()); break;
-                case Capital _: Play(SoundNames.CapitalLost.ToString()); break;
-            }
+            PlayDeathSound(hexCell.prefabInstance);
         }
         
         public static void PlaySoundWhenMovingOnFriendlyCells(HexCell hexCell) {
             if (hexCell.prefabInstance is Tree) {
-                Play(SoundNames.ScinanieDrzewa.ToString());
+                Play(SoundNames.CuttingDownTree.ToString());
             }
         }
 

@@ -1,34 +1,32 @@
 ﻿namespace Code.Audio {
     public enum SoundNames {
+        // Structures
         Building,
         CapitalLost,
-        Conquest,
-        Death,
+        CuttingDownTree,
         DestroyBuilding,
-        DestroyTree,
-        Move,
-        ReadyToFight,
-        Budowanie,
+
+        // UnitTier1
+        WedleRozkazu,
         CosTrzebaZrobic,
-        Czego,
-        dzwiekDrzwi,
-        dzwiekPrzegranej,
-        dzwiekSmierciEeehg,
-        dzwiekSmierciSssmierc,
-        dzwiekSmierciUuu,
-        dzwiekUmieraniaNoWKoncu,
-        dzwiekWygranej,
-        dzwiekZdychaniaAla,
-        Hdrz,
-        JuzIde,
-        NaRozkaz,
+        DzwiekSmierciOuu,
+        
+        // UnitTier2
         PracaPraca,
-        ScinanieDrzewa,
-        Slucham,
+        Czego,
+        DzwiekSmierciNoWKoncu,
+        
+        // UnitTier3
         TyJestesKrolem,
-        WitamyWKoloni,
-        Zarombie,
-        ZnowuBlysnal,
-        WedleRozkazu
+        Slucham,
+        DzwiekSmierciSssmierc,
+
+        // UnitTier4
+        NaRozkaz,
+        JuzIde,
+        DzwiekSmierciOoo,
+
+        // Endgame sound
+        Winning
     }
 }
