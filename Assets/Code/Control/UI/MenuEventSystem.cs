@@ -15,6 +15,10 @@ namespace Code.Control.UI {
             SceneManager.LoadScene("Scenes/Main Scene");
         }
 
+        public void InstructionClick() {
+            SceneManager.LoadScene("Scenes/Instruction");
+        }
+
         public void QuitClick() {
             Application.Quit();
         }
