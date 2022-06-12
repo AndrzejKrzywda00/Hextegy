@@ -31,6 +31,10 @@ namespace Code.Control.UI {
             SceneManager.LoadScene("Scenes/Menu");
         }
 
+        public void NextPageClick() {
+            SceneManager.LoadScene("Scenes/Instructionv2");
+        }
+
         public void EndgameClick() {
             SceneManager.LoadScene("Scenes/Endgame");
         }

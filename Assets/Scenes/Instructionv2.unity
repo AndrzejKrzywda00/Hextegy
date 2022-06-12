@@ -243,7 +243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4abcacbfd1d7d74fb794eefb2e27d8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf1855bdda1775b41aa6f6863c70d08e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -477,7 +477,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 323419988}
         m_TargetAssemblyTypeName: Code.Control.UI.MenuEventSystem, Assembly-CSharp
-        m_MethodName: NextPageClick
+        m_MethodName: BackToMenuClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -808,7 +808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NEXT PAGE >
+  m_text: BACK TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -1083,9 +1083,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'To spawn units, you have to buy them from panel on the bottom of the screen.
-    You can only buy them if you have enough money. Units can be placed in any of
-    your hexes or in neutral or enemy-controlled hexes neighbouring your hex. '
+  m_Text: Towers are an essential tool for a successful campaign.  Their defensive
+    capacity can stop lower-rated units.
 --- !u!222 &1001298659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1151,7 +1150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 67a02460c6bd9ba4fb9b356f06f085a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ec229deeeb0cc84d94d1ed2663d41df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1318,9 +1317,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Your objective is to dominate other players by destroying their capitals.
-    \nYou can do so by moving your units, and destroying opponents\u2019. \nUpper
-    bar informs which player should play now."
+  m_Text: "The trees are a big inconvenience \u2013 the large ones will randomly
+    spawn other trees around them. You don\u2019t earn money from fields which have
+    trees on them. You can destroy a tree by placing any object there."
 --- !u!222 &1534147485
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1386,7 +1385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 00009c049f3fac64286967c5467dc827, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11236d1fb395fcb4599c20ea2dd7067b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1474,10 +1473,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Money is an important thing. You earn 1 coin per controlled field and
-    4 coins for each farm placed. Units besides their price have maintenance cost
-    \u2013 remember about that! If your money drops below 0 all of your units will
-    die."
+  m_Text: To outsmart your opponent you can use cutting-off technique. When unit
+    loses direct path to its capital it dies and other units of that player cannot
+    stand on grave of their soldiers.
 --- !u!222 &1844524581
 CanvasRenderer:
   m_ObjectHideFlags: 0
