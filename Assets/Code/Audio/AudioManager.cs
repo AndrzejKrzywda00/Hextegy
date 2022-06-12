@@ -48,7 +48,7 @@ namespace Code.Audio {
                 new Sound("Conquest", Resources.Load<AudioClip>("Sounds/Conquest"), 0.5f, 1f, false),
                 new Sound("Death", Resources.Load<AudioClip>("Sounds/Death"), 0.5f, 1f, false),
                 new Sound("DestroyBuilding", Resources.Load<AudioClip>("Sounds/DestroyBuilding"), 0.5f, 1f, false),
-                new Sound("DestroyTree", Resources.Load<AudioClip>("Sounds/DestroyTree"), 0.5f, 1f, false),
+                new Sound("DestroyTree", Resources.Load<AudioClip>("Sounds/DestroyTree"), 0.3f, 1f, false),
                 new Sound("Move", Resources.Load<AudioClip>("Sounds/Move"), 0.5f, 1f, false),
                 new Sound("ReadyToFight", Resources.Load<AudioClip>("Sounds/ReadyToFight"), 0.5f, 1f, false),
                 new Sound("Budowanie", Resources.Load<AudioClip>("Sounds/other/Budowanie"), 0.5f, 1f, false),
@@ -107,6 +107,7 @@ namespace Code.Audio {
         public static void PlaySoundWhenBuyingOnFriendlyCell(HexCell hexCell, ActiveObject prefabFromUI) {
             if (hexCell.prefabInstance is Tree) {
                 Play(SoundNames.ScinanieDrzewa.ToString());
+                return;
             }
             if (!(prefabFromUI is Unit)) {
                 Play(SoundNames.Budowanie.ToString());
