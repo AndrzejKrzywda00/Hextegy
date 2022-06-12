@@ -52,7 +52,7 @@ namespace Code.Audio {
                 new Sound("Move", Resources.Load<AudioClip>("Sounds/Move"), 0.5f, 1f, false),
                 new Sound("ReadyToFight", Resources.Load<AudioClip>("Sounds/ReadyToFight"), 0.5f, 1f, false),
                 new Sound("Budowanie", Resources.Load<AudioClip>("Sounds/other/Budowanie"), 0.5f, 1f, false),
-                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/other/CosTrzebaZrobic"), 0.5f, 1f, false),
+                new Sound("CosTrzebaZrobic", Resources.Load<AudioClip>("Sounds/other/cos_trzeba_zrobic"), 0.2f, 1f, false),
                 new Sound("Czego", Resources.Load<AudioClip>("Sounds/other/Czego"), 0.4f, 1f, false),
                 new Sound("dzwiekDrzwi", Resources.Load<AudioClip>("Sounds/other/dzwiekDrzwi"), 0.6f, 1f, false),
                 new Sound("dzwiekPrzegranej", Resources.Load<AudioClip>("Sounds/other/dzwiekPrzegranej"), 0.2f, 1f, false),
@@ -71,7 +71,8 @@ namespace Code.Audio {
                 new Sound("TyJestesKrolem", Resources.Load<AudioClip>("Sounds/other/TyJestesKrolem"), 0.55f, 1f, false),
                 new Sound("WitamyWKoloni", Resources.Load<AudioClip>("Sounds/other/WitamyWKoloni"), 0.6f, 1f, false),
                 new Sound("Zarombie", Resources.Load<AudioClip>("Sounds/other/Zarombie"), 0.4f, 1f, false),
-                new Sound("ZnowuBlysnal", Resources.Load<AudioClip>("Sounds/other/ZnowuBlysnal"), 0.5f, 1f, false)
+                new Sound("ZnowuBlysnal", Resources.Load<AudioClip>("Sounds/other/ZnowuBlysnal"), 0.5f, 1f, false),
+                new Sound("WedleRozkazu", Resources.Load<AudioClip>("Sounds/other/wedle_rozkazu"), 0.5f, 1f, false)
             };
             
             AddAudioSourceForEachSound();
@@ -144,7 +145,7 @@ namespace Code.Audio {
 
         public static void PlaySoundWhenSelectingUnit(HexCell selectedCellWithUnit) {
             switch (selectedCellWithUnit.prefabInstance) {
-                case UnitTier1 _: Play(SoundNames.dzwiekDrzwi.ToString()); break;
+                case UnitTier1 _: Play(SoundNames.WedleRozkazu.ToString()); break;
                 case UnitTier2 _: Play(SoundNames.Czego.ToString()); break;
                 case UnitTier3 _: Play(SoundNames.Slucham.ToString()); break;
                 case UnitTier4 _: Play(SoundNames.JuzIde.ToString()); break;

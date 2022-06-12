@@ -28,6 +28,7 @@
         TyJestesKrolem,
         WitamyWKoloni,
         Zarombie,
-        ZnowuBlysnal
+        ZnowuBlysnal,
+        WedleRozkazu
     }
 }
