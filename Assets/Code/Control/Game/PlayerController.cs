@@ -182,9 +182,13 @@ namespace Code.Control.Game {
         }
 
         private void HandleBuyingObjectOnNeutralOrEnemyCell(HexCell hexCell) {
+            if (hexCell.prefabInstance is ActiveObject && hexCell.IsEnemyCell()) {
+                HandleBalanceChanges(hexCell);
+            } else {
+                MoneyManager.IncrementBalance(CurrentPlayerId);
+            }
             HandleBuyingObjectOnFriendlyCell(hexCell);
             MakeUnitNotAbleToMoveInThisTurn(hexCell);
-            MoneyManager.IncrementBalance(CurrentPlayerId);
             AdjustCellColor(hexCell);
         }
 
